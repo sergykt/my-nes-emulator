@@ -8,7 +8,6 @@ const PageNotFound: FC = () => {
         <h2 className="emptypage__subtitle">Page not found</h2>
       </div>
     </div>
-
   );
 };
 

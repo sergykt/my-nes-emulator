@@ -3,8 +3,8 @@ import emulatorReducer from './emulatorSlice';
 
 const store = configureStore({
   reducer: {
-    emulator: emulatorReducer
-  }
+    emulator: emulatorReducer,
+  },
 });
 
 export default store;

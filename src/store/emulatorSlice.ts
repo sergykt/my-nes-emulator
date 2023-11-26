@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-interface EmulatorState {
+interface IEmulatorState {
   gameName: string;
   gameRom: string;
   isStarted: boolean;
@@ -10,12 +10,12 @@ interface EmulatorState {
   isPaused: boolean;
 }
 
-const initialState: EmulatorState = {
+const initialState: IEmulatorState = {
   gameName: '',
   gameRom: '',
   isStarted: false,
   isFullScreen: false,
-  isPaused: false
+  isPaused: false,
 };
 
 export const fetchRom = createAsyncThunk(
@@ -37,35 +37,31 @@ const emulatorSlice = createSlice({
   name: 'emulator',
   initialState,
   reducers: {
-    setGameName (state, action: PayloadAction<string>) {
+    setGameName(state, action: PayloadAction<string>) {
       state.gameName = action.payload;
     },
-    startGame (state) {
+    startGame(state) {
       state.isStarted = true;
     },
-    setFullScreen (state, action: PayloadAction<boolean>) {
+    setFullScreen(state, action: PayloadAction<boolean>) {
       state.isFullScreen = action.payload;
     },
-    togglePause (state) {
+    togglePause(state) {
       state.isPaused = !state.isPaused;
-    }
+    },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchRom.fulfilled, (state, action: PayloadAction<string>) => {
-      state.gameRom = action.payload;
-    })
+    builder
+      .addCase(fetchRom.fulfilled, (state, action: PayloadAction<string>) => {
+        state.gameRom = action.payload;
+      })
       .addCase(fetchRom.rejected, (state, action) => {
         state.gameRom = '';
         console.error(action.payload);
       });
-  }
+  },
 });
 
-export const {
-  setGameName,
-  startGame,
-  setFullScreen,
-  togglePause
-} = emulatorSlice.actions;
+export const { setGameName, startGame, setFullScreen, togglePause } = emulatorSlice.actions;
 
 export default emulatorSlice.reducer;

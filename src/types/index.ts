@@ -22,5 +22,5 @@ export enum Buttons {
   TurboA = 88,
   TurboB = 90,
   Start = 13,
-  Select = 16
+  Select = 16,
 }

@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Buttons } from '../types';
 
 const Controller: FC = () => {
-  const [isActive, setActive] = useState<boolean>(false);
+  const [isActive, setActive] = useState(false);
   const [prevButtons, setPrevButtons] = useState<Buttons[]>([]);
   const [activeButtons, setActiveButtons] = useState<Buttons[]>([]);
   const dPadEl = useRef<HTMLDivElement>(null);
@@ -66,38 +66,88 @@ const Controller: FC = () => {
     }
 
     return buttons;
-  }
+  };
 
-  const joystickStart = (e: TouchEvent<HTMLDivElement>): void => {
+  const joystickStart = (e: TouchEvent<HTMLDivElement>) => {
     const buttons = getButtons(e);
     setActive(true);
     setActiveButtons(buttons);
   };
 
-  const joystickMove = (e: TouchEvent<HTMLDivElement>): void => {
+  const joystickMove = (e: TouchEvent<HTMLDivElement>) => {
     const buttons = getButtons(e);
     setActiveButtons(buttons);
     setPrevButtons(activeButtons);
   };
 
-  const joystickEnd = (): void => {
+  const joystickEnd = () => {
     setActive(false);
   };
 
   return (
     <div className="controller">
-      <div className="controller__arrows" onTouchStart={joystickStart} onTouchEnd={joystickEnd} onTouchMove={joystickMove} ref={dPadEl} role="button" aria-label="d-pad" />
+      <div
+        className="controller__arrows"
+        onTouchStart={joystickStart}
+        onTouchEnd={joystickEnd}
+        onTouchMove={joystickMove}
+        ref={dPadEl}
+        role="button"
+        aria-label="d-pad"
+      />
       <div className="controller__turbo-button-group">
-        <button onTouchStart={touchStart(Buttons.TurboB)} onTouchEnd={touchEnd(Buttons.TurboB)} className="controller__turbo-button" type="button">B</button>
-        <button onTouchStart={touchStart(Buttons.TurboA)} onTouchEnd={touchEnd(Buttons.TurboA)} className="controller__turbo-button" type="button">A</button>
+        <button
+          onTouchStart={touchStart(Buttons.TurboB)}
+          onTouchEnd={touchEnd(Buttons.TurboB)}
+          className="controller__turbo-button"
+          type="button"
+        >
+          B
+        </button>
+        <button
+          onTouchStart={touchStart(Buttons.TurboA)}
+          onTouchEnd={touchEnd(Buttons.TurboA)}
+          className="controller__turbo-button"
+          type="button"
+        >
+          A
+        </button>
       </div>
       <div className="controller__button-group">
-        <button onTouchStart={touchStart(Buttons.B)} onTouchEnd={touchEnd(Buttons.B)} className="controller__button" type="button">B</button>
-        <button onTouchStart={touchStart(Buttons.A)} onTouchEnd={touchEnd(Buttons.A)} className="controller__button" type="button">A</button>
+        <button
+          onTouchStart={touchStart(Buttons.B)}
+          onTouchEnd={touchEnd(Buttons.B)}
+          className="controller__button"
+          type="button"
+        >
+          B
+        </button>
+        <button
+          onTouchStart={touchStart(Buttons.A)}
+          onTouchEnd={touchEnd(Buttons.A)}
+          className="controller__button"
+          type="button"
+        >
+          A
+        </button>
       </div>
       <div className="controller__select-group">
-        <button onTouchStart={touchStart(Buttons.Select)} onTouchEnd={touchEnd(Buttons.Select)} id="select" className="controller__select-button" aria-label="select" type="button" />
-        <button onTouchStart={touchStart(Buttons.Start)} onTouchEnd={touchEnd(Buttons.Start)} id="start" className="controller__select-button" aria-label="start" type="button" />
+        <button
+          onTouchStart={touchStart(Buttons.Select)}
+          onTouchEnd={touchEnd(Buttons.Select)}
+          id="select"
+          className="controller__select-button"
+          aria-label="select"
+          type="button"
+        />
+        <button
+          onTouchStart={touchStart(Buttons.Start)}
+          onTouchEnd={touchEnd(Buttons.Start)}
+          id="start"
+          className="controller__select-button"
+          aria-label="start"
+          type="button"
+        />
       </div>
     </div>
   );

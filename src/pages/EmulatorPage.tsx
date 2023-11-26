@@ -1,3 +1,4 @@
+/* eslint no-void: ["error", { "allowAsStatement": true }] */
 import type { FC } from 'react';
 import { useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -20,7 +21,7 @@ const Emulator: FC = () => {
     if (pathArray.length > 0) {
       const gameNameFromLink = pathArray[pathArray.length - 1];
       const currentGame = games.find((item) => item.shortName === gameNameFromLink);
-      if (currentGame !== undefined) {
+      if (currentGame) {
         const { name, shortName } = currentGame;
         const romPath = `/games/${shortName}.nes`;
         dispatch(setGameName(name));
@@ -28,7 +29,7 @@ const Emulator: FC = () => {
       }
     }
 
-    const onFullScreenChange = (): void => {
+    const onFullScreenChange = () => {
       dispatch(setFullScreen(Boolean(document.fullscreenElement)));
     };
     document.addEventListener('fullscreenchange', onFullScreenChange);
@@ -38,23 +39,23 @@ const Emulator: FC = () => {
     };
   }, []);
 
-  const pauseHandler = (): void => {
+  const pauseHandler = () => {
     nesToggleStart();
     dispatch(togglePause());
   };
 
   const fullScreenHandler = (): void => {
     const screenWrapper = screenWrapperRef.current;
-    if (document.fullscreenElement !== null && document.fullscreenElement !== undefined) {
+    if (document.fullscreenElement) {
       void document.exitFullscreen();
-    } else if (screenWrapper !== null) {
-      if (screenWrapper.requestFullscreen !== undefined) {
+    } else if (screenWrapper) {
+      if (screenWrapper.requestFullscreen) {
         void screenWrapper.requestFullscreen();
-      } else if (screenWrapper.mozRequestFullScreen !== undefined) {
+      } else if (screenWrapper.mozRequestFullScreen) {
         void screenWrapper.mozRequestFullScreen();
-      } else if (screenWrapper.webkitRequestFullscreen !== undefined) {
+      } else if (screenWrapper.webkitRequestFullscreen) {
         void screenWrapper.webkitRequestFullscreen();
-      } else if (screenWrapper.msRequestFullscreen !== undefined) {
+      } else if (screenWrapper.msRequestFullscreen) {
         void screenWrapper.msRequestFullscreen();
       } else {
         dispatch(setFullScreen(!isFullScreen));
@@ -65,13 +66,26 @@ const Emulator: FC = () => {
   return (
     <div className="emulator">
       <div className="container emulator__container">
-        {gameName !== '' && <h1 className="emulator__game-name">{gameName}</h1>}
-        <Screen ref={screenWrapperRef} fullScreenHandler={fullScreenHandler} pauseHandler={pauseHandler} />
+        {gameName && <h1 className="emulator__game-name">{gameName}</h1>}
+        <Screen
+          ref={screenWrapperRef}
+          fullScreenHandler={fullScreenHandler}
+          pauseHandler={pauseHandler}
+        />
         <div className="emulator__button-group">
-          <button className="emulator__button" onClick={fullScreenHandler} type="button">Full Screen</button>
-          {isStarted && <button className="emulator__button" type="button" onClick={pauseHandler}>{isPaused ? 'Resume' : 'Pause'}</button>}
+          <button className="emulator__button" onClick={fullScreenHandler} type="button">
+            Full Screen
+          </button>
+          {isStarted && (
+            <button className="emulator__button" type="button" onClick={pauseHandler}>
+              {isPaused ? 'Resume' : 'Pause'}
+            </button>
+          )}
         </div>
-        <p className="emulator__description">D-Pad: Arrows, Start: Enter, Select: Right Shift, Button A: S, Button B: A, Turbo A: X, Turbo B: Z</p>
+        <p className="emulator__description">
+          D-Pad: Arrows, Start: Enter, Select: Right Shift, Button A: S, Button B: A, Turbo A: X,
+          Turbo B: Z
+        </p>
         <GamesSwiper />
       </div>
     </div>
