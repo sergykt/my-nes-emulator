@@ -52,16 +52,16 @@ const Controller: FC = () => {
 
     const buttons: Buttons[] = [];
 
-    if (posY < 58) {
+    if (posY < 57) {
       buttons.push(Buttons.Up);
     }
-    if (posX > 92) {
+    if (posX > 93) {
       buttons.push(Buttons.Right);
     }
-    if (posY > 92) {
+    if (posY > 93) {
       buttons.push(Buttons.Down);
     }
-    if (posX < 58) {
+    if (posX < 57) {
       buttons.push(Buttons.Left);
     }
 
