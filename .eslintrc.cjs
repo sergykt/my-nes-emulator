@@ -25,18 +25,6 @@ module.exports = {
     "jsx-a11y"
   ],
   rules: {
-    // "@typescript-eslint/strict-boolean-expressions": [
-    //   "warn",
-    //   {
-    //     "allowString": true,
-    //     "allowNumber": true,
-    //     "allowNullableObject": true,
-    //     "allowNullableBoolean": true,
-    //     "allowNullableNumber": true,
-    //     "allowNullableString": true,
-    //     "allowAny": false
-    //   }
-    // ],
     "react/display-name": "off",
     "react-refresh/only-export-components": [
       "warn",
