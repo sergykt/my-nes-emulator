@@ -13,19 +13,25 @@ const Controller: FC = () => {
       const newButtons = activeButtons.filter((button) => !prevButtons.includes(button));
       const cancelButtons = prevButtons.filter((button) => !activeButtons.includes(button));
       newButtons.forEach((button) => {
-        const keyBoardEvent = new KeyboardEvent('keydown', { keyCode: button });
+        const keyBoardEvent = new KeyboardEvent('keydown', {
+          keyCode: button,
+        });
         document.dispatchEvent(keyBoardEvent);
       });
 
       cancelButtons.forEach((button) => {
-        const keyBoardEvent = new KeyboardEvent('keyup', { keyCode: button });
+        const keyBoardEvent = new KeyboardEvent('keyup', {
+          keyCode: button,
+        });
         document.dispatchEvent(keyBoardEvent);
       });
     }
 
     if (!isActive && activeButtons.length > 0) {
       activeButtons.forEach((button) => {
-        const keyBoardEvent = new KeyboardEvent('keyup', { keyCode: button });
+        const keyBoardEvent = new KeyboardEvent('keyup', {
+          keyCode: button,
+        });
         document.dispatchEvent(keyBoardEvent);
       });
 
@@ -85,68 +91,68 @@ const Controller: FC = () => {
   };
 
   return (
-    <div className="controller">
+    <div className='controller'>
       <div
-        className="controller__arrows"
+        className='controller__arrows'
         onTouchStart={joystickStart}
         onTouchEnd={joystickEnd}
         onTouchMove={joystickMove}
         ref={dPadEl}
-        role="button"
-        aria-label="d-pad"
+        role='button'
+        aria-label='d-pad'
       />
-      <div className="controller__turbo-button-group">
+      <div className='controller__turbo-button-group'>
         <button
           onTouchStart={touchStart(Buttons.TurboB)}
           onTouchEnd={touchEnd(Buttons.TurboB)}
-          className="controller__turbo-button"
-          type="button"
+          className='controller__turbo-button'
+          type='button'
         >
           B
         </button>
         <button
           onTouchStart={touchStart(Buttons.TurboA)}
           onTouchEnd={touchEnd(Buttons.TurboA)}
-          className="controller__turbo-button"
-          type="button"
+          className='controller__turbo-button'
+          type='button'
         >
           A
         </button>
       </div>
-      <div className="controller__button-group">
+      <div className='controller__button-group'>
         <button
           onTouchStart={touchStart(Buttons.B)}
           onTouchEnd={touchEnd(Buttons.B)}
-          className="controller__button"
-          type="button"
+          className='controller__button'
+          type='button'
         >
           B
         </button>
         <button
           onTouchStart={touchStart(Buttons.A)}
           onTouchEnd={touchEnd(Buttons.A)}
-          className="controller__button"
-          type="button"
+          className='controller__button'
+          type='button'
         >
           A
         </button>
       </div>
-      <div className="controller__select-group">
+      <div className='controller__select-group'>
         <button
           onTouchStart={touchStart(Buttons.Select)}
           onTouchEnd={touchEnd(Buttons.Select)}
-          id="select"
-          className="controller__select-button"
-          aria-label="select"
-          type="button"
+          id='select'
+          className='controller__select-button'
+          aria-label='select'
+          type='button'
         />
         <button
           onTouchStart={touchStart(Buttons.Start)}
           onTouchEnd={touchEnd(Buttons.Start)}
-          id="start"
-          className="controller__select-button"
-          aria-label="start"
-          type="button"
+          id='start'
+          className='controller__select-button'
+          aria-label='start'
+          type='button'
         />
       </div>
     </div>

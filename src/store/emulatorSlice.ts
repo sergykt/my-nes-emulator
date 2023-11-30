@@ -22,7 +22,9 @@ export const fetchRom = createAsyncThunk(
   'emulator/fetchRom',
   async (romPath: string, { rejectWithValue }) => {
     try {
-      const response = await axios.get<ArrayBuffer>(romPath, { responseType: 'arraybuffer' });
+      const response = await axios.get<ArrayBuffer>(romPath, {
+        responseType: 'arraybuffer',
+      });
       const arrayBuffer = response.data;
       const decoder = new TextDecoder('x-user-defined');
       const romData = decoder.decode(arrayBuffer);
@@ -39,6 +41,9 @@ const emulatorSlice = createSlice({
   reducers: {
     setGameName(state, action: PayloadAction<string>) {
       state.gameName = action.payload;
+    },
+    setGameRom(state, action: PayloadAction<string>) {
+      state.gameRom = action.payload;
     },
     startGame(state) {
       state.isStarted = true;
@@ -62,6 +67,7 @@ const emulatorSlice = createSlice({
   },
 });
 
-export const { setGameName, startGame, setFullScreen, togglePause } = emulatorSlice.actions;
+export const { setGameName, setGameRom, startGame, setFullScreen, togglePause } =
+  emulatorSlice.actions;
 
 export default emulatorSlice.reducer;

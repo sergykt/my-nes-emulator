@@ -1,27 +1,31 @@
 import jsnes from 'jsnes';
 
-var SCREEN_WIDTH = 256;
-var SCREEN_HEIGHT = 240;
-var FRAMEBUFFER_SIZE = SCREEN_WIDTH * SCREEN_HEIGHT;
+const SCREEN_WIDTH = 256;
+const SCREEN_HEIGHT = 240;
+const FRAMEBUFFER_SIZE = SCREEN_WIDTH * SCREEN_HEIGHT;
 
-var canvas_ctx, image;
-var framebuffer_u8, framebuffer_u32;
+let canvas_ctx;
+let image;
+let framebuffer_u8;
+let framebuffer_u32;
 
-var AUDIO_BUFFERING = 512;
-var SAMPLE_COUNT = 4 * 1024;
-var SAMPLE_MASK = SAMPLE_COUNT - 1;
-var audio_samples_L = new Float32Array(SAMPLE_COUNT);
-var audio_samples_R = new Float32Array(SAMPLE_COUNT);
-var audio_write_cursor = 0,
-  audio_read_cursor = 0;
-var buffer, audio_ctx, script_processor;
-var isPaused = true;
+const AUDIO_BUFFERING = 512;
+const SAMPLE_COUNT = 4 * 1024;
+const SAMPLE_MASK = SAMPLE_COUNT - 1;
+const audio_samples_L = new Float32Array(SAMPLE_COUNT);
+const audio_samples_R = new Float32Array(SAMPLE_COUNT);
+let audio_write_cursor = 0;
+let audio_read_cursor = 0;
+let buffer;
+let audio_ctx;
+let script_processor;
+let isPaused = true;
 
-var nes = new jsnes.NES({
-  onFrame: function (framebuffer_24) {
-    for (var i = 0; i < FRAMEBUFFER_SIZE; i++) framebuffer_u32[i] = 0xff000000 | framebuffer_24[i];
+const nes = new jsnes.NES({
+  onFrame(framebuffer_24) {
+    for (let i = 0; i < FRAMEBUFFER_SIZE; i++) framebuffer_u32[i] = 0xff000000 | framebuffer_24[i];
   },
-  onAudioSample: function (l, r) {
+  onAudioSample(l, r) {
     audio_samples_L[audio_write_cursor] = l;
     audio_samples_R[audio_write_cursor] = r;
     audio_write_cursor = (audio_write_cursor + 1) & SAMPLE_MASK;
@@ -43,16 +47,16 @@ function audio_remain() {
 }
 
 function audio_callback(event) {
-  var dst = event.outputBuffer;
-  var len = dst.length;
+  const dst = event.outputBuffer;
+  const len = dst.length;
 
   // Attempt to avoid buffer underruns.
   if (audio_remain() < AUDIO_BUFFERING) nes.frame();
 
-  var dst_l = dst.getChannelData(0);
-  var dst_r = dst.getChannelData(1);
-  for (var i = 0; i < len; i++) {
-    var src_idx = (audio_read_cursor + i) & SAMPLE_MASK;
+  const dst_l = dst.getChannelData(0);
+  const dst_r = dst.getChannelData(1);
+  for (let i = 0; i < len; i++) {
+    const src_idx = (audio_read_cursor + i) & SAMPLE_MASK;
     dst_l[i] = audio_samples_L[src_idx];
     dst_r[i] = audio_samples_R[src_idx];
   }
@@ -60,13 +64,13 @@ function audio_callback(event) {
   audio_read_cursor = (audio_read_cursor + len) & SAMPLE_MASK;
 }
 
-var turboIntervalA = null;
-var isTurboActiveA = false;
-var turboIntervalB = null;
-var isTurboActiveB = false;
+let turboIntervalA = null;
+let isTurboActiveA = false;
+let turboIntervalB = null;
+let isTurboActiveB = false;
 
 function keyboard(callback, event) {
-  var player = 1;
+  const player = 1;
   switch (event.keyCode) {
     case 38: // UP
       callback(player, jsnes.Controller.BUTTON_UP);
@@ -161,7 +165,7 @@ export function nesToggleStart() {
 }
 
 function nes_init(canvas_id) {
-  var canvas = document.getElementById(canvas_id);
+  const canvas = document.getElementById(canvas_id);
   canvas_ctx = canvas.getContext('2d');
   image = canvas_ctx.getImageData(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 

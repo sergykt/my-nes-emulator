@@ -382,7 +382,7 @@ template {
  * Change cursor of button to pointer
  */
 
-/** 
+/**
   * MY CUSTOM NORMALIZE
 */
 
@@ -394,7 +394,8 @@ button {
  * Delete button highlighting
  */
 
-button:hover, button:active {
+button:hover,
+button:active {
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -402,7 +403,8 @@ button:hover, button:active {
  * Delete link highlighting
  */
 
-a:hover, a:active {
+a:hover,
+a:active {
   -webkit-tap-highlight-color: transparent;
 }
 

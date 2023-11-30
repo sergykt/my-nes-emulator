@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, A11y, FreeMode, Keyboard } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import games from '../nes_engine/games';
+import games from '../engine/games';
 
 const GamesSwiper: FC = () => (
   <Swiper
@@ -30,7 +30,7 @@ const GamesSwiper: FC = () => (
       enabled: true,
       onlyInViewport: true,
     }}
-    className="games-swiper"
+    className='games-swiper'
   >
     {games.map(({ id, name, shortName, img }) => (
       <SwiperSlide key={id}>
@@ -39,11 +39,11 @@ const GamesSwiper: FC = () => (
             src={`/img/games/${img}`}
             width={150}
             height={200}
-            className="games-swiper__img"
-            loading="lazy"
+            className='games-swiper__img'
+            loading='lazy'
             alt={name}
           />
-          <div className="swiper-lazy-preloader swiper-lazy-preloader-white" />
+          <div className='swiper-lazy-preloader swiper-lazy-preloader-white' />
         </a>
       </SwiperSlide>
     ))}

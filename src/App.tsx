@@ -9,13 +9,13 @@ import ScrollButton from './components/ScrollButton';
 
 const App: FC = () => (
   <BrowserRouter>
-    <div className="wrapper">
+    <div className='wrapper'>
       <Header />
-      <main className="main">
+      <main className='main'>
         <Routes>
-          <Route path="/*" element={<PageNotFound />} />
-          <Route path="/" element={<StarterPage />} />
-          <Route path="/emulator/*" element={<EmulatorPage />} />
+          <Route path='/*' element={<PageNotFound />} />
+          <Route path='/' element={<StarterPage />} />
+          <Route path='/emulator/*' element={<EmulatorPage />} />
         </Routes>
       </main>
       <Footer />

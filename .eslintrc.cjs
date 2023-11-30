@@ -10,10 +10,7 @@ module.exports = {
     'airbnb/hooks',
     'plugin:@typescript-eslint/recommended-type-checked',
     'plugin:@typescript-eslint/stylistic-type-checked',
-    'plugin:import/typescript',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:prettier/recommended',
+    'plugin:prettier/recommended'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -21,14 +18,24 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json',
   },
-  plugins: ['react', 'react-refresh', 'prettier'],
+  plugins: ['react', 'react-hooks', 'react-refresh', '@typescript-eslint'],
   rules: {
-    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    'react-refresh/only-export-components': [
+      'warn',
+      { allowConstantExport: true },
+    ],
     'react/react-in-jsx-scope': 'off',
     'react/display-name': 'off',
     'react-hooks/exhaustive-deps': 'off',
-    'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
-    "@typescript-eslint/non-nullable-type-assertion-style": "off"
+    'react/function-component-definition': [
+      2,
+      { namedComponents: 'arrow-function' },
+    ],
+    '@typescript-eslint/non-nullable-type-assertion-style': 'off',
+    '@typescript-eslint/no-misused-promises': [
+      'error',
+      {'checksVoidReturn': {'attributes': false}}
+    ]
   },
   overrides: [
     {
