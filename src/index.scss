@@ -344,6 +344,7 @@ button {
   }
 
   &__description {
+    margin-top: 20px;
     margin-bottom: 70px;
     max-width: 512px;
     font-size: 12px;
@@ -740,7 +741,7 @@ button {
     width: 35px;
   }
 
-  &_active {
+  &_visible {
     pointer-events: auto;
     opacity: 0.5;
 

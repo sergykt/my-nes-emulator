@@ -31,9 +31,10 @@ const ScrollButton: FC = () => {
 
   return (
     <button
-      className={isVisible ? 'scroll-button scroll-button_active' : 'scroll-button'}
+      className={isVisible ? 'scroll-button scroll-button_visible' : 'scroll-button'}
       type='button'
       aria-label='scroll to top'
+      aria-hidden={!isVisible}
       onClick={scrollToTop}
     >
       <svg
