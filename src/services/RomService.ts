@@ -1,45 +1,66 @@
-interface IGameRom {
-  name: string;
-  hash: string;
-}
+import type { IRom, IRomDecoded } from '../types';
+
+const getId = (array: IRom[]): number => {
+  const idArray = array.map((item) => item.id) as number[];
+  return Math.max(...idArray) + 1;
+};
+
+const arrayBufferToHex = (buffer: ArrayBuffer): string => {
+  const view = new Uint8Array(buffer);
+  const hex = Array.from(view)
+    .map((byte) => byte.toString(16).padStart(2, '0'))
+    .join('');
+  return hex;
+};
+
+const hexToArrayBuffer = (hex: string): ArrayBuffer => {
+  const bytes = new Uint8Array(hex.match(/.{1,2}/g)!.map((byte) => parseInt(byte, 16)));
+  return bytes.buffer;
+};
 
 class RomService {
-  static async saveRom(file: File): Promise<string> {
+  static async saveRom(file: File): Promise<IRom> {
     if (!file.name.endsWith('.nes')) {
       throw new Error('Invalid file extension. Use .nes file');
     }
 
     const buffer = await file.arrayBuffer();
-    const hash = await crypto.subtle.digest('SHA-256', buffer);
-    const hashArray = Array.from(new Uint8Array(hash));
-    const hex = hashArray.map((byte) => byte.toString(16).padStart(2, '0')).join('');
-    const fileObj: IGameRom = { name: file.name, hash: hex };
+    const hex = arrayBufferToHex(buffer);
+    const fileObj: IRom = { name: file.name, hash: hex };
     const localRoms = localStorage.getItem('roms');
 
     if (localRoms) {
-      const parsedRoms = JSON.parse(localRoms) as IGameRom[];
-      localStorage.setItem('roms', JSON.stringify([...parsedRoms, { ...fileObj }]));
+      const parsedRoms = JSON.parse(localRoms) as IRom[];
+      fileObj.id = getId(parsedRoms);
+      localStorage.setItem('roms', JSON.stringify([...parsedRoms, fileObj]));
     } else {
+      fileObj.id = 1;
       localStorage.setItem('roms', JSON.stringify([fileObj]));
     }
 
-    const decoder = new TextDecoder('x-user-defined');
-    return decoder.decode(buffer);
+    return fileObj;
   }
 
-  // static getRom(id: number) {
-  //   const localRoms = localStorage.getItem('roms');
-  //   if (localRoms) {
-  //     const parsedRoms = JSON.parse(localRoms) as IGameRom[];
-  //     const selectedRom = parsedRoms.find('');
-  //   }
+  static getRomById(id: number): IRomDecoded | null {
+    const localRoms = localStorage.getItem('roms');
 
-  //   const bytes = [];
-  //   for (let i = 0; i < hex.length; i += 2) {
-  //     bytes.push(parseInt(hex.substring(i, 2), 16));
-  //   }
-  //   const buffer = new Uint8Array(bytes).buffer;
-  // }
+    if (localRoms) {
+      const parsedRoms = JSON.parse(localRoms) as IRom[];
+      const selectedRom = parsedRoms.find((item) => item.id === id);
+      if (selectedRom) {
+        const { hash } = selectedRom;
+        const buffer = hexToArrayBuffer(hash);
+        const decoder = new TextDecoder('x-user-defined');
+        const decodedData = decoder.decode(buffer);
+
+        return { name: selectedRom.name, romData: decodedData };
+      }
+
+      return null;
+    }
+
+    return null;
+  }
 }
 
 export default RomService;

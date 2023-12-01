@@ -1,7 +1,7 @@
 /* eslint no-void: ["error", { "allowAsStatement": true }] */
 import type { FC, DragEvent } from 'react';
-import { useRef, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useRef, useEffect, useState } from 'react';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import {
   setGameName,
@@ -11,21 +11,42 @@ import {
   setGameRom,
 } from '../store/emulatorSlice';
 import { nesToggleStart } from '../engine';
-import type { IFullScreenElement } from '../types';
+import type { IFullScreenElement, IRom } from '../types';
 import RomService from '../services/RomService';
 import games from '../engine/games';
 import Screen from '../components/Screen';
 import GamesSwiper from '../components/GamesSwiper';
+import LocalRomsList from '../components/LocalRomsList';
+
+const getRoms = (): IRom[] => {
+  const localRoms = localStorage.getItem('roms');
+  let initialLocalRoms: IRom[] = [];
+  if (localRoms) {
+    initialLocalRoms = JSON.parse(localRoms) as IRom[];
+  }
+
+  return initialLocalRoms;
+};
 
 const Emulator: FC = () => {
   const dispatch = useAppDispatch();
+  const [searchParams] = useSearchParams();
   const { gameName, isStarted, isFullScreen, isPaused } = useAppSelector((state) => state.emulator);
   const screenWrapperRef = useRef<IFullScreenElement>(null);
   const location = useLocation();
+  const [localRoms, setLocalRoms] = useState<IRom[]>(getRoms());
 
   useEffect(() => {
     const pathArray = location.pathname.split('/');
-    if (pathArray.length > 0) {
+    const idQueryParam = searchParams.get('id');
+
+    if (idQueryParam) {
+      const localRom = RomService.getRomById(Number(idQueryParam));
+      if (localRom) {
+        dispatch(setGameName(localRom.name));
+        void dispatch(setGameRom(localRom.romData));
+      }
+    } else if (pathArray.length > 0) {
       const gameNameFromLink = pathArray[pathArray.length - 1];
       const currentGame = games.find((item) => item.shortName === gameNameFromLink);
       if (currentGame) {
@@ -78,9 +99,8 @@ const Emulator: FC = () => {
     e.preventDefault();
     try {
       const file = e.dataTransfer?.files[0];
-      const hash = await RomService.saveRom(file);
-      dispatch(setGameName(file.name));
-      dispatch(setGameRom(hash));
+      const romObj = await RomService.saveRom(file);
+      setLocalRoms([...localRoms, romObj]);
     } catch (error) {
       console.error(error);
     }
@@ -118,6 +138,7 @@ const Emulator: FC = () => {
           </p>
           <p>Also you can drag and drop a ROM file onto the page to play it.</p>
         </div>
+        {localRoms.length > 0 && <LocalRomsList list={localRoms} />}
         <GamesSwiper />
       </div>
     </div>

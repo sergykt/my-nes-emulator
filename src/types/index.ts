@@ -6,6 +6,17 @@ export interface IGame {
   description: string;
 }
 
+export interface IRom {
+  name: string;
+  hash: string;
+  id?: number;
+}
+
+export interface IRomDecoded {
+  name: string;
+  romData: string;
+}
+
 export interface IFullScreenElement extends HTMLDivElement {
   mozRequestFullScreen?: () => Promise<void>;
   webkitRequestFullscreen?: () => Promise<void>;
