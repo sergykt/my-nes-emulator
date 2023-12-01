@@ -3,7 +3,7 @@ import GamesList from '../components/GamesList';
 
 const StarterPage: FC = () => (
   <div className='starter'>
-    <div className='container'>
+    <div className='container starter__container'>
       <h1 className='starter__title'>Nintendo Entertainment System Emulator</h1>
       <p className='starter__subtitle'>
         The 8-bit Nintendo NES, released in the 1980s, stands as a timeless icon in the world of
