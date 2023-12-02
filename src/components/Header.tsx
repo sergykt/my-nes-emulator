@@ -1,8 +1,9 @@
 import type { FC } from 'react';
+import Container from './Container';
 
 const Header: FC = () => (
   <header className='header'>
-    <div className='container header__container'>
+    <Container className='header__container'>
       <a href='/'>
         <img
           className='header__logo'
@@ -14,7 +15,7 @@ const Header: FC = () => (
         />
       </a>
       <p className='header__title'>NES Emulator</p>
-    </div>
+    </Container>
   </header>
 );
 

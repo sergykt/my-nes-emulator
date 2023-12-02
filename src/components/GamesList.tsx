@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import games from '../engine/games';
+import FancyLink from './FancyLink';
 
 const GamesList: FC = () => (
   <div className='games'>
@@ -18,9 +19,9 @@ const GamesList: FC = () => (
             />
           </a>
           <div className='games__right'>
-            <a href={`/emulator/${shortName}`} className='games__name'>
+            <FancyLink className='games__name' href={`/emulator/${shortName}`}>
               {name}
-            </a>
+            </FancyLink>
             <p className='games__description'>{description}</p>
           </div>
         </div>

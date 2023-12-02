@@ -17,6 +17,8 @@ import games from '../engine/games';
 import Screen from '../components/Screen';
 import GamesSwiper from '../components/GamesSwiper';
 import LocalRomsList from '../components/LocalRomsList';
+import Button from '../components/Button';
+import Container from '../components/Container';
 
 const getRoms = (): IRom[] => {
   const localRoms = localStorage.getItem('roms');
@@ -44,7 +46,7 @@ const Emulator: FC = () => {
       const localRom = RomService.getRomById(Number(idQueryParam));
       if (localRom) {
         dispatch(setGameName(localRom.name));
-        void dispatch(setGameRom(localRom.romData));
+        dispatch(setGameRom(localRom.romData));
       }
     } else if (pathArray.length > 0) {
       const gameNameFromLink = pathArray[pathArray.length - 1];
@@ -114,7 +116,7 @@ const Emulator: FC = () => {
       onDragOver={dragHandler}
       onDrop={dropHandler}
     >
-      <div className='container emulator__container'>
+      <Container className='emulator__container'>
         {gameName && <h1 className='emulator__game-name'>{gameName}</h1>}
         <Screen
           ref={screenWrapperRef}
@@ -122,14 +124,8 @@ const Emulator: FC = () => {
           pauseHandler={pauseHandler}
         />
         <div className='emulator__button-group'>
-          <button className='emulator__button' onClick={fullScreenHandler} type='button'>
-            Full Screen
-          </button>
-          {isStarted && (
-            <button className='emulator__button' type='button' onClick={pauseHandler}>
-              {isPaused ? 'Resume' : 'Pause'}
-            </button>
-          )}
+          <Button onClick={fullScreenHandler}>Full Screen</Button>
+          {isStarted && <Button onClick={pauseHandler}>{isPaused ? 'Resume' : 'Pause'}</Button>}
         </div>
         <div className='emulator__description'>
           <p>
@@ -140,7 +136,7 @@ const Emulator: FC = () => {
         </div>
         {localRoms.length > 0 && <LocalRomsList list={localRoms} />}
         <GamesSwiper />
-      </div>
+      </Container>
     </div>
   );
 };

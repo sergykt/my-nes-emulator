@@ -1,9 +1,10 @@
 import type { FC } from 'react';
 import GamesList from '../components/GamesList';
+import Container from '../components/Container';
 
 const StarterPage: FC = () => (
   <div className='starter'>
-    <div className='container starter__container'>
+    <Container className='starter__container'>
       <h1 className='starter__title'>Nintendo Entertainment System Emulator</h1>
       <p className='starter__subtitle'>
         The 8-bit Nintendo NES, released in the 1980s, stands as a timeless icon in the world of
@@ -38,7 +39,7 @@ const StarterPage: FC = () => (
         </div>
       </div>
       <GamesList />
-    </div>
+    </Container>
   </div>
 );
 

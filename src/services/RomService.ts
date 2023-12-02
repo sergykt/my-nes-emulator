@@ -41,7 +41,7 @@ class RomService {
     return fileObj;
   }
 
-  static getRomById(id: number): IRomDecoded | null {
+  static getRomById(id: number): IRomDecoded | undefined {
     const localRoms = localStorage.getItem('roms');
 
     if (localRoms) {
@@ -55,11 +55,9 @@ class RomService {
 
         return { name: selectedRom.name, romData: decodedData };
       }
-
-      return null;
     }
 
-    return null;
+    return undefined;
   }
 }
 
