@@ -1,6 +1,6 @@
 import type { FC } from 'react';
-import games from '../engine/games';
-import FancyLink from './FancyLink';
+import FancyLink from '@components/FancyLink';
+import games from '@src/engine/games';
 
 const GamesList: FC = () => (
   <div className='games'>

@@ -2,23 +2,23 @@
 import type { FC, DragEvent } from 'react';
 import { useRef, useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../hooks';
 import {
   setGameName,
   setFullScreen,
   togglePause,
   fetchRom,
   setGameRom,
-} from '../store/emulatorSlice';
-import { nesToggleStart } from '../engine';
-import type { IFullScreenElement, IRom } from '../types';
-import RomService from '../services/RomService';
-import games from '../engine/games';
-import Screen from '../components/Screen';
-import GamesSwiper from '../components/GamesSwiper';
-import LocalRomsList from '../components/LocalRomsList';
-import Button from '../components/Button';
-import Container from '../components/Container';
+} from '@store/emulatorSlice';
+import { useAppDispatch, useAppSelector } from '@src/hooks';
+import RomService from '@services/RomService';
+import type { IFullScreenElement, IRom } from '@src/types';
+import { nesToggleStart } from '@src/engine';
+import games from '@src/engine/games';
+import Screen from '@components/Screen';
+import GamesSwiper from '@components/GamesSwiper';
+import LocalRomsList from '@components/LocalRomsList';
+import Button from '@components/Button';
+import Container from '@components/Container';
 
 const getRoms = (): IRom[] => {
   const localRoms = localStorage.getItem('roms');

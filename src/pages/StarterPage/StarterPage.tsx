@@ -1,6 +1,6 @@
 import type { FC } from 'react';
-import GamesList from '../components/GamesList';
-import Container from '../components/Container';
+import GamesList from '@components/GamesList';
+import Container from '@components/Container';
 
 const StarterPage: FC = () => (
   <div className='starter'>

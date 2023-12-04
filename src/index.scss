@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: 'NesFont';
-  src: url('./resources/fonts/Nes-font.otf');
+  src: url('@resources/fonts/Nes-font.otf');
   font-weight: 400;
   font-display: swap;
   font-style: normal;
@@ -165,7 +165,7 @@ button {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
-  background-image: url('./resources/img/background.jpg');
+  background-image: url('@resources/img/background.jpg');
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -484,7 +484,7 @@ button {
     pointer-events: auto;
     margin-left: 5px;
     margin-bottom: 45px;
-    background-image: url('./resources/img/controls/dpad.png');
+    background-image: url('@resources/img/controls/dpad.png');
     background-repeat: no-repeat;
     background-size: 120px 120px;
     background-position: center;
@@ -517,7 +517,7 @@ button {
     pointer-events: auto;
     height: 50px;
     width: 50px;
-    background-image: url('./resources/img/controls/button.png');
+    background-image: url('@resources/img/controls/button.png');
     background-size: contain;
     background-repeat: no-repeat;
     margin: 0;
@@ -533,7 +533,7 @@ button {
     transition: 0.1s ease-in-out;
 
     &_turbo {
-      background-image: url('./resources/img/controls/turbo-button.png');
+      background-image: url('@resources/img/controls/turbo-button.png');
     }
 
     &:active {
@@ -545,7 +545,7 @@ button {
     pointer-events: auto;
     height: 19px;
     width: 50px;
-    background-image: url('./resources/img/controls/button-select.png');
+    background-image: url('@resources/img/controls/button-select.png');
     background-size: contain;
     background-repeat: no-repeat;
     margin: 0;

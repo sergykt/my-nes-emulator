@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, A11y, FreeMode, Keyboard } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import games from '../engine/games';
+import games from '@src/engine/games';
 
 const GamesSwiper: FC = () => (
   <Swiper

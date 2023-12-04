@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import Container from './Container';
+import Container from '@components/Container';
 
 const Header: FC = () => (
   <header className='header'>

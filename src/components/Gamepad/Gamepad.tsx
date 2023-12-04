@@ -1,6 +1,6 @@
 import type { FC, TouchEvent } from 'react';
 import { useState, useEffect, useRef } from 'react';
-import { Buttons } from '../types';
+import { Buttons } from '@src/types';
 
 const Gamepad: FC = () => {
   const [isActive, setActive] = useState(false);

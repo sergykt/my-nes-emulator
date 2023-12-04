@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import type { IRom } from '../types';
+import type { IRom } from '@src/types';
 
 interface ILocalRomsListProps {
   list: IRom[];

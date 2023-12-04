@@ -1,6 +1,6 @@
 import type { FC } from 'react';
-import FancyLink from './FancyLink';
-import Container from './Container';
+import FancyLink from '@components/FancyLink';
+import Container from '@components/Container';
 
 const Footer: FC = () => (
   <footer className='footer'>

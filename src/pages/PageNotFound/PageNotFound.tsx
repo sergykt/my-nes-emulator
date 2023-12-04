@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import Container from '../components/Container';
+import Container from '@components/Container';
 
 const PageNotFound: FC = () => (
   <div className='emptypage'>
