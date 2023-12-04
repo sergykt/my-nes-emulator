@@ -4,6 +4,8 @@ import legacy from '@vitejs/plugin-legacy';
 import path from 'path';
 import UnpluginInjectPreload from 'unplugin-inject-preload/vite';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
+import autoprefixer from 'autoprefixer';
+import browserslistToEsbuild from 'browserslist-to-esbuild';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -42,6 +44,11 @@ export default defineConfig({
       targets: ['defaults', 'not IE 11'],
     }),
   ],
+  css: {
+    postcss: {
+      plugins: [autoprefixer()],
+    },
+  },
   resolve: {
     alias: {
       '@src': path.resolve(__dirname, '/src'),
@@ -53,6 +60,7 @@ export default defineConfig({
     },
   },
   build: {
+    target: browserslistToEsbuild(),
     rollupOptions: {
       output: {
         manualChunks(id: string) {

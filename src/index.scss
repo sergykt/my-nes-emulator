@@ -45,19 +45,11 @@ p {
 }
 
 button {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
 .wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
   height: 100%;
 }
@@ -67,7 +59,6 @@ button {
   width: 100%;
   padding: 0 40px;
   margin: 0 auto;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 
   @media (max-width: 480px) {
@@ -86,8 +77,6 @@ button {
   border-radius: 5px;
   padding: 10px 20px;
   min-width: 105px;
-  -webkit-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 
   &:hover {
@@ -99,21 +88,10 @@ button {
 .fancy-link {
   text-decoration: none;
   color: transparent;
-  background: -o-linear-gradient(left, #a9a9a9, #a9a9a9 50%, white 50%);
-  background: -webkit-gradient(linear,
-      left top,
-      right top,
-      from(#a9a9a9),
-      color-stop(50%, #a9a9a9),
-      color-stop(50%, white));
   background: linear-gradient(to right, #a9a9a9, #a9a9a9 50%, white 50%);
   background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-size: 200% 100%;
   background-position: 100%;
-  -webkit-transition: background-position 0.3s ease-in-out;
-  -o-transition: background-position 0.3s ease-in-out;
   transition: background-position 0.3s ease-in-out;
 
   &:hover {
@@ -127,20 +105,11 @@ button {
   z-index: 500;
   width: 100%;
   height: var(--header-height);
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 
   &__container {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
     justify-content: space-between;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -162,8 +131,6 @@ button {
 
 .main {
   margin-top: var(--header-height);
-  -webkit-box-flex: 1;
-  -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   background-image: url('@resources/img/background.jpg');
   background-size: cover;
@@ -188,42 +155,28 @@ button {
     font-weight: 400;
     text-align: center;
     padding-top: 50px;
-    padding-bottom: 40px;
+    padding-bottom: 50px;
 
     @media (max-width: 480px) {
       font-size: 22px;
-      padding-top: 40px;
     }
   }
 
   &__subtitle {
     line-height: 1.5;
     font-weight: 400;
-    margin-bottom: 70px;
-
-    @media (max-width: 480px) {
-      margin-top: 50px;
-    }
+    margin-bottom: 60px;
   }
 
   &__images {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
-    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     margin-bottom: 80px;
   }
 
   &__image-item {
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 400px;
     flex: 1 1 400px;
   }
 
@@ -244,42 +197,26 @@ button {
   }
 
   &__link {
-    -webkit-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
 
     &:hover {
-      -webkit-transform: scale(1.05);
-      -ms-transform: scale(1.05);
       transform: scale(1.05);
     }
   }
 
   &__list {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     padding-bottom: 50px;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
-    gap: 50px;
+    gap: 55px;
   }
 
   &__item {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     gap: 20px;
 
     @media (max-width: 576px) {
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-      -ms-flex-direction: column;
       flex-direction: column;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
       align-items: center;
     }
   }
@@ -287,26 +224,16 @@ button {
   &__img {
     min-width: 150px;
     vertical-align: middle;
-    -o-object-fit: fill;
     object-fit: fill;
   }
 
   &__right {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
     align-items: flex-start;
     gap: 10px;
 
     @media (max-width: 576px) {
-      -webkit-box-align: center;
-      -ms-flex-align: center;
       align-items: center;
     }
   }
@@ -334,17 +261,9 @@ button {
     height: 100%;
     background-color: #16181e;
     padding-top: 20px;
-    -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
   }
 
@@ -366,19 +285,12 @@ button {
     max-width: 512px;
     font-size: 12px;
     line-height: 1.5;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
     gap: 20px;
   }
 
   &__button-group {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     margin-top: 15px;
     margin-bottom: 20px;
@@ -387,21 +299,12 @@ button {
 }
 
 .screen {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   position: relative;
   max-width: 512px;
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   margin: 0;
   padding: 0;
@@ -417,8 +320,6 @@ button {
     z-index: 150;
     top: 50%;
     left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
   }
 
@@ -427,8 +328,6 @@ button {
     z-index: 1050;
     top: 10px;
     right: 10px;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     gap: 10px;
   }
@@ -476,11 +375,7 @@ button {
   bottom: 0;
   z-index: 1050;
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
   justify-content: space-between;
   pointer-events: none;
 
@@ -504,19 +399,12 @@ button {
   &__right {
     margin-bottom: 50px;
     margin-right: 20px;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
     gap: 20px;
   }
 
   &__button-group {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     gap: 20px;
   }
@@ -536,8 +424,6 @@ button {
     opacity: 0.85;
     color: rgba(0, 0, 0, 0.5);
     font-size: 14px;
-    -webkit-transition: 0.1s ease-in-out;
-    -o-transition: 0.1s ease-in-out;
     transition: 0.1s ease-in-out;
 
     @supports (background-image: url('@resources/img/controls/button.webp')) {
@@ -570,8 +456,6 @@ button {
     outline: none;
     opacity: 0.85;
     position: relative;
-    -webkit-transition: 0.1s ease-in-out;
-    -o-transition: 0.1s ease-in-out;
     transition: 0.1s ease-in-out;
 
     @supports (background-image: url('@resources/img/controls/button-select.webp')) {
@@ -600,18 +484,9 @@ button {
 
   &__container {
     height: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
   }
 
@@ -635,28 +510,16 @@ button {
   .swiper-wrapper {
     padding-top: 10px;
     padding-bottom: 35px;
-    -webkit-box-sizing: border-box;
     box-sizing: border-box;
   }
 
   .swiper-slide {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
-    -webkit-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
 
     &:hover {
-      -webkit-transform: scale(1.07);
-      -ms-transform: scale(1.07);
       transform: scale(1.07);
     }
   }
@@ -671,7 +534,6 @@ button {
 
   &__img {
     vertical-align: middle;
-    -o-object-fit: fill;
     object-fit: fill;
   }
 }
@@ -691,12 +553,7 @@ button {
 
   &__list {
     margin: 0;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
     gap: 15px;
   }
@@ -705,8 +562,6 @@ button {
     font-size: 14px;
     font-weight: 400;
     line-height: 1;
-    -webkit-transition: all 0.2s ease-in-out;
-    -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
 
     &:hover {
@@ -725,8 +580,6 @@ button {
   z-index: 50;
   pointer-events: none;
   opacity: 0;
-  -webkit-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   bottom: 20px;
   right: 20px;
