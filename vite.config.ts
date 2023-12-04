@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig, splitVendorChunkPlugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import UnpluginInjectPreload from 'unplugin-inject-preload/vite';
@@ -20,6 +20,7 @@ export default defineConfig({
       ],
       injectTo: 'head-prepend',
     }),
+    splitVendorChunkPlugin(),
   ],
   resolve: {
     alias: {
@@ -29,6 +30,33 @@ export default defineConfig({
       '@store': path.resolve(__dirname, '/src/store'),
       '@services': path.resolve(__dirname, '/src/services'),
       '@resources': path.resolve(__dirname, '/src/resources'),
+    },
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id: string) {
+          if (
+            id.includes('react-device-detect') ||
+            id.includes('react-router-dom') ||
+            id.includes('react-icons') ||
+            id.includes('react-redux') ||
+            id.includes('redux') ||
+            id.includes('@reduxjs/toolkit')
+          ) {
+            return '@react-tools';
+          }
+          if (id.includes('jsnes')) {
+            return '@jsnes';
+          }
+          if (id.includes('axios')) {
+            return '@axios';
+          }
+          if (id.includes('swiper')) {
+            return '@swiper';
+          }
+        },
+      },
     },
   },
   server: {
