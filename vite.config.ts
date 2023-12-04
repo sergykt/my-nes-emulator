@@ -1,7 +1,9 @@
 import { defineConfig, splitVendorChunkPlugin } from 'vite';
 import react from '@vitejs/plugin-react';
+import legacy from '@vitejs/plugin-legacy';
 import path from 'path';
 import UnpluginInjectPreload from 'unplugin-inject-preload/vite';
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -21,6 +23,24 @@ export default defineConfig({
       injectTo: 'head-prepend',
     }),
     splitVendorChunkPlugin(),
+    ViteImageOptimizer({
+      includePublic: true,
+      png: {
+        quality: 80,
+      },
+      jpeg: {
+        quality: 80,
+      },
+      jpg: {
+        quality: 80,
+      },
+      webp: {
+        lossless: true,
+      },
+    }),
+    legacy({
+      targets: ['defaults', 'not IE 11'],
+    }),
   ],
   resolve: {
     alias: {

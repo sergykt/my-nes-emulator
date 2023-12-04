@@ -18,24 +18,32 @@ const StarterPage: FC = () => (
       </p>
       <div className='starter__images'>
         <div className='starter__image-item'>
-          <img
-            className='starter__image'
-            src='/img/nes_1.png'
-            alt='nes1'
-            loading='lazy'
-            width={866}
-            height={435}
-          />
+          <picture>
+            <source srcSet='/img/nes_1.webp' type='image/webp' />
+            <source srcSet='/img/nes_1.png' type='image/png' />
+            <img
+              className='starter__image'
+              src='/img/nes_1.png'
+              alt='nes1'
+              loading='lazy'
+              width={866}
+              height={435}
+            />
+          </picture>
         </div>
         <div className='starter__image-item'>
-          <img
-            className='starter__image'
-            src='/img/nes_2.png'
-            alt='nes2'
-            loading='lazy'
-            width={943}
-            height={578}
-          />
+          <picture>
+            <source srcSet='/img/nes_2.webp' type='image/webp' />
+            <source srcSet='/img/nes_2.png' type='image/png' />
+            <img
+              className='starter__image'
+              src='/img/nes_2.png'
+              alt='nes2'
+              loading='lazy'
+              width={943}
+              height={578}
+            />
+          </picture>
         </div>
       </div>
       <GamesList />

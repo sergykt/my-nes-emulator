@@ -170,6 +170,10 @@ button {
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: top center;
+
+  @supports (background-image: url('@resources/img/background.webp')) {
+    background-image: url('@resources/img/background.webp');
+  }
 }
 
 .starter {
@@ -491,6 +495,10 @@ button {
     width: 150px;
     height: 150px;
     opacity: 0.8;
+
+    @supports (background-image: url('@resources/img/controls/dpad.webp')) {
+      background-image: url('@resources/img/controls/dpad.webp');
+    }
   }
 
   &__right {
@@ -532,8 +540,16 @@ button {
     -o-transition: 0.1s ease-in-out;
     transition: 0.1s ease-in-out;
 
+    @supports (background-image: url('@resources/img/controls/button.webp')) {
+      background-image: url('@resources/img/controls/button.webp');
+    }
+
     &_turbo {
       background-image: url('@resources/img/controls/turbo-button.png');
+
+      @supports (background-image: url('@resources/img/controls/turbo-button.webp')) {
+        background-image: url('@resources/img/controls/turbo-button.webp');
+      }
     }
 
     &:active {
@@ -557,6 +573,10 @@ button {
     -webkit-transition: 0.1s ease-in-out;
     -o-transition: 0.1s ease-in-out;
     transition: 0.1s ease-in-out;
+
+    @supports (background-image: url('@resources/img/controls/button-select.webp')) {
+      background-image: url('@resources/img/controls/button-select.webp');
+    }
 
     &:active {
       opacity: 0.7;
