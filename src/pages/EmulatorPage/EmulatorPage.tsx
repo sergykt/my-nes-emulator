@@ -20,23 +20,14 @@ import LocalRomsList from '@components/LocalRomsList';
 import Button from '@components/Button';
 import Container from '@components/Container';
 
-const getRoms = (): IRom[] => {
-  const localRoms = localStorage.getItem('roms');
-  let initialLocalRoms: IRom[] = [];
-  if (localRoms) {
-    initialLocalRoms = JSON.parse(localRoms) as IRom[];
-  }
-
-  return initialLocalRoms;
-};
-
 const Emulator: FC = () => {
   const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
   const { gameName, isStarted, isFullScreen, isPaused } = useAppSelector((state) => state.emulator);
   const screenWrapperRef = useRef<IFullScreenElement>(null);
   const location = useLocation();
-  const [localRoms, setLocalRoms] = useState<IRom[]>(getRoms());
+  const initialRoms = RomService.getRoms();
+  const [localRoms, setLocalRoms] = useState<IRom[]>(initialRoms);
 
   useEffect(() => {
     const pathArray = location.pathname.split('/');
@@ -49,7 +40,7 @@ const Emulator: FC = () => {
         dispatch(setGameRom(localRom.romData));
       }
     } else if (pathArray.length > 0) {
-      const gameNameFromLink = pathArray[pathArray.length - 1];
+      const gameNameFromLink = pathArray[2];
       const currentGame = games.find((item) => item.shortName === gameNameFromLink);
       if (currentGame) {
         const { name, shortName } = currentGame;
@@ -67,7 +58,7 @@ const Emulator: FC = () => {
     return () => {
       document.removeEventListener('fullscreenchange', onFullScreenChange);
     };
-  }, []);
+  }, [location]);
 
   const pauseHandler = () => {
     nesToggleStart();
@@ -108,6 +99,13 @@ const Emulator: FC = () => {
     }
   };
 
+  const removeRomHandler = (id: number): void => {
+    const result = RomService.removeRom(id);
+    if (result) {
+      setLocalRoms(RomService.getRoms());
+    }
+  };
+
   return (
     <div
       className='emulator'
@@ -134,7 +132,9 @@ const Emulator: FC = () => {
           </p>
           <p>Also you can drag and drop a ROM file onto the page to play it.</p>
         </div>
-        {localRoms.length > 0 && <LocalRomsList list={localRoms} />}
+        {localRoms.length > 0 && (
+          <LocalRomsList list={localRoms} removeRomHandler={removeRomHandler} />
+        )}
         <GamesSwiper />
       </Container>
     </div>

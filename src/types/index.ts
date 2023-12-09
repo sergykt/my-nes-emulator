@@ -9,7 +9,7 @@ export interface IGame {
 export interface IRom {
   name: string;
   hash: string;
-  id?: number;
+  id: number;
 }
 
 export interface IRomDecoded {

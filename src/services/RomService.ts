@@ -1,8 +1,8 @@
 import type { IRom, IRomDecoded } from '../types';
 
 const getId = (array: IRom[]): number => {
-  const idArray = array.map((item) => item.id) as number[];
-  return Math.max(...idArray) + 1;
+  const idArray = array.map((item) => item.id);
+  return Math.max(...idArray, 0) + 1;
 };
 
 const arrayBufferToHex = (buffer: ArrayBuffer): string => {
@@ -19,6 +19,16 @@ const hexToArrayBuffer = (hex: string): ArrayBuffer => {
 };
 
 class RomService {
+  static getRoms(): IRom[] {
+    const localRoms = localStorage.getItem('roms');
+    let initialLocalRoms: IRom[] = [];
+    if (localRoms) {
+      initialLocalRoms = JSON.parse(localRoms) as IRom[];
+    }
+
+    return initialLocalRoms;
+  }
+
   static async saveRom(file: File): Promise<IRom> {
     if (!file.name.endsWith('.nes')) {
       throw new Error('Invalid file extension. Use .nes file');
@@ -26,7 +36,7 @@ class RomService {
 
     const buffer = await file.arrayBuffer();
     const hex = arrayBufferToHex(buffer);
-    const fileObj: IRom = { name: file.name, hash: hex };
+    const fileObj: IRom = { name: file.name, hash: hex, id: 1 };
     const localRoms = localStorage.getItem('roms');
 
     if (localRoms) {
@@ -34,14 +44,13 @@ class RomService {
       fileObj.id = getId(parsedRoms);
       localStorage.setItem('roms', JSON.stringify([...parsedRoms, fileObj]));
     } else {
-      fileObj.id = 1;
       localStorage.setItem('roms', JSON.stringify([fileObj]));
     }
 
     return fileObj;
   }
 
-  static getRomById(id: number): IRomDecoded | undefined {
+  static getRomById(id: number): IRomDecoded | null {
     const localRoms = localStorage.getItem('roms');
 
     if (localRoms) {
@@ -57,7 +66,25 @@ class RomService {
       }
     }
 
-    return undefined;
+    return null;
+  }
+
+  static removeRom(id: number): boolean {
+    let isExist = false;
+    const localRoms = localStorage.getItem('roms');
+    if (localRoms) {
+      const parsedRoms = JSON.parse(localRoms) as IRom[];
+      const filteredRoms = parsedRoms.filter((item) => {
+        if (item.id === id) {
+          isExist = true;
+        }
+
+        return item.id !== id;
+      });
+      localStorage.setItem('roms', JSON.stringify(filteredRoms));
+    }
+
+    return isExist;
   }
 }
 

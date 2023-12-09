@@ -1,4 +1,4 @@
-import type { IGame } from '../types';
+import type { IGame } from '@src/types';
 
 const games: IGame[] = [
   {
