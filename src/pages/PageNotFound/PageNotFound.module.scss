@@ -13,10 +13,22 @@
 .title {
   font-size: 36px;
   font-weight: 400;
-  margin-bottom: 30px;
+  margin: 20px 0;
 }
 
 .subtitle {
   font-size: 24px;
   font-weight: 400;
+}
+
+.imgBody {
+  margin: 20px 0;
+  max-width: 500px;
+  width: 100%;
+}
+
+.img {
+  object-fit: contain;
+  width: 100%;
+  height: auto;
 }

@@ -1,14 +1,15 @@
 import type { FC } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, A11y, FreeMode, Keyboard } from 'swiper/modules';
+import { Pagination, A11y, FreeMode, Keyboard, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 import games from '@src/engine/games';
 import styles from './GamesSwiper.module.scss';
 
 const GamesSwiper: FC = () => (
   <Swiper
-    modules={[Pagination, A11y, FreeMode, Keyboard]}
+    modules={[Pagination, A11y, FreeMode, Keyboard, Navigation]}
     spaceBetween={10}
     slidesPerView={1}
     pagination={{ clickable: true, dynamicBullets: true }}
@@ -27,6 +28,7 @@ const GamesSwiper: FC = () => (
       },
     }}
     freeMode
+    navigation
     keyboard={{
       enabled: true,
       onlyInViewport: true,

@@ -22,6 +22,32 @@
   :global(.swiper-pagination-bullet) {
     background-color: white;
   }
+
+  :global(.swiper-button-next),
+  :global(.swiper-button-prev) {
+    color: white;
+    top: 10px;
+    margin: 0;
+    height: 200px;
+    width: 40px;
+    transition: all 0.2s ease-in-out;
+
+    &:hover:not(:global(.swiper-button-disabled)) {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    @media (max-width: 576px) {
+      display: none;
+    }
+  }
+
+  :global(.swiper-button-prev) {
+    left: 0;
+  }
+
+  :global(.swiper-button-next) {
+    right: 0;
+  }
 }
 
 .img {
@@ -30,6 +56,6 @@
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    transform: scale(1.07);
+    transform: scale(1.05);
   }
 }

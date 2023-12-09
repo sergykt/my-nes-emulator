@@ -7,6 +7,15 @@ const PageNotFound: FC = () => (
     <Container className={styles.container}>
       <h1 className={styles.title}>GAME OVER</h1>
       <h2 className={styles.subtitle}>Page not found</h2>
+      <div className={styles.imgBody}>
+        <img
+          src='/img/avgn-duckhunt.gif'
+          className={styles.img}
+          alt='avgn'
+          width={300}
+          height={225}
+        />
+      </div>
     </Container>
   </div>
 );
