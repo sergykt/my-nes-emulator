@@ -9,6 +9,7 @@ import Gamepad from '@components/Gamepad';
 import Button from '@components/Button';
 import { BsPlayCircle, BsPauseCircle } from 'react-icons/bs';
 import { SlClose } from 'react-icons/sl';
+import styles from './Screen.module.scss';
 
 interface IScreenProps {
   pauseHandler: () => void;
@@ -27,22 +28,22 @@ const Screen = forwardRef<IFullScreenElement, IScreenProps>(
       dispatch(startGame());
     };
 
-    const screenClassName = classNames('screen', { screen_fullscreen: isFullScreen });
+    const screenClassName = classNames(styles.screen, { [styles.fullscreen]: isFullScreen });
 
     return (
       <div className={screenClassName} ref={ref}>
-        <canvas className='screen__canvas' id='game' width={256} height={240} />
+        <canvas className={styles.canvas} id='game' width={256} height={240} />
         {!isStarted && gameRom && (
-          <Button className='screen__start-button' onClick={startHandler}>
+          <Button className={styles.startButton} onClick={startHandler}>
             Start Game
           </Button>
         )}
         {isMobile && isStarted && isFullScreen && <Gamepad />}
         {isMobile && isFullScreen && (
-          <div className='screen__controls'>
+          <div className={styles.controls}>
             {isStarted && (
               <button
-                className='screen__controls-button'
+                className={styles.controlsButton}
                 onClick={pauseHandler}
                 type='button'
                 aria-label='pause button'
@@ -51,7 +52,7 @@ const Screen = forwardRef<IFullScreenElement, IScreenProps>(
               </button>
             )}
             <button
-              className='screen__controls-button'
+              className={styles.controlsButton}
               onClick={fullScreenHandler}
               type='button'
               aria-label='close'

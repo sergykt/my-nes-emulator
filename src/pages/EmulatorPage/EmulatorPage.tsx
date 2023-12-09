@@ -19,6 +19,7 @@ import GamesSwiper from '@components/GamesSwiper';
 import LocalRomsList from '@components/LocalRomsList';
 import Button from '@components/Button';
 import Container from '@components/Container';
+import styles from './EmulatorPage.module.scss';
 
 const Emulator: FC = () => {
   const dispatch = useAppDispatch();
@@ -108,24 +109,24 @@ const Emulator: FC = () => {
 
   return (
     <div
-      className='emulator'
+      className={styles.emulator}
       onDragEnter={dragHandler}
       onDragLeave={dragHandler}
       onDragOver={dragHandler}
       onDrop={dropHandler}
     >
-      <Container className='emulator__container'>
-        {gameName && <h1 className='emulator__game-name'>{gameName}</h1>}
+      <Container className={styles.container}>
+        {gameName && <h1 className={styles.gameName}>{gameName}</h1>}
         <Screen
           ref={screenWrapperRef}
           fullScreenHandler={fullScreenHandler}
           pauseHandler={pauseHandler}
         />
-        <div className='emulator__button-group'>
+        <div className={styles.buttonGroup}>
           <Button onClick={fullScreenHandler}>Full Screen</Button>
           {isStarted && <Button onClick={pauseHandler}>{isPaused ? 'Resume' : 'Pause'}</Button>}
         </div>
-        <div className='emulator__description'>
+        <div className={styles.description}>
           <p>
             D-Pad: Arrows, Start: Enter, Select: Right Shift, Button A: S, Button B: A, Turbo A: X,
             Turbo B: Z.

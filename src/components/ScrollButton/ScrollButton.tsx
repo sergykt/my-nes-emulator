@@ -1,6 +1,8 @@
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { TfiArrowCircleUp } from 'react-icons/tfi';
+import classNames from 'classnames';
+import styles from './ScrollButton.module.scss';
 
 const ScrollButton: FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -30,9 +32,11 @@ const ScrollButton: FC = () => {
     });
   };
 
+  const className = classNames(styles.scrollButton, { [styles.visible]: isVisible });
+
   return (
     <button
-      className={isVisible ? 'scroll-button scroll-button_visible' : 'scroll-button'}
+      className={className}
       type='button'
       aria-label='scroll to top'
       aria-hidden={!isVisible}

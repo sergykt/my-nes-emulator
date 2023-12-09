@@ -1,0 +1,13 @@
+.fancyLink {
+  text-decoration: none;
+  color: transparent;
+  background: linear-gradient(to right, #a9a9a9, #a9a9a9 50%, white 50%);
+  background-clip: text;
+  background-size: 200% 100%;
+  background-position: 100%;
+  transition: background-position 0.3s ease-in-out;
+
+  &:hover {
+    background-position: 0% 100%;
+  }
+}

@@ -1,15 +1,16 @@
 import type { FC } from 'react';
 import Container from '@components/Container';
+import styles from './Header.module.scss';
 
 const Header: FC = () => (
-  <header className='header'>
-    <Container className='header__container'>
+  <header className={styles.header}>
+    <Container className={styles.container}>
       <a href='/'>
         <picture>
           <source srcSet='/img/gaming_logo.webp' type='image/webp' />
           <source srcSet='/img/gaming_logo.png' type='image/png' />
           <img
-            className='header__logo'
+            className={styles.logo}
             src='/img/gaming_logo.png'
             width={50}
             height={50}
@@ -18,7 +19,7 @@ const Header: FC = () => (
           />
         </picture>
       </a>
-      <p className='header__title'>NES Emulator</p>
+      <p className={styles.title}>NES Emulator</p>
     </Container>
   </header>
 );

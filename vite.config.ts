@@ -48,6 +48,10 @@ export default defineConfig({
     postcss: {
       plugins: [autoprefixer()],
     },
+    modules: {
+      localsConvention: 'camelCase',
+      generateScopedName: '[name]-[local]-[hash:base64:4]',
+    }
   },
   resolve: {
     alias: {

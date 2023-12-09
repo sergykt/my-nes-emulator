@@ -1,0 +1,125 @@
+.gamepad {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 1050;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.dpad {
+  pointer-events: auto;
+  margin-left: 5px;
+  margin-bottom: 45px;
+  background-image: url('@resources/img/controls/dpad.png');
+  background-image: image-set(
+    url('@resources/img/controls/dpad.webp') type('image/webp'),
+    url('@resources/img/controls/dpad.png') type('image/png')
+  );
+  background-repeat: no-repeat;
+  background-size: 120px 120px;
+  background-position: center;
+  width: 150px;
+  height: 150px;
+  opacity: 0.8;
+}
+
+.right {
+  margin-bottom: 50px;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 20px;
+}
+
+.button {
+  pointer-events: auto;
+  height: 50px;
+  width: 50px;
+  background-image: image-set(
+    url('@resources/img/controls/button.webp') type('image/webp'),
+    url('@resources/img/controls/button.png') type('image/png')
+  );
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  text-align: center;
+  opacity: 0.85;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 14px;
+  transition: 0.1s ease-in-out;
+
+  &:active {
+    opacity: 0.7;
+  }
+}
+
+.buttonTurbo {
+  pointer-events: auto;
+  height: 50px;
+  width: 50px;
+  background-image: image-set(
+    url('@resources/img/controls/button.webp') type('image/webp'),
+    url('@resources/img/controls/button.png') type('image/png')
+  );
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  text-align: center;
+  opacity: 0.85;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 14px;
+  transition: 0.1s ease-in-out;
+  filter: grayscale(100%);
+
+  &:active {
+    opacity: 0.7;
+  }
+}
+
+.selectButton {
+  pointer-events: auto;
+  height: 19px;
+  width: 50px;
+  background-image: image-set(
+    url('@resources/img/controls/button-select.webp') type('image/webp'),
+    url('@resources/img/controls/button-select.png') type('image/png')
+  );
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  opacity: 0.85;
+  position: relative;
+  transition: 0.1s ease-in-out;
+
+  &:active {
+    opacity: 0.7;
+  }
+
+  &::after {
+    width: 100%;
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    font-size: 10px;
+    color: white;
+    text-align: center;
+    content: attr(aria-label);
+  }
+}

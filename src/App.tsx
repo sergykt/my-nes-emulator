@@ -6,11 +6,12 @@ import PageNotFound from '@pages/PageNotFound';
 import Header from '@components/Header';
 import Footer from '@components/Footer';
 import ScrollButton from '@components/ScrollButton';
+import styles from './App.module.css';
 
 const App: FC = () => (
-  <div className='wrapper'>
+  <div className={styles.wrapper}>
     <Header />
-    <main className='main'>
+    <main className={styles.main}>
       <Routes>
         <Route path='/*' element={<PageNotFound />} />
         <Route path='/' element={<StarterPage />} />

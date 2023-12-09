@@ -1,6 +1,7 @@
 import type { FC, TouchEvent } from 'react';
 import { useState, useEffect, useRef } from 'react';
 import { Buttons } from '@src/types';
+import styles from './Gamepad.module.scss';
 
 const Gamepad: FC = () => {
   const [isActive, setActive] = useState(false);
@@ -91,9 +92,9 @@ const Gamepad: FC = () => {
   };
 
   return (
-    <div className='gamepad'>
+    <div className={styles.gamepad}>
       <div
-        className='gamepad__dpad'
+        className={styles.dpad}
         onTouchStart={joystickStart}
         onTouchEnd={joystickEnd}
         onTouchMove={joystickMove}
@@ -101,12 +102,12 @@ const Gamepad: FC = () => {
         role='button'
         aria-label='d-pad'
       />
-      <div className='gamepad__right'>
-        <div className='gamepad__button-group'>
+      <div className={styles.right}>
+        <div className={styles.buttonGroup}>
           <button
             onTouchStart={touchStart(Buttons.TurboB)}
             onTouchEnd={touchEnd(Buttons.TurboB)}
-            className='gamepad__button gamepad__button_turbo'
+            className={styles.buttonTurbo}
             type='button'
           >
             B
@@ -114,17 +115,17 @@ const Gamepad: FC = () => {
           <button
             onTouchStart={touchStart(Buttons.TurboA)}
             onTouchEnd={touchEnd(Buttons.TurboA)}
-            className='gamepad__button gamepad__button_turbo'
+            className={styles.buttonTurbo}
             type='button'
           >
             A
           </button>
         </div>
-        <div className='gamepad__button-group'>
+        <div className={styles.buttonGroup}>
           <button
             onTouchStart={touchStart(Buttons.B)}
             onTouchEnd={touchEnd(Buttons.B)}
-            className='gamepad__button'
+            className={styles.button}
             type='button'
           >
             B
@@ -132,18 +133,18 @@ const Gamepad: FC = () => {
           <button
             onTouchStart={touchStart(Buttons.A)}
             onTouchEnd={touchEnd(Buttons.A)}
-            className='gamepad__button'
+            className={styles.button}
             type='button'
           >
             A
           </button>
         </div>
-        <div className='gamepad__button-group'>
+        <div className={styles.buttonGroup}>
           <button
             onTouchStart={touchStart(Buttons.Select)}
             onTouchEnd={touchEnd(Buttons.Select)}
             id='select'
-            className='gamepad__select-button'
+            className={styles.selectButton}
             aria-label='select'
             type='button'
           />
@@ -151,7 +152,7 @@ const Gamepad: FC = () => {
             onTouchStart={touchStart(Buttons.Start)}
             onTouchEnd={touchEnd(Buttons.Start)}
             id='start'
-            className='gamepad__select-button'
+            className={styles.selectButton}
             aria-label='start'
             type='button'
           />

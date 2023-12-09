@@ -1,0 +1,45 @@
+.starter {
+  margin: 0;
+}
+
+.container {
+  background-color: #16181e;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1;
+  font-weight: 400;
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: 50px;
+
+  @media (max-width: 480px) {
+    font-size: 22px;
+  }
+}
+
+.subtitle {
+  line-height: 1.5;
+  font-weight: 400;
+  margin-bottom: 60px;
+}
+
+.images {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 80px;
+}
+
+.imageBody {
+  flex: 1 1 400px;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+}

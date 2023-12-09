@@ -4,6 +4,7 @@ import { Pagination, A11y, FreeMode, Keyboard } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import games from '@src/engine/games';
+import styles from './GamesSwiper.module.scss';
 
 const GamesSwiper: FC = () => (
   <Swiper
@@ -30,7 +31,7 @@ const GamesSwiper: FC = () => (
       enabled: true,
       onlyInViewport: true,
     }}
-    className='games-swiper'
+    className={styles.gamesSwiper}
   >
     {games.map(({ id, name, shortName, img }) => (
       <SwiperSlide key={id}>
@@ -42,7 +43,7 @@ const GamesSwiper: FC = () => (
               src={`/img/games/${img}.jpg`}
               width={150}
               height={200}
-              className='games-swiper__img'
+              className={styles.img}
               loading='lazy'
               alt={name}
             />

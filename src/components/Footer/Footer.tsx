@@ -1,14 +1,15 @@
 import type { FC } from 'react';
 import FancyLink from '@components/FancyLink';
 import Container from '@components/Container';
+import styles from './Footer.module.scss';
 
 const Footer: FC = () => (
-  <footer className='footer'>
+  <footer className={styles.footer}>
     <Container>
-      <p className='footer__engine'>
+      <p className={styles.engine}>
         <FancyLink href='https://github.com/bfirsh/jsnes'>NES engine by jsnes</FancyLink>
       </p>
-      <p className='footer__copyright'>© 2023 Created by Sergei Sivtsev</p>
+      <p className={styles.copyright}>© 2023 Created by Sergei Sivtsev</p>
     </Container>
   </footer>
 );
