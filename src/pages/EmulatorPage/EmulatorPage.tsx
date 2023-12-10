@@ -14,6 +14,7 @@ import RomService from '@services/RomService';
 import type { IFullScreenElement, IRom } from '@src/types';
 import { nesToggleStart } from '@src/engine';
 import games from '@src/engine/games';
+import PageLayout from '@src/components/PageLayout';
 import Screen from '@components/Screen';
 import GamesSwiper from '@components/GamesSwiper';
 import LocalRomsList from '@components/LocalRomsList';
@@ -108,37 +109,39 @@ const Emulator: FC = () => {
   };
 
   return (
-    <div
-      className={styles.emulator}
-      onDragEnter={dragHandler}
-      onDragLeave={dragHandler}
-      onDragOver={dragHandler}
-      onDrop={dropHandler}
-    >
-      <Container className={styles.container}>
-        {gameName && <h1 className={styles.gameName}>{gameName}</h1>}
-        <Screen
-          ref={screenWrapperRef}
-          fullScreenHandler={fullScreenHandler}
-          pauseHandler={pauseHandler}
-        />
-        <div className={styles.buttonGroup}>
-          <Button onClick={fullScreenHandler}>Full Screen</Button>
-          {isStarted && <Button onClick={pauseHandler}>{isPaused ? 'Resume' : 'Pause'}</Button>}
-        </div>
-        <div className={styles.description}>
-          <p>
-            D-Pad: Arrows, Start: Enter, Select: Right Shift, Button A: S, Button B: A, Turbo A: X,
-            Turbo B: Z.
-          </p>
-          <p>Also you can drag and drop a ROM file onto the page to play it.</p>
-        </div>
-        {localRoms.length > 0 && (
-          <LocalRomsList list={localRoms} removeRomHandler={removeRomHandler} />
-        )}
-        <GamesSwiper />
-      </Container>
-    </div>
+    <PageLayout>
+      <div
+        className={styles.emulator}
+        onDragEnter={dragHandler}
+        onDragLeave={dragHandler}
+        onDragOver={dragHandler}
+        onDrop={dropHandler}
+      >
+        <Container className={styles.container}>
+          {gameName && <h1 className={styles.gameName}>{gameName}</h1>}
+          <Screen
+            ref={screenWrapperRef}
+            fullScreenHandler={fullScreenHandler}
+            pauseHandler={pauseHandler}
+          />
+          <div className={styles.buttonGroup}>
+            <Button onClick={fullScreenHandler}>Full Screen</Button>
+            {isStarted && <Button onClick={pauseHandler}>{isPaused ? 'Resume' : 'Pause'}</Button>}
+          </div>
+          <div className={styles.description}>
+            <p>
+              D-Pad: Arrows, Start: Enter, Select: Right Shift, Button A: S, Button B: A, Turbo A:
+              X, Turbo B: Z.
+            </p>
+            <p>Also you can drag and drop a ROM file onto the page to play it.</p>
+          </div>
+          {localRoms.length > 0 && (
+            <LocalRomsList list={localRoms} removeRomHandler={removeRomHandler} />
+          )}
+          <GamesSwiper />
+        </Container>
+      </div>
+    </PageLayout>
   );
 };
 

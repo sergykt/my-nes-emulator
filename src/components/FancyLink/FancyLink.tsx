@@ -1,4 +1,4 @@
-import { FC, ComponentProps } from 'react';
+import type { FC, ComponentProps } from 'react';
 import classNames from 'classnames';
 import styles from './FancyLink.module.scss';
 
