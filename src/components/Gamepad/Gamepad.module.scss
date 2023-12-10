@@ -58,6 +58,8 @@
   color: rgba(0, 0, 0, 0.5);
   font-size: 14px;
   transition: 0.1s ease-in-out;
+  border-radius: 50%;
+  box-shadow: inset 1px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 2px rgba(0, 0, 0, 0.8);
 
   &:active {
     opacity: 0.7;
@@ -83,6 +85,8 @@
   color: rgba(0, 0, 0, 0.5);
   font-size: 14px;
   transition: 0.1s ease-in-out;
+  border-radius: 50%;
+  box-shadow: inset 1px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 2px rgba(0, 0, 0, 0.8);
   filter: grayscale(100%);
 
   &:active {
@@ -107,6 +111,8 @@
   opacity: 0.85;
   position: relative;
   transition: 0.1s ease-in-out;
+  border-radius: 20px;
+  box-shadow: inset 1px 3px 3px rgba(255, 255, 255, 0.6), inset -3px -3px 3px rgba(0, 0, 0, 0.25);
 
   &:active {
     opacity: 0.7;
