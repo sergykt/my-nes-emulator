@@ -2,6 +2,7 @@ import type { FC, ChangeEvent, FormEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import Container from '@components/Container';
+import FancyLink from '@components/FancyLink';
 import games from '@src/engine/games';
 import styles from './GameList.module.scss';
 
@@ -50,9 +51,9 @@ const GameList: FC = () => {
             return (
               name.toLowerCase().includes(searchQuery.toLowerCase()) && (
                 <li key={id}>
-                  <a href={`/emulator/${shortName}`} aria-label={name}>
+                  <FancyLink href={`/emulator/${shortName}`} aria-label={name}>
                     {name}
-                  </a>
+                  </FancyLink>
                 </li>
               )
             );
