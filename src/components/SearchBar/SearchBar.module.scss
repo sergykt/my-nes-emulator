@@ -1,8 +1,8 @@
 .body {
   position: relative;
-  max-width: 200px;
-  box-sizing: border-box;
   width: 100%;
+  max-width: 150px;
+  box-sizing: border-box;
   transition: max-width 0.2s ease-in-out;
 
   &:focus-within {
@@ -13,8 +13,8 @@
     }
   }
 
-  @media (max-width: 576px) {
-    max-width: 120px;
+  @media (max-width: 768px) {
+    max-width: 42px;
   }
 }
 
@@ -33,9 +33,9 @@
 }
 
 .icon {
-  margin-left: 6px;
-  margin-right: 6px;
-  min-width: 20px;
+  margin-left: 4px;
+  margin-right: 4px;
+  min-width: 30px;
 
   svg {
     vertical-align: middle;
@@ -54,6 +54,7 @@
   color: white;
   font-size: 13px;
   line-height: 1;
+  transition: all 0.2s;
 
   @media (max-width: 576px) {
     font-size: 12px;
@@ -85,12 +86,17 @@
 
 .link {
   display: block;
-  padding: 15px 15px 15px 42px;
+  padding: 15px 15px 15px 48px;
   height: 100%;
   font-size: 13px;
   line-height: 1;
   text-decoration: none;
   color: inherit;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: #a9a9a9;
+  }
 
   @media (max-width: 576px) {
     font-size: 12px;
