@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import type { IRom } from '@src/types';
+import FancyLink from '@components/FancyLink';
 import { IoIosRemoveCircleOutline } from 'react-icons/io';
 import styles from './LocalRomsList.module.scss';
 
@@ -10,14 +11,12 @@ interface ILocalRomsListProps {
 
 const LocalRomsList: FC<ILocalRomsListProps> = ({ list, removeRomHandler }) => {
   return (
-    <div className={styles.localromslist}>
+    <div className={styles.body}>
       <h2 className={styles.title}>Local roms</h2>
       <ul className={styles.list}>
         {list.map((item) => (
           <li className={styles.item} key={item.id}>
-            <a href={`/emulator/?id=${item.id}`} className={styles.link}>
-              {item.name}
-            </a>
+            <FancyLink href={`/emulator/?id=${item.id}`}>{item.name}</FancyLink>
             <button
               className={styles.removeButton}
               type='button'

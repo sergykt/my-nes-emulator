@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import PageLayout from '@src/components/PageLayout';
-import GamesList from '@components/GamesList';
+import GameLibrary from '@src/components/GameLibrary';
 import Container from '@components/Container';
 import styles from './StarterPage.module.scss';
 
@@ -49,7 +49,7 @@ const StarterPage: FC = () => (
             </picture>
           </div>
         </div>
-        <GamesList />
+        <GameLibrary />
       </Container>
     </div>
   </PageLayout>

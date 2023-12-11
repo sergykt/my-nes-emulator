@@ -1,11 +1,11 @@
 import type { FC } from 'react';
 import FancyLink from '@components/FancyLink';
 import games from '@src/engine/games';
-import styles from './GamesList.module.scss';
+import styles from './GameLibrary.module.scss';
 
-const GamesList: FC = () => (
-  <div className={styles.gamesList}>
-    <h2 className={styles.title}>List Of Games</h2>
+const GamesLibrary: FC = () => (
+  <div className={styles.body}>
+    <h2 className={styles.title}>Game Library</h2>
     <div className={styles.list}>
       {games.map(({ id, name, shortName, img, description }) => (
         <div className={styles.item} key={id}>
@@ -35,4 +35,4 @@ const GamesList: FC = () => (
   </div>
 );
 
-export default GamesList;
+export default GamesLibrary;

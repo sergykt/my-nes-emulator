@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^1.9.7",
     "axios": "^1.6.1",
     "classnames": "^2.3.2",
+    "formik": "^2.4.5",
     "jsnes": "^1.2.1",
     "react": "^18.2.0",
     "react-device-detect": "^2.2.3",
