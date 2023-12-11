@@ -1,11 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import emulatorReducer from './emulatorSlice';
-import searchBarReducer from './searchBarSlice';
 
 const store = configureStore({
   reducer: {
     emulator: emulatorReducer,
-    searchBar: searchBarReducer,
   },
 });
 
