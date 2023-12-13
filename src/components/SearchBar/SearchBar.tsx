@@ -1,6 +1,7 @@
-import type { FC, ChangeEvent, FormEvent } from 'react';
+import type { FC, ChangeEvent, FormEvent, PointerEvent } from 'react';
 import { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
+import { IoIosCloseCircle } from 'react-icons/io';
 import games from '@src/engine/games';
 import styles from './SearchBar.module.scss';
 
@@ -15,6 +16,11 @@ const SearchBar: FC = () => {
     e.preventDefault();
   };
 
+  const handleClear = (e: PointerEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setSearchQuery('');
+  };
+
   const filteredGames = games
     .filter(
       ({ name }) => searchQuery.length > 1 && name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -24,22 +30,37 @@ const SearchBar: FC = () => {
   return (
     <div className={styles.body}>
       <form id='searchForm' className={styles.form} onSubmit={handleSubmit}>
-        <label id='searchLabel' htmlFor='gameName' className={styles.label}>
-          <div className={styles.icon}>
-            <FaSearch />
-          </div>
-          <input
-            className={styles.input}
-            type='text'
-            name='gameName'
-            id='gameName'
-            placeholder='Search'
-            aria-labelledby='searchLabel'
-            onChange={handleChange}
-            value={searchQuery}
-            autoComplete='off'
-          />
-        </label>
+        <div className={styles.formControl}>
+          <label id='searchLabel' htmlFor='gameName' className={styles.label}>
+            <div className={styles.icon}>
+              <FaSearch />
+            </div>
+            <input
+              className={styles.input}
+              type='text'
+              name='gameName'
+              id='gameName'
+              placeholder='Search'
+              aria-labelledby='searchLabel'
+              onChange={handleChange}
+              value={searchQuery}
+              autoComplete='off'
+            />
+          </label>
+          {searchQuery.length > 0 && (
+            <div
+              className={styles.clearButton}
+              role='button'
+              aria-label='clear input'
+              onPointerDown={handleClear}
+            >
+              <IoIosCloseCircle />
+            </div>
+          )}
+        </div>
+        <button className={styles.closeButton} type='button' onClick={(e) => e.stopPropagation()}>
+          Cancel
+        </button>
       </form>
       {filteredGames.length > 0 && (
         <div className={styles.listBody}>
