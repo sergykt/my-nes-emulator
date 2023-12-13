@@ -1,5 +1,5 @@
 import type { FC, ChangeEvent, FormEvent, PointerEvent } from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { IoIosCloseCircle } from 'react-icons/io';
 import games from '@src/engine/games';
@@ -7,6 +7,7 @@ import styles from './SearchBar.module.scss';
 
 const SearchBar: FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
@@ -45,6 +46,7 @@ const SearchBar: FC = () => {
               onChange={handleChange}
               value={searchQuery}
               autoComplete='off'
+              ref={inputRef}
             />
           </label>
           {searchQuery.length > 0 && (
@@ -58,9 +60,7 @@ const SearchBar: FC = () => {
             </div>
           )}
         </div>
-        <button className={styles.closeButton} type='button' onClick={(e) => e.stopPropagation()}>
-          Cancel
-        </button>
+        <div className={styles.closeButton}>Cancel</div>
       </form>
       {filteredGames.length > 0 && (
         <div className={styles.listBody}>

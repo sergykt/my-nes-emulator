@@ -5,7 +5,7 @@
   box-sizing: border-box;
   transition: max-width 0.2s ease-in-out;
 
-  &:has(.label:focus-within) {
+  &:focus-within {
     max-width: 500px;
 
     .listBody {
@@ -18,7 +18,7 @@
   }
 
   @media (max-width: 576px) {
-    &:has(.label:focus-within) {
+    &:focus-within {
       position: fixed;
       top: 0;
       left: 0;
@@ -36,13 +36,14 @@
 }
 
 @media (max-width: 576px) {
-  body:has(.label:focus-within) {
+  body:focus-within {
     overflow: hidden;
   }
 }
 
 .form {
   display: flex;
+  align-items: center;
 }
 
 .formControl {
@@ -158,7 +159,6 @@
 
   @media (max-width: 576px) {
     margin: 10px;
-    padding: 0;
     border: none;
     font-size: 12px;
     color: white;
