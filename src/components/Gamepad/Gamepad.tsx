@@ -1,6 +1,6 @@
 import type { FC, TouchEvent } from 'react';
 import { useState, useEffect, useRef } from 'react';
-import { Buttons } from '@src/types';
+import { Buttons } from '@/types';
 import styles from './Gamepad.module.scss';
 
 const Gamepad: FC = () => {

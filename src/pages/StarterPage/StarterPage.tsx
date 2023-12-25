@@ -1,6 +1,6 @@
 import type { FC } from 'react';
-import PageLayout from '@src/components/PageLayout';
-import GameLibrary from '@src/components/GameLibrary';
+import PageLayout from '@components/PageLayout';
+import GameLibrary from '@components/GameLibrary';
 import Container from '@components/Container';
 import styles from './StarterPage.module.scss';
 

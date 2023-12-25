@@ -1,10 +1,10 @@
 import { forwardRef } from 'react';
 import { isMobile } from 'react-device-detect';
 import classNames from 'classnames';
-import { useAppDispatch, useAppSelector } from '@src/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import { startGame } from '@store/emulatorSlice';
-import type { IFullScreenElement } from '@src/types';
-import { nesLoadData } from '@src/engine';
+import type { IFullScreenElement } from '@/types';
+import { nesLoadData } from '@/engine';
 import Gamepad from '@components/Gamepad';
 import Button from '@components/Button';
 import { BsPlayCircle, BsPauseCircle } from 'react-icons/bs';

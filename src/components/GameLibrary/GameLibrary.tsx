@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import FancyLink from '@components/FancyLink';
-import games from '@src/engine/games';
+import games from '@/engine/games';
 import styles from './GameLibrary.module.scss';
 
 const GamesLibrary: FC = () => (

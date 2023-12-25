@@ -2,7 +2,7 @@ import type { FC, ChangeEvent, FormEvent, PointerEvent } from 'react';
 import { useState, useRef } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { IoIosCloseCircle } from 'react-icons/io';
-import games from '@src/engine/games';
+import games from '@/engine/games';
 import styles from './SearchBar.module.scss';
 
 const SearchBar: FC = () => {

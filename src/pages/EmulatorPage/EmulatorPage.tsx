@@ -9,12 +9,12 @@ import {
   fetchRom,
   setGameRom,
 } from '@store/emulatorSlice';
-import { useAppDispatch, useAppSelector } from '@src/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import RomService from '@services/RomService';
-import type { IFullScreenElement, IRom } from '@src/types';
-import { nesToggleStart } from '@src/engine';
-import games from '@src/engine/games';
-import PageLayout from '@src/components/PageLayout';
+import type { IFullScreenElement, IRom } from '@/types';
+import { nesToggleStart } from '@/engine';
+import games from '@/engine/games';
+import PageLayout from '@components/PageLayout';
 import Screen from '@components/Screen';
 import GamesSwiper from '@components/GamesSwiper';
 import LocalRomsList from '@components/LocalRomsList';

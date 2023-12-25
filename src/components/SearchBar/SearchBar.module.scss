@@ -49,7 +49,7 @@
 .formControl {
   display: flex;
   align-items: center;
-  background-color: rgb(37, 37, 37);
+  background-color: #16181e;
   border: 1px solid rgb(80, 80, 80);
   border-radius: 22px;
   width: 100%;
@@ -101,6 +101,10 @@
   line-height: 1;
   transition: all 0.2s;
 
+  &::placeholder {
+    color: white;
+  }
+
   @media (max-width: 576px) {
     font-size: 12px;
   }
@@ -110,7 +114,7 @@
   position: absolute;
   display: none;
   z-index: 200;
-  background-color: rgb(37, 37, 37);
+  background-color: #16181e;
   top: 49px;
   left: 0;
   width: 100%;

@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import type { IRom } from '@src/types';
+import type { IRom } from '@/types';
 import FancyLink from '@components/FancyLink';
 import { IoIosRemoveCircleOutline } from 'react-icons/io';
 import styles from './LocalRomsList.module.scss';

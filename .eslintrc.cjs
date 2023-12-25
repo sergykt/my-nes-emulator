@@ -18,7 +18,15 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json',
   },
-  plugins: ['react', 'react-hooks', 'react-refresh', '@typescript-eslint', 'jsx-a11y'],
+  plugins: ['react', 'react-hooks', 'react-refresh', '@typescript-eslint', 'jsx-a11y', 'import'],
+  settings: {
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+        project: 'tsconfig.json',
+      },
+    },
+  },
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'react/react-in-jsx-scope': 'off',

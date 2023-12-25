@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import PageLayout from '@src/components/PageLayout';
+import PageLayout from '@components/PageLayout';
 import Container from '@components/Container';
 import styles from './PageNotFound.module.scss';
 

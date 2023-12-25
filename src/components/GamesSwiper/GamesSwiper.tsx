@@ -4,7 +4,7 @@ import { Pagination, A11y, FreeMode, Keyboard, Navigation } from 'swiper/modules
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import games from '@src/engine/games';
+import games from '@/engine/games';
 import styles from './GamesSwiper.module.scss';
 
 const GamesSwiper: FC = () => (

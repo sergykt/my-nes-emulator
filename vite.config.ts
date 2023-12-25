@@ -1,6 +1,6 @@
 import { defineConfig, splitVendorChunkPlugin } from 'vite';
 import react from '@vitejs/plugin-react';
-import legacy from '@vitejs/plugin-legacy';
+// import legacy from '@vitejs/plugin-legacy';
 import path from 'path';
 import UnpluginInjectPreload from 'unplugin-inject-preload/vite';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
@@ -40,9 +40,9 @@ export default defineConfig({
         lossless: true,
       },
     }),
-    legacy({
-      targets: ['defaults', 'not IE 11'],
-    }),
+    // legacy({
+    //   targets: ['defaults', 'not IE 11'],
+    // }),
   ],
   css: {
     postcss: {
@@ -55,7 +55,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@src': path.resolve(__dirname, '/src'),
+      '@': path.resolve(__dirname, '/src'),
       '@components': path.resolve(__dirname, '/src/components'),
       '@pages': path.resolve(__dirname, '/src/pages'),
       '@store': path.resolve(__dirname, '/src/store'),
