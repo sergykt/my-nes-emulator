@@ -1,0 +1,35 @@
+.spinner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #16181e;
+  width: 100%;
+  width: 100dvw;
+  height: 100%;
+  height: 100dvh;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.spinnerItem {
+  border: 4px solid rgba(255, 255, 255, 0.8);
+  border-left: 4px solid #16181e;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

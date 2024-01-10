@@ -20,8 +20,10 @@ body {
   font-family: 'NesFont', Arial, sans-serif;
   background-color: #16181e;
   color: white;
+}
 
-  @media (max-width: 480px) {
+@media (max-width: 480px) {
+  body {
     font-size: 14px;
   }
 }
