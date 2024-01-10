@@ -1,14 +1,17 @@
-import type { FC } from 'react';
+import { type FC, lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import EmulatorPage from '@pages/EmulatorPage';
-import StarterPage from '@pages/StarterPage';
-import PageNotFound from '@pages/PageNotFound';
+
+const PageNotFound = lazy(() => import('@pages/PageNotFound'));
+const StarterPage = lazy(() => import('@pages/StarterPage'));
+const EmulatorPage = lazy(() => import('@pages/EmulatorPage'));
 
 const App: FC = () => (
   <Routes>
-    <Route path='/*' element={<PageNotFound />} />
-    <Route path='/' element={<StarterPage />} />
-    <Route path='/emulator/*' element={<EmulatorPage />} />
+    <Suspense fallback={<div>Loading...</div>}>
+      <Route path='/*' element={<PageNotFound />} />
+      <Route path='/' element={<StarterPage />} />
+      <Route path='/emulator/*' element={<EmulatorPage />} />
+    </Suspense>
   </Routes>
 );
 
