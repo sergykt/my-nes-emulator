@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '@/hooks';
@@ -27,6 +27,22 @@ const Screen = forwardRef<IFullScreenElement, IScreenProps>(
       nesLoadData('game', gameRom);
       dispatch(startGame());
     };
+
+    useEffect(() => {
+      const handleKeyPress = (e: KeyboardEvent) => {
+        if (e.code === 'KeyP') {
+          pauseHandler();
+        }
+      };
+
+      if (isStarted) {
+        document.addEventListener('keydown', handleKeyPress);
+      }
+
+      return () => {
+        document.removeEventListener('keydown', handleKeyPress);
+      };
+    }, [isStarted]);
 
     const screenClassName = classNames(styles.screen, { [styles.fullscreen]: isFullScreen });
 

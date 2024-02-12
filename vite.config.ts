@@ -51,7 +51,7 @@ export default defineConfig({
     modules: {
       localsConvention: 'camelCase',
       generateScopedName: '[name]-[local]-[hash:base64:4]',
-    }
+    },
   },
   resolve: {
     alias: {
@@ -65,6 +65,7 @@ export default defineConfig({
   },
   build: {
     target: browserslistToEsbuild(),
+    minify: 'terser',
     rollupOptions: {
       output: {
         manualChunks(id: string) {

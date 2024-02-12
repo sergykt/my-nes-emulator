@@ -7,9 +7,9 @@ const EmulatorPage = lazy(() => import('@pages/EmulatorPage'));
 
 const App: FC = () => (
   <Routes>
-    <Route path='/*' element={<PageNotFound />} />
     <Route path='/' element={<StarterPage />} />
     <Route path='/emulator/*' element={<EmulatorPage />} />
+    <Route path='/*' element={<PageNotFound />} />
   </Routes>
 );
 

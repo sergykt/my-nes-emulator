@@ -131,7 +131,7 @@ const Emulator: FC = () => {
           <div className={styles.description}>
             <p>
               D-Pad: Arrows, Start: Enter, Select: Right Shift, Button A: S, Button B: A, Turbo A:
-              X, Turbo B: Z.
+              X, Turbo B: Z. Pause Game: P.
             </p>
             <p>Also you can drag and drop a ROM file onto the page to play it.</p>
           </div>
