@@ -1,11 +1,11 @@
 import type { FC, ChangeEvent, FormEvent, PointerEvent } from 'react';
-import { useState, useRef } from 'react';
+import { useState, useRef, memo } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { IoIosCloseCircle } from 'react-icons/io';
 import games from '@/engine/games';
 import styles from './SearchBar.module.scss';
 
-const SearchBar: FC = () => {
+const SearchBar: FC = memo(() => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -77,6 +77,6 @@ const SearchBar: FC = () => {
       )}
     </div>
   );
-};
+});
 
 export default SearchBar;

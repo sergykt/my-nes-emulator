@@ -1,10 +1,10 @@
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { TfiArrowCircleUp } from 'react-icons/tfi';
 import classNames from 'classnames';
 import styles from './ScrollButton.module.scss';
 
-const ScrollButton: FC = () => {
+const ScrollButton: FC = memo(() => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
@@ -45,6 +45,6 @@ const ScrollButton: FC = () => {
       <TfiArrowCircleUp />
     </button>
   );
-};
+});
 
 export default ScrollButton;
