@@ -30,17 +30,17 @@ const Screen = forwardRef<IFullScreenElement, IScreenProps>(
 
     useEffect(() => {
       const handleKeyPress = (e: KeyboardEvent) => {
-        if (e.code === 'KeyP') {
+        if (e.code === 'KeyP' && e.target === e.currentTarget) {
           pauseHandler();
         }
       };
 
       if (isStarted) {
-        document.addEventListener('keydown', handleKeyPress);
+        document.body.addEventListener('keydown', handleKeyPress);
       }
 
       return () => {
-        document.removeEventListener('keydown', handleKeyPress);
+        document.body.removeEventListener('keydown', handleKeyPress);
       };
     }, [isStarted]);
 
