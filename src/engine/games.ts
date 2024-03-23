@@ -36,7 +36,7 @@ const games: IGame[] = [
     name: 'super mario bros',
     shortName: 'super_mario',
     img: 'super_mario_cover',
-    description: `"Super Mario Bros." for the Nintendo Entertainment System (NES) is an iconic video game released in 1985. Developed by Nintendo, it is one of the most influential and bestselling games in the history of video gaming. The game follows the adventures of the Italian plumber Mario as he embarks on a quest to rescue Princess Toadstool from the evil King Koopa, also known as Bowser.`,
+    description: `"Super Mario Bros." is a popular video game for the Nintendo Entertainment System (NES), released in 1985. The game was developed and published by Nintendo. "Super Mario Bros." is one of the most famous and influential video games in the history of the industry. In the game, players control a character named Mario, who embarks on an adventure through the Mushroom Kingdom to rescue Princess Toadstool (later known as Princess Peach) from the clutches of the evil Bowser. The game consists of traversing various levels, avoiding obstacles, defeating enemies, and ultimately confronting Bowser to rescue the princess. It is known for its iconic gameplay, memorable characters, and innovative design, which helped establish many conventions of the platforming genre.`,
   },
   {
     id: 6,

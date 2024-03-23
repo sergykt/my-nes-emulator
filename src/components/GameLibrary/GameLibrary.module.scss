@@ -66,3 +66,25 @@
   color: #d0d3d4;
   line-height: 1.5;
 }
+
+.truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.button {
+  margin-top: 10px;
+  padding: 0;
+  border: none;
+  outline: none;
+  font-size: 10px;
+  color: #d0d3d4;
+  line-height: 1.5;
+  transition: color 0.2s ease-in-out;
+}
+
+.button:hover {
+  color: #a9a9a9;
+}

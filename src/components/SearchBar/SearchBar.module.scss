@@ -36,7 +36,7 @@
 }
 
 @media (max-width: 576px) {
-  body:focus-within {
+  body:has(.body:focus-within) {
     overflow: hidden;
   }
 }
@@ -61,7 +61,6 @@
   display: flex;
   align-items: center;
   height: 44px;
-  box-sizing: border-box;
 }
 
 .clearButton {
@@ -118,7 +117,6 @@
   top: 49px;
   left: 0;
   width: 100%;
-  box-sizing: border-box;
   overflow: hidden;
   border: 1px solid rgb(80, 80, 80);
   border-radius: 20px;
@@ -160,11 +158,9 @@
 
 .closeButton {
   display: none;
-
-  @media (max-width: 576px) {
-    margin: 10px;
-    border: none;
-    font-size: 14px;
-    color: white;
-  }
+  cursor: pointer;
+  margin: 10px;
+  border: none;
+  font-size: 14px;
+  color: white;
 }

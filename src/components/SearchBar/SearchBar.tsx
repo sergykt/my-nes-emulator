@@ -1,5 +1,5 @@
 import type { FC, ChangeEvent, FormEvent, PointerEvent } from 'react';
-import { useState, useRef, memo } from 'react';
+import { useState, memo } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { IoIosCloseCircle } from 'react-icons/io';
 import games from '@/engine/games';
@@ -7,7 +7,6 @@ import styles from './SearchBar.module.scss';
 
 const SearchBar: FC = memo(() => {
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
@@ -22,6 +21,12 @@ const SearchBar: FC = memo(() => {
     setSearchQuery('');
   };
 
+  const handleBodyClick = (e: PointerEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      e.preventDefault();
+    }
+  };
+
   const filteredGames = games
     .filter(
       ({ name }) => searchQuery.length > 1 && name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -29,7 +34,7 @@ const SearchBar: FC = memo(() => {
     .slice(0, 8);
 
   return (
-    <div className={styles.body}>
+    <div className={styles.body} onPointerDown={handleBodyClick}>
       <form id='searchForm' className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.formControl}>
           <label id='searchLabel' htmlFor='gameName' className={styles.label}>
@@ -42,11 +47,10 @@ const SearchBar: FC = memo(() => {
               name='gameName'
               id='gameName'
               placeholder='Search'
-              aria-labelledby='searchLabel'
+              aria-label='search'
               onChange={handleChange}
               value={searchQuery}
               autoComplete='off'
-              ref={inputRef}
             />
           </label>
           {searchQuery.length > 0 && (
@@ -60,7 +64,7 @@ const SearchBar: FC = memo(() => {
             </div>
           )}
         </div>
-        <div className={styles.closeButton}>Cancel</div>
+        <div className={styles.closeButton}>Close</div>
       </form>
       {filteredGames.length > 0 && (
         <div className={styles.listBody}>
