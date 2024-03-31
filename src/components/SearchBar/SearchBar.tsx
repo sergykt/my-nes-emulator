@@ -1,4 +1,4 @@
-import type { FC, ChangeEvent, FormEvent, PointerEvent } from 'react';
+import type { FC, ChangeEvent, FormEvent, PointerEvent, KeyboardEvent } from 'react';
 import { useState, memo } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { IoIosCloseCircle } from 'react-icons/io';
@@ -10,6 +10,10 @@ const SearchBar: FC = memo(() => {
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    e.stopPropagation();
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -49,6 +53,7 @@ const SearchBar: FC = memo(() => {
               placeholder='Search'
               aria-label='search'
               onChange={handleChange}
+              onKeyDown={handleKeyDown}
               value={searchQuery}
               autoComplete='off'
             />

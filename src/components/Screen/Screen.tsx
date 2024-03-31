@@ -29,22 +29,24 @@ const Screen = forwardRef<IFullScreenElement, IScreenProps>(
     };
 
     useEffect(() => {
-      const handleKeyPress = (e: KeyboardEvent) => {
-        if (e.code === 'KeyP' && e.target === e.currentTarget) {
+      const pauseOnKeyDown = (e: KeyboardEvent) => {
+        if (e.code === 'KeyP') {
           pauseHandler();
         }
       };
 
       if (isStarted) {
-        document.body.addEventListener('keydown', handleKeyPress);
+        document.body.addEventListener('keydown', pauseOnKeyDown);
       }
 
       return () => {
-        document.body.removeEventListener('keydown', handleKeyPress);
+        document.body.removeEventListener('keydown', pauseOnKeyDown);
       };
     }, [isStarted]);
 
-    const screenClassName = classNames(styles.screen, { [styles.fullscreen]: isFullScreen });
+    const screenClassName = classNames(styles.screen, {
+      [styles.fullscreen]: isFullScreen,
+    });
 
     return (
       <div className={screenClassName} ref={ref}>
