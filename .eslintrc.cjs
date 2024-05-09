@@ -32,6 +32,8 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/display-name': 'off',
     'react-hooks/exhaustive-deps': 'off',
+    'react/prop-types': 'off',
+    'react/require-default-props': 'off',
     'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     '@typescript-eslint/non-nullable-type-assertion-style': 'off',

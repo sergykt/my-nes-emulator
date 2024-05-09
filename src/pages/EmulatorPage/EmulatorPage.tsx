@@ -1,6 +1,6 @@
 /* eslint no-void: ["error", { "allowAsStatement": true }] */
 import type { FC, DragEvent } from 'react';
-import { useRef, useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import {
   setGameName,
@@ -11,7 +11,7 @@ import {
 } from '@store/emulatorSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import RomService from '@services/RomService';
-import type { IFullScreenElement, IRom } from '@/types';
+import { type IRom } from '@/types';
 import { nesToggleStart } from '@/engine';
 import games from '@/engine/games';
 import PageLayout from '@components/PageLayout';
@@ -25,8 +25,7 @@ import styles from './EmulatorPage.module.scss';
 const Emulator: FC = () => {
   const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
-  const { gameName, isStarted, isFullScreen, isPaused } = useAppSelector((state) => state.emulator);
-  const screenWrapperRef = useRef<IFullScreenElement>(null);
+  const { gameName, isStarted, isPaused } = useAppSelector((state) => state.emulator);
   const location = useLocation();
   const initialRoms = RomService.getRoms();
   const [localRoms, setLocalRoms] = useState<IRom[]>(initialRoms);
@@ -51,46 +50,22 @@ const Emulator: FC = () => {
         void dispatch(fetchRom(romPath));
       }
     }
+  }, []);
 
-    const onFullScreenChange = () => {
-      dispatch(setFullScreen(Boolean(document.fullscreenElement)));
-    };
-    document.addEventListener('fullscreenchange', onFullScreenChange);
-
-    return () => {
-      document.removeEventListener('fullscreenchange', onFullScreenChange);
-    };
-  }, [location]);
-
-  const pauseHandler = () => {
+  const pauseHandler = useCallback(() => {
     nesToggleStart();
     dispatch(togglePause());
-  };
+  }, []);
 
-  const fullScreenHandler = () => {
-    const screenWrapper = screenWrapperRef.current;
-    if (document.fullscreenElement) {
-      void document.exitFullscreen();
-    } else if (screenWrapper) {
-      if (screenWrapper.requestFullscreen) {
-        void screenWrapper.requestFullscreen();
-      } else if (screenWrapper.mozRequestFullScreen) {
-        void screenWrapper.mozRequestFullScreen();
-      } else if (screenWrapper.webkitRequestFullscreen) {
-        void screenWrapper.webkitRequestFullscreen();
-      } else if (screenWrapper.msRequestFullscreen) {
-        void screenWrapper.msRequestFullscreen();
-      } else {
-        dispatch(setFullScreen(!isFullScreen));
-      }
-    }
-  };
+  const fullScreenHandler = useCallback(() => {
+    dispatch(setFullScreen(true));
+  }, []);
 
-  const dragHandler = (e: DragEvent<HTMLDivElement>) => {
+  const dragHandler = useCallback((e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-  };
+  }, []);
 
-  const dropHandler = async (e: DragEvent<HTMLDivElement>) => {
+  const dropHandler = useCallback(async (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     try {
       const file = e.dataTransfer?.files[0];
@@ -99,14 +74,14 @@ const Emulator: FC = () => {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, []);
 
-  const removeRomHandler = (id: number): void => {
+  const removeRomHandler = useCallback((id: number): void => {
     const result = RomService.removeRom(id);
     if (result) {
       setLocalRoms(RomService.getRoms());
     }
-  };
+  }, []);
 
   return (
     <PageLayout>
@@ -119,11 +94,7 @@ const Emulator: FC = () => {
       >
         <Container className={styles.container}>
           {gameName && <h1 className={styles.gameName}>{gameName}</h1>}
-          <Screen
-            ref={screenWrapperRef}
-            fullScreenHandler={fullScreenHandler}
-            pauseHandler={pauseHandler}
-          />
+          <Screen pauseHandler={pauseHandler} />
           <div className={styles.buttonGroup}>
             <Button onClick={fullScreenHandler}>Full Screen</Button>
             {isStarted && <Button onClick={pauseHandler}>{isPaused ? 'Resume' : 'Pause'}</Button>}
@@ -131,7 +102,7 @@ const Emulator: FC = () => {
           <div className={styles.description}>
             <p>
               D-Pad: Arrows, Start: Enter, Select: Right Shift, Button A: S, Button B: A, Turbo A:
-              X, Turbo B: Z. Pause Game: P.
+              X, Turbo B: Z. Pause Game: P, Mute: M.
             </p>
             <p>Also you can drag and drop a ROM file onto the page to play it.</p>
           </div>

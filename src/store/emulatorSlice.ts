@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toggleSound } from '@/engine';
 
 interface IEmulatorState {
   gameName: string;
@@ -8,6 +9,7 @@ interface IEmulatorState {
   isStarted: boolean;
   isFullScreen: boolean;
   isPaused: boolean;
+  isMuted: boolean;
 }
 
 const initialState: IEmulatorState = {
@@ -16,6 +18,7 @@ const initialState: IEmulatorState = {
   isStarted: false,
   isFullScreen: false,
   isPaused: false,
+  isMuted: false,
 };
 
 export const fetchRom = createAsyncThunk(
@@ -54,6 +57,11 @@ const emulatorSlice = createSlice({
     togglePause(state) {
       state.isPaused = !state.isPaused;
     },
+    toggleVolume(state) {
+      state.isMuted = !state.isMuted;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      toggleSound();
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -67,7 +75,7 @@ const emulatorSlice = createSlice({
   },
 });
 
-export const { setGameName, setGameRom, startGame, setFullScreen, togglePause } =
+export const { setGameName, setGameRom, startGame, setFullScreen, togglePause, toggleVolume } =
   emulatorSlice.actions;
 
 export default emulatorSlice.reducer;

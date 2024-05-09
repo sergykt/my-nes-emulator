@@ -9,7 +9,9 @@ interface ILocalRomsListProps {
   removeRomHandler: (id: number) => void;
 }
 
-const LocalRomsList: FC<ILocalRomsListProps> = ({ list, removeRomHandler }) => {
+const LocalRomsList: FC<ILocalRomsListProps> = (props) => {
+  const { list, removeRomHandler } = props;
+
   return (
     <div className={styles.body}>
       <h2 className={styles.title}>Local roms</h2>

@@ -1,9 +1,9 @@
-import type { FC, TouchEvent } from 'react';
+import { type FC, type TouchEvent, memo } from 'react';
 import { useState, useEffect, useRef } from 'react';
 import { Buttons } from '@/types';
 import styles from './Gamepad.module.scss';
 
-const Gamepad: FC = () => {
+const Gamepad: FC = memo(() => {
   const [isActive, setActive] = useState(false);
   const [prevButtons, setPrevButtons] = useState<Buttons[]>([]);
   const [activeButtons, setActiveButtons] = useState<Buttons[]>([]);
@@ -160,6 +160,6 @@ const Gamepad: FC = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Gamepad;

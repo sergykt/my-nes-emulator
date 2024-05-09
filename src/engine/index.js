@@ -19,7 +19,9 @@ let audio_read_cursor = 0;
 let buffer;
 let audio_ctx;
 let script_processor;
+let gainNode;
 let isPaused = true;
+let volume = 1;
 
 const nes = new jsnes.NES({
   onFrame(framebuffer_24) {
@@ -46,6 +48,10 @@ function audio_remain() {
   return (audio_write_cursor - audio_read_cursor) & SAMPLE_MASK;
 }
 
+export function toggleSound() {
+  volume = volume ? 0 : 1;
+}
+
 function audio_callback(event) {
   const dst = event.outputBuffer;
   const len = dst.length;
@@ -57,8 +63,8 @@ function audio_callback(event) {
   const dst_r = dst.getChannelData(1);
   for (let i = 0; i < len; i++) {
     const src_idx = (audio_read_cursor + i) & SAMPLE_MASK;
-    dst_l[i] = audio_samples_L[src_idx];
-    dst_r[i] = audio_samples_R[src_idx];
+    dst_l[i] = audio_samples_L[src_idx] * volume;
+    dst_r[i] = audio_samples_R[src_idx] * volume;
   }
 
   audio_read_cursor = (audio_read_cursor + len) & SAMPLE_MASK;

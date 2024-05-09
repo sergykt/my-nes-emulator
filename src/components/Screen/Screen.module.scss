@@ -68,3 +68,7 @@
     }
   }
 }
+
+body:has(.fullscreen) {
+  overflow: hidden;
+}

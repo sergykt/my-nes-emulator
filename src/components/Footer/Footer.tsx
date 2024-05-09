@@ -1,9 +1,9 @@
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import FancyLink from '@components/FancyLink';
 import Container from '@components/Container';
 import styles from './Footer.module.scss';
 
-const Footer: FC = () => (
+const Footer: FC = memo(() => (
   <footer className={styles.footer}>
     <Container>
       <p className={styles.engine}>
@@ -12,6 +12,6 @@ const Footer: FC = () => (
       <p className={styles.copyright}>© 2023 Created by Sergei Sivtsev</p>
     </Container>
   </footer>
-);
+));
 
 export default Footer;
