@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { type FC, memo } from 'react';
 import type { IRom } from '@/types';
 import FancyLink from '@components/FancyLink';
 import { IoIosRemoveCircleOutline } from 'react-icons/io';
@@ -9,7 +9,7 @@ interface ILocalRomsListProps {
   removeRomHandler: (id: number) => void;
 }
 
-const LocalRomsList: FC<ILocalRomsListProps> = (props) => {
+const LocalRomsList: FC<ILocalRomsListProps> = memo((props) => {
   const { list, removeRomHandler } = props;
 
   return (
@@ -32,6 +32,6 @@ const LocalRomsList: FC<ILocalRomsListProps> = (props) => {
       </ul>
     </div>
   );
-};
+});
 
 export default LocalRomsList;
