@@ -59,7 +59,6 @@ const emulatorSlice = createSlice({
     },
     toggleVolume(state) {
       state.isMuted = !state.isMuted;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       toggleSound();
     },
   },
