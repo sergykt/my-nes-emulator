@@ -29,3 +29,8 @@ export enum Buttons {
   Start = 13,
   Select = 16,
 }
+
+export enum AlertType {
+  MUTE = 'mute',
+  UNMUTE = 'unmute',
+}

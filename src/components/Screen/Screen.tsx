@@ -1,12 +1,14 @@
 /* eslint-disable no-void */
-import { useEffect, type FC, useRef, useCallback, memo } from 'react';
+import { useEffect, type FC, useRef, useCallback, useState, memo } from 'react';
 import { isMobile } from 'react-device-detect';
 import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { startGame, toggleVolume, setFullScreen } from '@store/emulatorSlice';
 import { nesLoadData } from '@/engine';
+import Alert from '@/components/Alert';
 import Gamepad from '@components/Gamepad';
 import Button from '@components/Button';
+import { AlertType } from '@/types';
 import {
   BsPlayCircle,
   BsPauseCircle,
@@ -27,14 +29,17 @@ const Screen: FC<IScreenProps> = memo(({ pauseHandler }) => {
     (state) => state.emulator
   );
 
+  const [alertType, setAlertType] = useState<AlertType | null>(null);
+
   const startHandler = useCallback(() => {
     nesLoadData('game', gameRom);
     dispatch(startGame());
   }, [gameRom]);
 
   const volumeHandler = useCallback(() => {
+    setAlertType(isMuted ? AlertType.UNMUTE : AlertType.MUTE);
     dispatch(toggleVolume());
-  }, []);
+  }, [isMuted]);
 
   const exitFullScreenHandler = useCallback(() => {
     dispatch(setFullScreen(false));
@@ -83,7 +88,7 @@ const Screen: FC<IScreenProps> = memo(({ pauseHandler }) => {
       document.body.removeEventListener('keydown', pauseOnKeyDown);
       document.body.removeEventListener('keydown', muteOnKeyDown);
     };
-  }, [isStarted]);
+  }, [isStarted, volumeHandler]);
 
   const screenClassName = classNames(styles.screen, {
     [styles.fullscreen]: isFullScreen,
@@ -92,6 +97,7 @@ const Screen: FC<IScreenProps> = memo(({ pauseHandler }) => {
   return (
     <div className={screenClassName} ref={screenWrapperRef}>
       <canvas className={styles.canvas} id='game' width={256} height={240} />
+      {!!alertType && <Alert type={alertType} />}
       {!isStarted && gameRom && (
         <Button className={styles.startButton} onClick={startHandler}>
           Start Game
