@@ -9,12 +9,8 @@ import Alert from '@/components/Alert';
 import Gamepad from '@components/Gamepad';
 import Button from '@components/Button';
 import { AlertType } from '@/types';
-import {
-  BsPlayCircle,
-  BsPauseCircle,
-  BsFillVolumeDownFill,
-  BsFillVolumeMuteFill,
-} from 'react-icons/bs';
+import { BsPlayCircle, BsPauseCircle } from 'react-icons/bs';
+import { RiVolumeMuteFill, RiVolumeUpFill } from 'react-icons/ri';
 import { SlClose } from 'react-icons/sl';
 import styles from './Screen.module.scss';
 
@@ -112,7 +108,7 @@ const Screen: FC<IScreenProps> = memo(({ pauseHandler }) => {
             type='button'
             aria-label='sound button'
           >
-            {isMuted ? <BsFillVolumeMuteFill /> : <BsFillVolumeDownFill />}
+            {isMuted ? <RiVolumeMuteFill /> : <RiVolumeUpFill />}
           </button>
 
           {isStarted && (
