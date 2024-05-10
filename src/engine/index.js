@@ -53,6 +53,8 @@ export function toggleSound() {
 }
 
 function audio_callback(event) {
+  if (document.hidden) return;
+
   const dst = event.outputBuffer;
   const len = dst.length;
 
