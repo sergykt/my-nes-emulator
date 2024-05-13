@@ -11,7 +11,7 @@
 
 .dpad {
   pointer-events: auto;
-  margin-left: 5px;
+  margin-left: 15px;
   margin-bottom: 45px;
   background-image: url('@resources/img/controls/dpad.png');
   background-image: image-set(
@@ -28,7 +28,7 @@
 
 .right {
   margin-bottom: 50px;
-  margin-right: 20px;
+  margin-right: 25px;
   display: flex;
   flex-direction: column;
   gap: 20px;
