@@ -1,0 +1,16 @@
+.dpad {
+  pointer-events: auto;
+  margin-left: 15px;
+  margin-bottom: 45px;
+  background-image: url('@resources/img/controls/dpad.png');
+  background-image: image-set(
+    url('@resources/img/controls/dpad.webp') type('image/webp'),
+    url('@resources/img/controls/dpad.png') type('image/png')
+  );
+  background-repeat: no-repeat;
+  background-size: 120px 120px;
+  background-position: center;
+  width: 150px;
+  height: 150px;
+  opacity: 0.8;
+}
