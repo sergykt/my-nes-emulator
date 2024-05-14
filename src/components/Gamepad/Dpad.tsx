@@ -4,7 +4,7 @@ import { getButtons, onKeyDown, onKeyUp } from './utils';
 import styles from './Dpad.module.scss';
 
 const Dpad = memo(() => {
-  const [activeButtons, setActiveButtons] = useState<Buttons[]>([]);
+  const [activeButtons, setActiveButtons] = useState(new Set<Buttons>());
 
   const joystickStart = useCallback((e: TouchEvent<HTMLDivElement>) => {
     const buttons = getButtons(e);
@@ -18,13 +18,13 @@ const Dpad = memo(() => {
     (e: TouchEvent<HTMLDivElement>) => {
       const buttons = getButtons(e);
 
-      const newButtons = buttons.filter((button) => !activeButtons.includes(button));
-      const cancelButtons = activeButtons.filter((button) => !buttons.includes(button));
+      const addedButtons = Array.from(buttons).filter((button) => !activeButtons.has(button));
+      const removedButtons = Array.from(activeButtons).filter((button) => !buttons.has(button));
 
-      newButtons.forEach((button) => onKeyDown(button));
-      cancelButtons.forEach((button) => onKeyUp(button));
+      addedButtons.forEach((button) => onKeyDown(button));
+      removedButtons.forEach((button) => onKeyUp(button));
 
-      if (!!newButtons.length || !!cancelButtons.length) {
+      if (addedButtons.length > 0 || removedButtons.length > 0) {
         setActiveButtons(buttons);
       }
     },
@@ -37,7 +37,7 @@ const Dpad = memo(() => {
         onKeyUp(button);
       });
 
-      return [];
+      return new Set<Buttons>();
     });
   }, []);
 

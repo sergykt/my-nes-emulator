@@ -1,7 +1,7 @@
 import { type TouchEvent } from 'react';
 import { Buttons } from '@/types';
 
-export const getButtons = (e: TouchEvent<HTMLDivElement>): Buttons[] => {
+export const getButtons = (e: TouchEvent<HTMLDivElement>): Set<Buttons> => {
   const touch = e.targetTouches[0];
   const dPadRect = e.currentTarget.getBoundingClientRect();
   const dPadX = dPadRect?.left ?? 0;
@@ -9,19 +9,19 @@ export const getButtons = (e: TouchEvent<HTMLDivElement>): Buttons[] => {
   const posX = touch.clientX - dPadX;
   const posY = touch.clientY - dPadY;
 
-  const buttons: Buttons[] = [];
+  const buttons = new Set<Buttons>();
 
   if (posY < 57) {
-    buttons.push(Buttons.Up);
+    buttons.add(Buttons.Up);
   }
   if (posX > 93) {
-    buttons.push(Buttons.Right);
+    buttons.add(Buttons.Right);
   }
   if (posY > 93) {
-    buttons.push(Buttons.Down);
+    buttons.add(Buttons.Down);
   }
   if (posX < 57) {
-    buttons.push(Buttons.Left);
+    buttons.add(Buttons.Left);
   }
 
   return buttons;
