@@ -1,5 +1,5 @@
 /* eslint no-void: ["error", { "allowAsStatement": true }] */
-import type { FC, DragEvent } from 'react';
+import type { FC, DragEvent, ChangeEvent } from 'react';
 import { useEffect, useState, useCallback } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import {
@@ -19,6 +19,7 @@ import Screen from '@components/Screen';
 import GamesSwiper from '@components/GamesSwiper';
 import LocalRomsList from '@components/LocalRomsList';
 import Button from '@components/Button';
+import InputButton from '@/components/InputFileButton';
 import Container from '@components/Container';
 import styles from './EmulatorPage.module.scss';
 
@@ -70,16 +71,28 @@ const Emulator: FC = () => {
     try {
       const file = e.dataTransfer?.files[0];
       const romObj = await RomService.saveRom(file);
-      setLocalRoms([...localRoms, romObj]);
+      setLocalRoms((prev) => [...prev, romObj]);
     } catch (error) {
       console.error(error);
+    }
+  }, []);
+
+  const uploadRomHandler = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      try {
+        const romObj = await RomService.saveRom(file);
+        setLocalRoms((prev) => [...prev, romObj]);
+      } catch (error) {
+        console.error(error);
+      }
     }
   }, []);
 
   const removeRomHandler = useCallback((id: number): void => {
     const result = RomService.removeRom(id);
     if (result) {
-      setLocalRoms(RomService.getRoms());
+      setLocalRoms((prev) => prev.filter((item) => item.id !== id));
     }
   }, []);
 
@@ -104,8 +117,16 @@ const Emulator: FC = () => {
               D-Pad: Arrows, Start: Enter, Select: Right Shift, Button A: S, Button B: A, Turbo A:
               X, Turbo B: Z. Pause Game: P, Mute: M.
             </p>
-            <p>Also you can drag and drop a ROM file onto the page to play it.</p>
+            <p>Also you can upload a ROM file to play it.</p>
           </div>
+          <InputButton
+            className={styles.inputFile}
+            accept='.nes'
+            name='rom'
+            id='rom'
+            title='Upload ROM'
+            onChange={uploadRomHandler}
+          />
           {localRoms.length > 0 && (
             <LocalRomsList list={localRoms} removeRomHandler={removeRomHandler} />
           )}

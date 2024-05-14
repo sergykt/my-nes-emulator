@@ -1,0 +1,27 @@
+.label {
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  color: white;
+  background-color: blue;
+  border: 1px solid blue;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 0;
+  min-width: 105px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #0000cd;
+    border-color: #0000cd;
+  }
+}
+
+.input {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
