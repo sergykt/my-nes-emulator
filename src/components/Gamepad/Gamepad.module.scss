@@ -1,16 +1,21 @@
 .gamepad {
   position: fixed;
   left: 0;
-  bottom: 0;
+  bottom: 20px;
   z-index: 1050;
   width: 100%;
   display: flex;
   justify-content: space-between;
   pointer-events: none;
+
+  @media screen and (orientation: landscape) {
+    bottom: 50%;
+    transform: translate(0, calc(50% + 30px));
+  }
 }
 
 .right {
-  margin-bottom: 50px;
+  margin-bottom: 25px;
   margin-right: 25px;
   display: flex;
   flex-direction: column;

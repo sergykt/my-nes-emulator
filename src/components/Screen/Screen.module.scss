@@ -5,7 +5,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   margin: 0;
   padding: 0;
 }
@@ -63,6 +63,7 @@
     width: auto;
 
     @media screen and (orientation: portrait) {
+      margin-top: 40px;
       width: 100%;
       height: auto;
     }
