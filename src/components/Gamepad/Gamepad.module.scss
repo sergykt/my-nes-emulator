@@ -10,11 +10,12 @@
 
   @media screen and (orientation: landscape) {
     bottom: 50%;
-    transform: translate(0, calc(50% + 30px));
+    transform: translate(0, calc(50% + 25px));
   }
 }
 
 .right {
+  margin-top: 15px;
   margin-bottom: 25px;
   margin-right: 25px;
   display: flex;
