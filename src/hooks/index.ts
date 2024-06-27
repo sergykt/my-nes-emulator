@@ -38,3 +38,9 @@ export const useThrottle = (callback: (...args: unknown[]) => void, delay: numbe
     [callback, delay]
   );
 };
+
+export const useLatest = <T>(value: T): { readonly current: T } => {
+  const ref = useRef(value);
+  ref.current = value;
+  return ref;
+};

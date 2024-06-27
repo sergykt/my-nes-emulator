@@ -2,7 +2,7 @@
 import { useEffect, type FC, useRef, useCallback, useState, memo } from 'react';
 import { isMobile } from 'react-device-detect';
 import classNames from 'classnames';
-import { useAppDispatch, useAppSelector, useThrottle } from '@/hooks';
+import { useAppDispatch, useAppSelector, useDebounce, useLatest } from '@/hooks';
 import { startGame, toggleVolume, setFullScreen } from '@store/emulatorSlice';
 import { nesLoadData } from '@/engine';
 import Alert from '@/components/Alert';
@@ -27,7 +27,7 @@ const Screen: FC<IScreenProps> = memo(({ pauseHandler }) => {
 
   const [alertType, setAlertType] = useState<AlertType | null>(null);
   const [cursorHidden, setCursorHidden] = useState<boolean>(true);
-  const cursorTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cursorHiddenLatest = useLatest(cursorHidden);
 
   const startHandler = useCallback(() => {
     nesLoadData('game', gameRom);
@@ -88,24 +88,24 @@ const Screen: FC<IScreenProps> = memo(({ pauseHandler }) => {
     };
   }, [isStarted, volumeHandler]);
 
-  const handleHideCursor = useThrottle(() => {
-    setCursorHidden(false);
-    if (cursorTimer.current) {
-      clearTimeout(cursorTimer.current);
-    }
+  const handleHideCursor = useDebounce(() => {
+    setCursorHidden(true);
+  }, 4000);
 
-    cursorTimer.current = setTimeout(() => {
-      setCursorHidden(true);
-    }, 4000);
-  }, 3900);
+  const onMouseMove = useCallback(() => {
+    if (cursorHiddenLatest.current) {
+      setCursorHidden(false);
+    }
+    handleHideCursor();
+  }, [handleHideCursor]);
 
   const screenClassName = classNames(styles.screen, {
     [styles.fullscreen]: isFullScreen,
-    [styles.cursorNone]: isFullScreen && cursorHidden,
+    [styles.cursorNone]: isFullScreen && cursorHidden && isStarted,
   });
 
   return (
-    <div className={screenClassName} ref={screenWrapperRef} onMouseMove={handleHideCursor}>
+    <div className={screenClassName} ref={screenWrapperRef} onMouseMove={onMouseMove}>
       <canvas className={styles.canvas} id='game' width={256} height={240} />
       {!!alertType && <Alert type={alertType} />}
       {!isStarted && gameRom && (
