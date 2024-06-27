@@ -72,3 +72,7 @@
 body:has(.fullscreen) {
   overflow: hidden;
 }
+
+.cursorNone {
+  cursor: none !important;
+}
