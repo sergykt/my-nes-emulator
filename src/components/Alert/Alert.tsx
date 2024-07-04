@@ -4,11 +4,16 @@ import icons from './icons';
 import styles from './Alert.module.scss';
 
 interface IAlertProps {
-  type: AlertType;
+  type: AlertType | null;
 }
 
 const Alert: FC<IAlertProps> = memo((props) => {
   const { type } = props;
+
+  if (!type) {
+    return null;
+  }
+
   const Icon = icons[type];
 
   return <Icon className={styles.icon} />;

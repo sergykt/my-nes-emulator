@@ -8,7 +8,6 @@ import { nesLoadData } from '@/engine';
 import Alert from '@/components/Alert';
 import Gamepad from '@components/Gamepad';
 import Button from '@components/Button';
-import { AlertType } from '@/types';
 import { BsPlayCircle, BsPauseCircle } from 'react-icons/bs';
 import { RiVolumeMuteFill, RiVolumeUpFill } from 'react-icons/ri';
 import { SlClose } from 'react-icons/sl';
@@ -18,33 +17,24 @@ interface IScreenProps {
   pauseHandler: () => void;
 }
 
-const Screen: FC<IScreenProps> = memo(({ pauseHandler: pauseHandlerCallback }) => {
+const Screen: FC<IScreenProps> = memo(({ pauseHandler }) => {
   const screenWrapperRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useAppDispatch();
-  const { gameRom, isStarted, isFullScreen, isPaused, isMuted } = useAppSelector(
+  const { gameRom, isStarted, isFullScreen, isPaused, isMuted, alertType } = useAppSelector(
     (state) => state.emulator
   );
 
-  const [alertType, setAlertType] = useState<AlertType | null>(null);
   const [cursorHidden, setCursorHidden] = useState<boolean>(true);
   const cursorHiddenLatest = useLatest(cursorHidden);
-  const isPausedLatest = useLatest(isPaused);
-  const isMutedLatest = useLatest(isMuted);
 
   const startHandler = useCallback(() => {
     nesLoadData('game', gameRom);
     dispatch(startGame());
   }, [gameRom]);
 
-  const pauseHandler = useCallback(() => {
-    pauseHandlerCallback();
-    setAlertType(isPausedLatest.current ? AlertType.START : AlertType.PAUSE);
-  }, [isPausedLatest]);
-
   const volumeHandler = useCallback(() => {
-    setAlertType(isMutedLatest.current ? AlertType.UNMUTE : AlertType.MUTE);
     dispatch(toggleVolume());
-  }, [isMutedLatest]);
+  }, []);
 
   const exitFullScreenHandler = useCallback(() => {
     dispatch(setFullScreen(false));
@@ -114,7 +104,7 @@ const Screen: FC<IScreenProps> = memo(({ pauseHandler: pauseHandlerCallback }) =
   return (
     <div className={screenClassName} ref={screenWrapperRef} onMouseMove={onMouseMove}>
       <canvas className={styles.canvas} id='game' width={256} height={240} />
-      {!!alertType && <Alert type={alertType} />}
+      <Alert type={alertType} />
       {!isStarted && gameRom && (
         <Button className={styles.startButton} onClick={startHandler}>
           Start Game
