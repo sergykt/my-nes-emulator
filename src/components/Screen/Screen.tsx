@@ -28,6 +28,8 @@ const Screen: FC<IScreenProps> = memo(({ pauseHandler }) => {
   const [alertType, setAlertType] = useState<AlertType | null>(null);
   const [cursorHidden, setCursorHidden] = useState<boolean>(true);
   const cursorHiddenLatest = useLatest(cursorHidden);
+  const isPausedLatest = useLatest(isPaused);
+  const isMutedLatest = useLatest(isMuted);
 
   const startHandler = useCallback(() => {
     nesLoadData('game', gameRom);
@@ -35,9 +37,9 @@ const Screen: FC<IScreenProps> = memo(({ pauseHandler }) => {
   }, [gameRom]);
 
   const volumeHandler = useCallback(() => {
-    setAlertType(isMuted ? AlertType.UNMUTE : AlertType.MUTE);
+    setAlertType(isMutedLatest.current ? AlertType.UNMUTE : AlertType.MUTE);
     dispatch(toggleVolume());
-  }, [isMuted]);
+  }, [isMutedLatest]);
 
   const exitFullScreenHandler = useCallback(() => {
     dispatch(setFullScreen(false));
@@ -68,6 +70,7 @@ const Screen: FC<IScreenProps> = memo(({ pauseHandler }) => {
     const pauseOnKeyDown = (e: KeyboardEvent) => {
       if (e.code === 'KeyP') {
         pauseHandler();
+        setAlertType(isPausedLatest.current ? AlertType.START : AlertType.PAUSE);
       }
     };
 

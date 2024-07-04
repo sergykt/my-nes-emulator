@@ -9,7 +9,6 @@ interface IAlertProps {
 
 const Alert: FC<IAlertProps> = memo((props) => {
   const { type } = props;
-
   const Icon = icons[type];
 
   return <Icon className={styles.icon} />;

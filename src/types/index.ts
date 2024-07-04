@@ -33,4 +33,6 @@ export enum Buttons {
 export enum AlertType {
   MUTE = 'mute',
   UNMUTE = 'unmute',
+  START = 'start',
+  PAUSE = 'pause',
 }
