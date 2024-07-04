@@ -18,7 +18,7 @@ interface IScreenProps {
   pauseHandler: () => void;
 }
 
-const Screen: FC<IScreenProps> = memo(({ pauseHandler }) => {
+const Screen: FC<IScreenProps> = memo(({ pauseHandler: pauseHandlerCallback }) => {
   const screenWrapperRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useAppDispatch();
   const { gameRom, isStarted, isFullScreen, isPaused, isMuted } = useAppSelector(
@@ -35,6 +35,11 @@ const Screen: FC<IScreenProps> = memo(({ pauseHandler }) => {
     nesLoadData('game', gameRom);
     dispatch(startGame());
   }, [gameRom]);
+
+  const pauseHandler = useCallback(() => {
+    pauseHandlerCallback();
+    setAlertType(isPausedLatest.current ? AlertType.START : AlertType.PAUSE);
+  }, [isPausedLatest]);
 
   const volumeHandler = useCallback(() => {
     setAlertType(isMutedLatest.current ? AlertType.UNMUTE : AlertType.MUTE);
@@ -70,7 +75,6 @@ const Screen: FC<IScreenProps> = memo(({ pauseHandler }) => {
     const pauseOnKeyDown = (e: KeyboardEvent) => {
       if (e.code === 'KeyP') {
         pauseHandler();
-        setAlertType(isPausedLatest.current ? AlertType.START : AlertType.PAUSE);
       }
     };
 
@@ -89,7 +93,7 @@ const Screen: FC<IScreenProps> = memo(({ pauseHandler }) => {
       document.body.removeEventListener('keydown', pauseOnKeyDown);
       document.body.removeEventListener('keydown', muteOnKeyDown);
     };
-  }, [isStarted, volumeHandler]);
+  }, [isStarted, volumeHandler, pauseHandler]);
 
   const handleHideCursor = useDebounce(() => {
     setCursorHidden(true);
