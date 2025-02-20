@@ -6,7 +6,7 @@ import { BsPlayCircle, BsPauseCircle } from 'react-icons/bs';
 import { RiVolumeMuteFill, RiVolumeUpFill } from 'react-icons/ri';
 import { useEmulatorStore } from '@/store';
 import { useDebounce, useLatest } from '@/hooks';
-import { nesLoadData } from '@/engine';
+import { nesLoadData, toggleSound } from '@/engine';
 import Alert from '@/components/Alert';
 import Gamepad from '@/components/Gamepad';
 import Button from '@/components/Button';
@@ -39,6 +39,7 @@ const Screen: FC<ScreenProps> = memo(({ pauseHandler }) => {
 
   const volumeHandler = () => {
     toggleVolume();
+    toggleSound();
   };
 
   const exitFullScreenHandler = () => {
@@ -57,9 +58,8 @@ const Screen: FC<ScreenProps> = memo(({ pauseHandler }) => {
   }, []);
 
   useEffect(() => {
-    const screenWrapper = screenWrapperRef.current;
-
     const toggleFullScreen = async () => {
+      const screenWrapper = screenWrapperRef.current;
       if (screenWrapper && isFullScreen && screenWrapper.requestFullscreen) {
         await screenWrapper.requestFullscreen();
       } else if (document.fullscreenElement && document.exitFullscreen) {
@@ -131,7 +131,7 @@ const Screen: FC<ScreenProps> = memo(({ pauseHandler }) => {
               type='button'
               aria-label='pause button'
             >
-              {!isPaused ? <BsPauseCircle /> : <BsPlayCircle />}
+              {isPaused ? <BsPlayCircle /> : <BsPauseCircle />}
             </button>
           )}
           <button
