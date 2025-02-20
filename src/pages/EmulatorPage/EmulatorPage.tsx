@@ -1,98 +1,84 @@
-/* eslint no-void: ["error", { "allowAsStatement": true }] */
 import type { FC, DragEvent, ChangeEvent } from 'react';
-import { useEffect, useState, useCallback } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
-import {
-  setGameName,
-  setFullScreen,
-  togglePause,
-  fetchRom,
-  setGameRom,
-} from '@store/emulatorSlice';
-import { useAppDispatch, useAppSelector } from '@/hooks';
-import RomService from '@services/RomService';
-import { type IRom } from '@/types';
+import { useEffect, useCallback } from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
+import { useEmulatorStore, useRomStore } from '@/store';
 import { nesToggleStart } from '@/engine';
 import games from '@/engine/games';
-import PageLayout from '@components/PageLayout';
-import Screen from '@components/Screen';
-import GamesSwiper from '@components/GamesSwiper';
-import LocalRomsList from '@components/LocalRomsList';
-import Button from '@components/Button';
+import PageLayout from '@/components/PageLayout';
+import Screen from '@/components/Screen';
+import GamesSwiper from '@/components/GamesSwiper';
+import LocalRomsList from '@/components/LocalRomsList';
+import Button from '@/components/Button';
 import InputButton from '@/components/InputFileButton';
-import Container from '@components/Container';
+import Container from '@/components/Container';
 import styles from './EmulatorPage.module.scss';
 
-const Emulator: FC = () => {
-  const dispatch = useAppDispatch();
+const EmulatorPage: FC = () => {
   const [searchParams] = useSearchParams();
-  const { gameName, isStarted, isPaused } = useAppSelector((state) => state.emulator);
-  const location = useLocation();
-  const initialRoms = RomService.getRoms();
-  const [localRoms, setLocalRoms] = useState<IRom[]>(initialRoms);
+  const params = useParams();
+  const {
+    gameName,
+    isStarted,
+    isPaused,
+    setGameName,
+    setGameRom,
+    setFullScreen,
+    fetchRom,
+    togglePause,
+  } = useEmulatorStore();
+
+  const { saveRom, getRomById } = useRomStore();
 
   useEffect(() => {
-    const pathArray = location.pathname.split('/');
-    const idQueryParam = searchParams.get('id');
+    const getRom = async () => {
+      const gameNameLink = params.id;
+      const idQuery = searchParams.get('id');
 
-    if (idQueryParam) {
-      const localRom = RomService.getRomById(Number(idQueryParam));
-      if (localRom) {
-        dispatch(setGameName(localRom.name));
-        dispatch(setGameRom(localRom.romData));
+      if (idQuery && gameNameLink === 'local') {
+        const localRom = getRomById(idQuery);
+        if (localRom) {
+          setGameName(localRom.name);
+          setGameRom(localRom.romData);
+        } else {
+          setGameName('Not found');
+        }
+      } else {
+        const currentGame = games.find((item) => item.shortName === gameNameLink);
+        if (currentGame) {
+          const { name, shortName } = currentGame;
+          const romPath = `/games/${shortName}.nes`;
+          await fetchRom(romPath);
+          setGameName(name);
+        } else {
+          setGameName('Not found');
+        }
       }
-    } else if (pathArray.length > 0) {
-      const gameNameFromLink = pathArray[2];
-      const currentGame = games.find((item) => item.shortName === gameNameFromLink);
-      if (currentGame) {
-        const { name, shortName } = currentGame;
-        const romPath = `/games/${shortName}.nes`;
-        dispatch(setGameName(name));
-        void dispatch(fetchRom(romPath));
-      }
-    }
+    };
+
+    getRom().catch(console.error);
   }, []);
 
   const pauseHandler = useCallback(() => {
     nesToggleStart();
-    dispatch(togglePause());
+    togglePause();
   }, []);
 
   const fullScreenHandler = useCallback(() => {
-    dispatch(setFullScreen(true));
+    setFullScreen(true);
   }, []);
 
-  const dragHandler = useCallback((e: DragEvent<HTMLDivElement>) => {
+  const dropHandler = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-  }, []);
-
-  const dropHandler = useCallback(async (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    try {
-      const file = e.dataTransfer?.files[0];
-      const romObj = await RomService.saveRom(file);
-      setLocalRoms((prev) => [...prev, romObj]);
-    } catch (error) {
-      console.error(error);
+    const file = e.dataTransfer?.files[0];
+    if (file) {
+      saveRom(file).catch(console.error);
     }
-  }, []);
+  };
 
-  const uploadRomHandler = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
+  const uploadRomHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      try {
-        const romObj = await RomService.saveRom(file);
-        setLocalRoms((prev) => [...prev, romObj]);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }, []);
-
-  const removeRomHandler = useCallback((id: number): void => {
-    const result = RomService.removeRom(id);
-    if (result) {
-      setLocalRoms((prev) => prev.filter((item) => item.id !== id));
+      saveRom(file).catch(console.error);
     }
   }, []);
 
@@ -100,13 +86,13 @@ const Emulator: FC = () => {
     <PageLayout>
       <div
         className={styles.emulator}
-        onDragEnter={dragHandler}
-        onDragLeave={dragHandler}
-        onDragOver={dragHandler}
+        onDragEnter={(e) => e.preventDefault()}
+        onDragLeave={(e) => e.preventDefault()}
+        onDragOver={(e) => e.preventDefault()}
         onDrop={dropHandler}
       >
         <Container className={styles.container}>
-          {gameName && <h1 className={styles.gameName}>{gameName}</h1>}
+          <h1 className={styles.gameName}>{gameName}</h1>
           <Screen pauseHandler={pauseHandler} />
           <div className={styles.buttonGroup}>
             <Button onClick={fullScreenHandler}>Full Screen</Button>
@@ -127,9 +113,7 @@ const Emulator: FC = () => {
             title='Upload ROM'
             onChange={uploadRomHandler}
           />
-          {localRoms.length > 0 && (
-            <LocalRomsList list={localRoms} removeRomHandler={removeRomHandler} />
-          )}
+          <LocalRomsList />
           <GamesSwiper />
         </Container>
       </div>
@@ -137,4 +121,4 @@ const Emulator: FC = () => {
   );
 };
 
-export default Emulator;
+export default EmulatorPage;

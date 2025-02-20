@@ -1,48 +1,53 @@
-/* eslint-disable no-void */
 import { useEffect, type FC, useRef, useCallback, useState, memo } from 'react';
 import { isMobile } from 'react-device-detect';
-import classNames from 'classnames';
-import { useAppDispatch, useAppSelector, useDebounce, useLatest } from '@/hooks';
-import { startGame, toggleVolume, setFullScreen } from '@store/emulatorSlice';
-import { nesLoadData } from '@/engine';
-import Alert from '@/components/Alert';
-import Gamepad from '@components/Gamepad';
-import Button from '@components/Button';
+import classNames from 'clsx';
+import { SlClose } from 'react-icons/sl';
 import { BsPlayCircle, BsPauseCircle } from 'react-icons/bs';
 import { RiVolumeMuteFill, RiVolumeUpFill } from 'react-icons/ri';
-import { SlClose } from 'react-icons/sl';
+import { useEmulatorStore } from '@/store';
+import { useDebounce, useLatest } from '@/hooks';
+import { nesLoadData } from '@/engine';
+import Alert from '@/components/Alert';
+import Gamepad from '@/components/Gamepad';
+import Button from '@/components/Button';
 import styles from './Screen.module.scss';
 
-interface IScreenProps {
+interface ScreenProps {
   pauseHandler: () => void;
 }
 
-const Screen: FC<IScreenProps> = memo(({ pauseHandler }) => {
+const Screen: FC<ScreenProps> = memo(({ pauseHandler }) => {
   const screenWrapperRef = useRef<HTMLDivElement | null>(null);
-  const dispatch = useAppDispatch();
-  const { gameRom, isStarted, isFullScreen, isPaused, isMuted, alertType } = useAppSelector(
-    (state) => state.emulator
-  );
+  const {
+    gameRom,
+    isStarted,
+    isMuted,
+    isPaused,
+    isFullScreen,
+    startGame,
+    toggleVolume,
+    setFullScreen,
+  } = useEmulatorStore();
 
   const [cursorHidden, setCursorHidden] = useState<boolean>(true);
   const cursorHiddenLatest = useLatest(cursorHidden);
 
   const startHandler = useCallback(() => {
     nesLoadData('game', gameRom);
-    dispatch(startGame());
+    startGame();
   }, [gameRom]);
 
-  const volumeHandler = useCallback(() => {
-    dispatch(toggleVolume());
-  }, []);
+  const volumeHandler = () => {
+    toggleVolume();
+  };
 
-  const exitFullScreenHandler = useCallback(() => {
-    dispatch(setFullScreen(false));
-  }, []);
+  const exitFullScreenHandler = () => {
+    setFullScreen(false);
+  };
 
   useEffect(() => {
     const onFullScreenChange = () => {
-      dispatch(setFullScreen(Boolean(document.fullscreenElement)));
+      setFullScreen(Boolean(document.fullscreenElement));
     };
     document.addEventListener('fullscreenchange', onFullScreenChange);
 
@@ -54,47 +59,45 @@ const Screen: FC<IScreenProps> = memo(({ pauseHandler }) => {
   useEffect(() => {
     const screenWrapper = screenWrapperRef.current;
 
-    if (screenWrapper && isFullScreen && screenWrapper.requestFullscreen) {
-      void screenWrapper.requestFullscreen();
-    } else if (document.fullscreenElement && document.exitFullscreen) {
-      void document.exitFullscreen();
-    }
-  }, [isFullScreen]);
-
-  useEffect(() => {
-    const pauseOnKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'KeyP') {
-        pauseHandler();
+    const toggleFullScreen = async () => {
+      if (screenWrapper && isFullScreen && screenWrapper.requestFullscreen) {
+        await screenWrapper.requestFullscreen();
+      } else if (document.fullscreenElement && document.exitFullscreen) {
+        await document.exitFullscreen();
       }
     };
 
-    const muteOnKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'KeyM') {
+    toggleFullScreen().catch(console.error);
+  }, [isFullScreen]);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.code === 'KeyP') {
+        pauseHandler();
+      } else if (e.code === 'KeyM') {
         volumeHandler();
       }
     };
 
     if (isStarted) {
-      document.body.addEventListener('keydown', pauseOnKeyDown);
-      document.body.addEventListener('keydown', muteOnKeyDown);
+      document.body.addEventListener('keydown', onKeyDown);
     }
 
     return () => {
-      document.body.removeEventListener('keydown', pauseOnKeyDown);
-      document.body.removeEventListener('keydown', muteOnKeyDown);
+      document.body.removeEventListener('keydown', onKeyDown);
     };
-  }, [isStarted, volumeHandler, pauseHandler]);
+  }, [isStarted, pauseHandler]);
 
   const handleHideCursor = useDebounce(() => {
     setCursorHidden(true);
   }, 4000);
 
-  const onMouseMove = useCallback(() => {
+  const onMouseMove = () => {
     if (cursorHiddenLatest.current) {
       setCursorHidden(false);
     }
     handleHideCursor();
-  }, [handleHideCursor]);
+  };
 
   const screenClassName = classNames(styles.screen, {
     [styles.fullscreen]: isFullScreen,
@@ -104,7 +107,7 @@ const Screen: FC<IScreenProps> = memo(({ pauseHandler }) => {
   return (
     <div className={screenClassName} ref={screenWrapperRef} onMouseMove={onMouseMove}>
       <canvas className={styles.canvas} id='game' width={256} height={240} />
-      <Alert type={alertType} />
+      <Alert />
       {!isStarted && gameRom && (
         <Button className={styles.startButton} onClick={startHandler}>
           Start Game
@@ -121,7 +124,6 @@ const Screen: FC<IScreenProps> = memo(({ pauseHandler }) => {
           >
             {isMuted ? <RiVolumeMuteFill /> : <RiVolumeUpFill />}
           </button>
-
           {isStarted && (
             <button
               className={styles.controlsButton}

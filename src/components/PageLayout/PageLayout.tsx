@@ -1,7 +1,7 @@
 import { type FC, type ComponentProps, memo } from 'react';
-import Header from '@components/Header';
-import Footer from '@components/Footer';
-import ScrollButton from '@components/ScrollButton';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import ScrollButton from '@/components/ScrollButton';
 import styles from './PageLayout.module.scss';
 
 type PageLayoutProps = ComponentProps<'div'>;

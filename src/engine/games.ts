@@ -1,6 +1,6 @@
-import type { IGame } from '@/types';
+import { type Game } from '@/types';
 
-const games: IGame[] = [
+const games: Game[] = [
   {
     id: 1,
     name: 'contra',
@@ -274,7 +274,7 @@ const games: IGame[] = [
   },
 ];
 
-const sortByName = (a: IGame, b: IGame): number => {
+const sortByName = (a: Game, b: Game): number => {
   const nameA = a.name.toLowerCase();
   const nameB = b.name.toLowerCase();
   if (nameA < nameB) {

@@ -1,13 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
-import emulatorReducer from './emulatorSlice';
+import useEmulatorStore from './emulatorStore';
+import useRomStore from './romStore';
 
-const store = configureStore({
-  reducer: {
-    emulator: emulatorReducer,
-  },
-});
-
-export default store;
-
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export { useEmulatorStore, useRomStore };

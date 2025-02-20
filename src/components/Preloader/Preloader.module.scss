@@ -1,30 +1,35 @@
-.spinner {
+.preloader {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 10px;
   background-color: #16181e;
   width: 100%;
   height: 100%;
 }
 
-.title {
-  font-size: 20px;
-  font-weight: 400;
+.loadingText {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  display: flex;
+
+  span {
+    animation: loading 1s infinite;
+    @for $i from 1 through 6 {
+      &:nth-child(#{$i + 1}) {
+        animation-delay: #{$i * 0.15}s;
+      }
+    }
+  }
 }
 
-.spinnerItem {
-  border: 4px solid rgba(255, 255, 255, 0.8);
-  border-left: 4px solid #16181e;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1.5s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+@keyframes loading {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3px);
   }
 }

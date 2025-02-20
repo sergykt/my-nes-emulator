@@ -1,3 +1,5 @@
-import PageNotFound from './PageNotFound';
+import { lazy } from 'react';
 
-export default PageNotFound;
+const PageNotFoundAsync = lazy(() => import('./PageNotFound'));
+
+export default PageNotFoundAsync;

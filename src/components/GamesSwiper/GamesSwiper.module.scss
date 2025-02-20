@@ -10,9 +10,8 @@
   }
 
   :global(.swiper-slide) {
-    display: flex;
-    justify-content: center;
     user-select: none;
+    width: max-content;
   }
 
   :global(.swiper-pagination) {
@@ -48,6 +47,10 @@
   :global(.swiper-button-next) {
     right: 0;
   }
+}
+
+.link {
+  display: inline-block;
 }
 
 .img {

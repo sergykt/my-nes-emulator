@@ -7,12 +7,13 @@
 .main {
   margin-top: 70px;
   flex: 1 1 auto;
-  background-image: image-set(
-    url('@resources/img/background.webp') type('image/webp'),
-    url('@resources/img/background.jpg') type('image/jpeg')
-  );
+  background-image: url('@/resources/img/background.jpg');
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: top center;
+
+  @supports (background-image: url('@/resources/img/background.webp')) {
+    background-image: url('@/resources/img/background.webp');
+  }
 }

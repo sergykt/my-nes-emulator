@@ -1,5 +1,5 @@
 import { type FC, type ComponentProps, memo } from 'react';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import styles from './Container.module.scss';
 
 type ContainerProps = ComponentProps<'div'>;

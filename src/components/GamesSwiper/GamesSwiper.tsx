@@ -1,41 +1,25 @@
-import type { FC } from 'react';
 import { memo } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, A11y, FreeMode, Navigation } from 'swiper/modules';
+import { Pagination, A11y, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import games from '@/engine/games';
 import styles from './GamesSwiper.module.scss';
 
-const GamesSwiper: FC = memo(() => {
+const GamesSwiper = memo(() => {
   return (
     <Swiper
-      modules={[Pagination, A11y, FreeMode, Navigation]}
-      spaceBetween={10}
-      slidesPerView={1}
+      modules={[Pagination, A11y, Navigation]}
+      spaceBetween={16}
+      slidesPerView='auto'
       pagination={{ clickable: true, dynamicBullets: true }}
-      breakpoints={{
-        350: {
-          slidesPerView: 2,
-        },
-        525: {
-          slidesPerView: 3,
-        },
-        768: {
-          slidesPerView: 4,
-        },
-        1024: {
-          slidesPerView: 6,
-        },
-      }}
-      freeMode
       navigation
       className={styles.gamesSwiper}
     >
       {games.map(({ id, name, shortName, img }) => (
         <SwiperSlide key={id}>
-          <a href={`/emulator/${shortName}`} aria-label={name}>
+          <a className={styles.link} href={`/emulator/${shortName}`} aria-label={name}>
             <picture>
               <source srcSet={`/img/games/${img}.webp`} type='image/webp' />
               <source srcSet={`/img/games/${img}.jpg`} type='image/jpeg' />

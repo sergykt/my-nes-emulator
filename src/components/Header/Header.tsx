@@ -1,9 +1,9 @@
-import { type FC, memo } from 'react';
-import Container from '@components/Container';
+import { memo } from 'react';
+import Container from '@/components/Container';
 import styles from './Header.module.scss';
 import SearchBar from '../SearchBar';
 
-const Header: FC = memo(() => {
+const Header = memo(() => {
   return (
     <header className={styles.header}>
       <Container className={styles.container}>

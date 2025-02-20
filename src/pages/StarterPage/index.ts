@@ -1,3 +1,5 @@
-import StarterPage from './StarterPage';
+import { lazy } from 'react';
 
-export default StarterPage;
+const StarterPageAsync = lazy(() => import('./StarterPage'));
+
+export default StarterPageAsync;

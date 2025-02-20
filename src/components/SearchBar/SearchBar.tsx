@@ -1,5 +1,12 @@
-import type { FC, ChangeEvent, FormEvent, PointerEvent, KeyboardEvent } from 'react';
-import { useState, memo } from 'react';
+import {
+  useState,
+  memo,
+  type FC,
+  type ChangeEvent,
+  type FormEvent,
+  type PointerEvent,
+  type KeyboardEvent,
+} from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { IoIosCloseCircle } from 'react-icons/io';
 import games from '@/engine/games';

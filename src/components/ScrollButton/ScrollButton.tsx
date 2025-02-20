@@ -1,11 +1,11 @@
-import type { FC } from 'react';
-import { useEffect, useState, memo } from 'react';
+import { useEffect, useState, memo, useRef } from 'react';
 import { TfiArrowCircleUp } from 'react-icons/tfi';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import styles from './ScrollButton.module.scss';
 
-const ScrollButton: FC = memo(() => {
+const ScrollButton = memo(() => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const ref = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +26,7 @@ const ScrollButton: FC = memo(() => {
   }, []);
 
   const scrollToTop = () => {
+    ref.current?.blur();
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -41,6 +42,7 @@ const ScrollButton: FC = memo(() => {
       aria-label='scroll to top'
       aria-hidden={!isVisible}
       onClick={scrollToTop}
+      ref={ref}
     >
       <TfiArrowCircleUp />
     </button>

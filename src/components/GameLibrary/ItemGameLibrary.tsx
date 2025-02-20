@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
-import classNames from 'classnames';
-import FancyLink from '@components/FancyLink';
+import classNames from 'clsx';
+import FancyLink from '@/components/FancyLink';
 import styles from './GameLibrary.module.scss';
 
 interface ItemGameLibraryProps {

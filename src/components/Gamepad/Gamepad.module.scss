@@ -32,10 +32,7 @@
   pointer-events: auto;
   height: 50px;
   width: 50px;
-  background-image: image-set(
-    url('@resources/img/controls/button.webp') type('image/webp'),
-    url('@resources/img/controls/button.png') type('image/png')
-  );
+  background-image: url('@/resources/img/controls/button.png');
   background-size: contain;
   background-repeat: no-repeat;
   margin: 0;
@@ -48,49 +45,28 @@
   font-size: 14px;
   transition: 0.1s ease-in-out;
   border-radius: 50%;
-  box-shadow: inset 1px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 1px rgba(0, 0, 0, 0.8);
+  box-shadow:
+    inset 1px 2px 3px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 1px rgba(0, 0, 0, 0.8);
 
   &:active {
     opacity: 0.7;
+  }
+
+  @supports (background-image: url('@/resources/img/controls/button.webp')) {
+    background-image: url('@/resources/img/controls/button.webp');
   }
 }
 
 .buttonTurbo {
-  pointer-events: auto;
-  height: 50px;
-  width: 50px;
-  background-image: image-set(
-    url('@resources/img/controls/button.webp') type('image/webp'),
-    url('@resources/img/controls/button.png') type('image/png')
-  );
-  background-size: contain;
-  background-repeat: no-repeat;
-  margin: 0;
-  padding: 0;
-  border: none;
-  outline: none;
-  text-align: center;
-  opacity: 0.85;
-  color: rgba(0, 0, 0, 0.5);
-  font-size: 14px;
-  transition: 0.1s ease-in-out;
-  border-radius: 50%;
-  box-shadow: inset 1px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 1px rgba(0, 0, 0, 0.8);
   filter: grayscale(100%);
-
-  &:active {
-    opacity: 0.7;
-  }
 }
 
 .selectButton {
   pointer-events: auto;
   height: 19px;
   width: 50px;
-  background-image: image-set(
-    url('@resources/img/controls/button-select.webp') type('image/webp'),
-    url('@resources/img/controls/button-select.png') type('image/png')
-  );
+  background-image: url('@/resources/img/controls/button-select.png');
   background-size: contain;
   background-repeat: no-repeat;
   margin: 0;
@@ -101,7 +77,9 @@
   position: relative;
   transition: 0.1s ease-in-out;
   border-radius: 20px;
-  box-shadow: inset 1px 3px 3px rgba(255, 255, 255, 0.6), inset -3px -3px 3px rgba(0, 0, 0, 0.25);
+  box-shadow:
+    inset 1px 3px 3px rgba(255, 255, 255, 0.6),
+    inset -3px -3px 3px rgba(0, 0, 0, 0.25);
 
   &:active {
     opacity: 0.7;
@@ -116,5 +94,9 @@
     color: white;
     text-align: center;
     content: attr(aria-label);
+  }
+
+  @supports (background-image: url('@/resources/img/controls/button-select.webp')) {
+    background-image: url('@/resources/img/controls/button-select.webp');
   }
 }

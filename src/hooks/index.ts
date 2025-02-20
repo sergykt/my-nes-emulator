@@ -1,13 +1,9 @@
 import { useCallback, useEffect, useRef, type MutableRefObject } from 'react';
-import { type TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { type RootState, type AppDispatch } from '../store';
-
-export const useAppDispatch = () => useDispatch<AppDispatch>();
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export const useLatest = <T>(value: T): { readonly current: T } => {
   const ref = useRef(value);
   ref.current = value;
+
   return ref;
 };
 
@@ -21,7 +17,7 @@ export const useDebounce = <T>(callback: (...args: T[]) => void, delay: number) 
         clearTimeout(timerRef.current);
       }
     };
-  }, []);
+  }, [delay]);
 
   return useCallback(
     (...args: T[]) => {
@@ -32,14 +28,14 @@ export const useDebounce = <T>(callback: (...args: T[]) => void, delay: number) 
         callbackLatest.current(...args);
       }, delay);
     },
-    [callback, delay]
+    [delay]
   );
 };
 
 export const useThrottle = <T>(callback: (...args: T[]) => void, delay: number) => {
   const throttleRef = useRef(false);
-  const callbackLatest = useLatest(callback);
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const callbackLatest = useLatest(callback);
 
   useEffect(() => {
     return () => {
@@ -47,7 +43,7 @@ export const useThrottle = <T>(callback: (...args: T[]) => void, delay: number) 
         clearTimeout(timerRef.current);
       }
     };
-  }, []);
+  }, [delay]);
 
   return useCallback(
     (...args: T[]) => {
@@ -60,6 +56,6 @@ export const useThrottle = <T>(callback: (...args: T[]) => void, delay: number) 
         }, delay);
       }
     },
-    [callback, delay]
+    [delay]
   );
 };

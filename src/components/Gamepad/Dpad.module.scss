@@ -1,15 +1,15 @@
 .dpad {
   pointer-events: auto;
   margin-left: 15px;
-  background-image: url('@resources/img/controls/dpad.png');
-  background-image: image-set(
-    url('@resources/img/controls/dpad.webp') type('image/webp'),
-    url('@resources/img/controls/dpad.png') type('image/png')
-  );
+  background-image: url('/src/resources/img/controls/dpad.png');
   background-repeat: no-repeat;
   background-size: 120px 120px;
   background-position: center;
   width: 150px;
   height: 150px;
   opacity: 0.8;
+
+  @supports (background-image: url('/src/resources/img/controls/dpad.webp')) {
+    background-image: url('/src/resources/img/controls/dpad.webp');
+  }
 }

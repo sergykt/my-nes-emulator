@@ -1,4 +1,4 @@
-export interface IGame {
+export interface Game {
   id: number;
   name: string;
   shortName: string;
@@ -6,13 +6,13 @@ export interface IGame {
   description: string;
 }
 
-export interface IRom {
+export interface Rom {
   name: string;
   hash: string;
-  id: number;
+  id: string;
 }
 
-export interface IRomDecoded {
+export interface RomDecoded {
   name: string;
   romData: string;
 }

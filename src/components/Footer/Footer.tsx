@@ -1,9 +1,9 @@
-import { type FC, memo } from 'react';
-import FancyLink from '@components/FancyLink';
-import Container from '@components/Container';
+import { memo } from 'react';
+import FancyLink from '@/components/FancyLink';
+import Container from '@/components/Container';
 import styles from './Footer.module.scss';
 
-const Footer: FC = memo(() => (
+const Footer = memo(() => (
   <footer className={styles.footer}>
     <Container>
       <p className={styles.engine}>

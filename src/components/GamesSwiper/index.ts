@@ -1,3 +1,5 @@
-import GamesSwiper from './GamesSwiper';
+import { lazy } from 'react';
 
-export default GamesSwiper;
+const GamesSwiperAsync = lazy(() => import('./GamesSwiper'));
+
+export default GamesSwiperAsync;

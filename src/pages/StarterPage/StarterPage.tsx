@@ -1,7 +1,7 @@
 import type { FC } from 'react';
-import PageLayout from '@components/PageLayout';
-import GameLibrary from '@components/GameLibrary';
-import Container from '@components/Container';
+import PageLayout from '@/components/PageLayout';
+import GameLibrary from '@/components/GameLibrary';
+import Container from '@/components/Container';
 import styles from './StarterPage.module.scss';
 
 const StarterPage: FC = () => (

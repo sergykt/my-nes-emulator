@@ -1,3 +1,5 @@
-import EmulatorPage from './EmulatorPage';
+import { lazy } from 'react';
 
-export default EmulatorPage;
+const EmulatorPageAsync = lazy(() => import('./EmulatorPage'));
+
+export default EmulatorPageAsync;

@@ -1,29 +1,28 @@
-import { type FC, memo } from 'react';
-import type { IRom } from '@/types';
-import FancyLink from '@components/FancyLink';
+import { memo } from 'react';
 import { IoIosRemoveCircleOutline } from 'react-icons/io';
+import { useRomStore } from '@/store';
+import FancyLink from '@/components/FancyLink';
 import styles from './LocalRomsList.module.scss';
 
-interface ILocalRomsListProps {
-  list: IRom[];
-  removeRomHandler: (id: number) => void;
-}
+const LocalRomsList = memo(() => {
+  const { roms, removeRom } = useRomStore();
 
-const LocalRomsList: FC<ILocalRomsListProps> = memo((props) => {
-  const { list, removeRomHandler } = props;
+  if (roms.length === 0) {
+    return null;
+  }
 
   return (
     <div className={styles.body}>
       <h2 className={styles.title}>Local roms</h2>
       <ul className={styles.list}>
-        {list.map((item) => (
+        {roms.map((item) => (
           <li className={styles.item} key={item.id}>
-            <FancyLink href={`/emulator/?id=${item.id}`}>{item.name}</FancyLink>
+            <FancyLink href={`/emulator/local?id=${item.id}`}>{item.name}</FancyLink>
             <button
               className={styles.removeButton}
               type='button'
               aria-label='remove item'
-              onClick={() => removeRomHandler(item.id)}
+              onClick={() => removeRom(item.id)}
             >
               <IoIosRemoveCircleOutline />
             </button>

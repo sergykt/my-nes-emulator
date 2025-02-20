@@ -1,14 +1,10 @@
-import { memo, type FC } from 'react';
-import { AlertType } from '@/types';
+import { memo } from 'react';
+import { useEmulatorStore } from '@/store';
 import icons from './icons';
 import styles from './Alert.module.scss';
 
-interface IAlertProps {
-  type: AlertType | null;
-}
-
-const Alert: FC<IAlertProps> = memo((props) => {
-  const { type } = props;
+const Alert = memo(() => {
+  const type = useEmulatorStore((state) => state.alertType);
 
   if (!type) {
     return null;
