@@ -1,5 +1,5 @@
 import { useEffect, type FC, useRef, useCallback, memo } from 'react';
-import { isMobile } from 'react-device-detect';
+import { isMobile, isIOS, isSafari } from 'react-device-detect';
 import classNames from 'clsx';
 import { useEmulatorStore } from '@/store';
 import { useCursor } from '@/hooks';
@@ -65,29 +65,30 @@ const Screen: FC<ScreenProps> = memo(({ pauseHandler }) => {
 
     const gestureStart = (e: Event) => {
       e.preventDefault();
-      document.body.style.zoom = '0.99';
     };
 
     const gestureEnd = (e: Event) => {
       e.preventDefault();
-      document.body.style.zoom = '1';
     };
 
     const gestureChange = (e: Event) => {
       e.preventDefault();
-      document.body.style.zoom = '1';
     };
 
     document.addEventListener('fullscreenchange', onFullScreenChange);
-    document.addEventListener('gesturestart', gestureStart);
-    document.addEventListener('gestureend', gestureEnd);
-    document.addEventListener('gesturechange', gestureChange);
+    if (isIOS || isSafari) {
+      document.addEventListener('gesturestart', gestureStart, { passive: false });
+      document.addEventListener('gestureend', gestureEnd, { passive: false });
+      document.addEventListener('gesturechange', gestureChange, { passive: false });
+    }
 
     return () => {
       document.removeEventListener('fullscreenchange', onFullScreenChange);
-      document.removeEventListener('gesturestart', gestureStart);
-      document.removeEventListener('gestureend', gestureEnd);
-      document.removeEventListener('gesturechange', gestureChange);
+      if (isIOS || isSafari) {
+        document.removeEventListener('gesturestart', gestureStart);
+        document.removeEventListener('gestureend', gestureEnd);
+        document.removeEventListener('gesturechange', gestureChange);
+      }
     };
   }, []);
 
