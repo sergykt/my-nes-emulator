@@ -106,14 +106,15 @@ const EmulatorPage: FC = () => {
             </p>
             <p>Also you can upload a ROM file to play it.</p>
           </div>
-          <InputButton
-            className={styles.inputFile}
-            accept='.nes'
-            name='rom'
-            id='rom'
-            title='Upload ROM'
-            onChange={uploadRomHandler}
-          />
+          <div className={styles.inputWrapper}>
+            <InputButton
+              accept='.nes'
+              name='rom'
+              id='rom'
+              title='Upload ROM'
+              onChange={uploadRomHandler}
+            />
+          </div>
           <LocalRomsList />
           <GamesSwiper />
         </Container>

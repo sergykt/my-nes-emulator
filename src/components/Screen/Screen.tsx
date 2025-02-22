@@ -62,10 +62,32 @@ const Screen: FC<ScreenProps> = memo(({ pauseHandler }) => {
     const onFullScreenChange = () => {
       setFullScreen(Boolean(document.fullscreenElement));
     };
+
+    const gestureStart = (e: Event) => {
+      e.preventDefault();
+      document.body.style.zoom = '0.99';
+    };
+
+    const gestureEnd = (e: Event) => {
+      e.preventDefault();
+      document.body.style.zoom = '1';
+    };
+
+    const gestureChange = (e: Event) => {
+      e.preventDefault();
+      document.body.style.zoom = '1';
+    };
+
     document.addEventListener('fullscreenchange', onFullScreenChange);
+    document.addEventListener('gesturestart', gestureStart);
+    document.addEventListener('gestureend', gestureEnd);
+    document.addEventListener('gesturechange', gestureChange);
 
     return () => {
       document.removeEventListener('fullscreenchange', onFullScreenChange);
+      document.removeEventListener('gesturestart', gestureStart);
+      document.removeEventListener('gestureend', gestureEnd);
+      document.removeEventListener('gesturechange', gestureChange);
     };
   }, []);
 
