@@ -2,6 +2,7 @@ import { NES } from 'jsnes';
 import Gamepad from './gamepad';
 import Screen from './screen';
 import Speaker from './speaker';
+import Zapper from './zapper';
 import { type NesOptions } from './types';
 
 class NesGame {
@@ -11,7 +12,11 @@ class NesGame {
 
   private readonly screen: Screen;
 
+  private readonly canvasEl: HTMLCanvasElement;
+
   private readonly speaker: Speaker;
+
+  private readonly zapper: Zapper;
 
   private readonly player = 1;
 
@@ -20,6 +25,7 @@ class NesGame {
   private lastTime = 0;
 
   constructor({ canvasEl, buttons }: NesOptions) {
+    this.canvasEl = canvasEl;
     this.screen = new Screen(canvasEl);
     this.speaker = new Speaker();
     this.nes = new NES({
@@ -35,6 +41,11 @@ class NesGame {
       },
       buttons
     );
+    this.zapper = new Zapper({
+      handleMove: (x: number, y: number) => this.nes.zapperMove(x, y),
+      handleFireDown: () => this.nes.zapperFireDown(),
+      handleFireUp: () => this.nes.zapperFireUp(),
+    });
   }
 
   loadRom(rom: string) {
@@ -58,6 +69,8 @@ class NesGame {
     await this.speaker.start();
     document.addEventListener('keydown', (event) => this.gamepad.onKeyDown(event));
     document.addEventListener('keyup', (event) => this.gamepad.onKeyUp(event));
+    this.canvasEl.addEventListener('pointerdown', (event) => this.zapper.fireDown(event));
+    this.canvasEl.addEventListener('pointerup', () => this.zapper.fireUp());
   }
 
   async togglePause() {

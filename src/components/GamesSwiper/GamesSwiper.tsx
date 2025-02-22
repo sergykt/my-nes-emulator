@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, A11y, Navigation } from 'swiper/modules';
+import { Pagination, A11y, Navigation, FreeMode } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -10,11 +10,12 @@ import styles from './GamesSwiper.module.scss';
 const GamesSwiper = memo(() => {
   return (
     <Swiper
-      modules={[Pagination, A11y, Navigation]}
+      modules={[Pagination, A11y, Navigation, FreeMode]}
       spaceBetween={16}
       slidesPerView='auto'
       pagination={{ clickable: true, dynamicBullets: true }}
       navigation
+      freeMode
       className={styles.gamesSwiper}
     >
       {games.map(({ id, name, shortName, img }) => (

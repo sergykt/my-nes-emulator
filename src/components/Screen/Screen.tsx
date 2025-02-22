@@ -78,7 +78,6 @@ const Screen: FC<ScreenProps> = memo(({ pauseHandler }) => {
         await document.exitFullscreen();
       }
     };
-
     toggleFullScreen().catch(console.error);
   }, [isFullScreen]);
 

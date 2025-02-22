@@ -46,6 +46,8 @@
 
 body:has(.fullscreen) {
   overflow: hidden;
+  user-select: none;
+  touch-action: none;
 }
 
 .cursorNone {

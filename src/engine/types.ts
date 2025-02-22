@@ -16,6 +16,12 @@ export interface GamepadMethods {
   handleUp: (code: number) => void;
 }
 
+export interface ZapperMethods {
+  handleMove: (x: number, y: number) => void;
+  handleFireDown: () => void;
+  handleFireUp: () => void;
+}
+
 export interface TurboState {
   A: boolean;
   B: boolean;
