@@ -1,4 +1,4 @@
-import { Gamepad } from '@/engine';
+import { GamepadButtons } from '@/engine';
 
 export interface Game {
   id: number;
@@ -19,7 +19,7 @@ export interface RomDecoded {
   romData: string;
 }
 
-export const BUTTONS: Gamepad = {
+export const BUTTONS: GamepadButtons = {
   A: 'KeyS',
   B: 'KeyA',
   TURBO_A: 'KeyX',

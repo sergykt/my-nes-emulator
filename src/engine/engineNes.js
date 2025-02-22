@@ -1,3 +1,5 @@
+// DEPRECATED
+
 import jsnes from 'jsnes';
 
 const SCREEN_WIDTH = 256;
