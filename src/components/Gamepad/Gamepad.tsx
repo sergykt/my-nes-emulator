@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import classNames from 'clsx';
-import { Buttons } from '@/types';
+import { BUTTONS } from '@/types';
 import { onKeyDown, onKeyUp } from './utils';
 import Dpad from './Dpad';
 import styles from './Gamepad.module.scss';
@@ -12,16 +12,16 @@ const Gamepad = memo(() => {
       <div className={styles.right}>
         <div className={styles.buttonGroup}>
           <button
-            onTouchStart={() => onKeyDown(Buttons.TurboB)}
-            onTouchEnd={() => onKeyUp(Buttons.TurboB)}
+            onTouchStart={() => onKeyDown(BUTTONS.TURBO_B)}
+            onTouchEnd={() => onKeyUp(BUTTONS.TURBO_B)}
             className={classNames(styles.button, styles.buttonTurbo)}
             type='button'
           >
             B
           </button>
           <button
-            onTouchStart={() => onKeyDown(Buttons.TurboA)}
-            onTouchEnd={() => onKeyUp(Buttons.TurboA)}
+            onTouchStart={() => onKeyDown(BUTTONS.TURBO_A)}
+            onTouchEnd={() => onKeyUp(BUTTONS.TURBO_A)}
             className={classNames(styles.button, styles.buttonTurbo)}
             type='button'
           >
@@ -30,16 +30,16 @@ const Gamepad = memo(() => {
         </div>
         <div className={styles.buttonGroup}>
           <button
-            onTouchStart={() => onKeyDown(Buttons.B)}
-            onTouchEnd={() => onKeyUp(Buttons.B)}
+            onTouchStart={() => onKeyDown(BUTTONS.B)}
+            onTouchEnd={() => onKeyUp(BUTTONS.B)}
             className={styles.button}
             type='button'
           >
             B
           </button>
           <button
-            onTouchStart={() => onKeyDown(Buttons.A)}
-            onTouchEnd={() => onKeyUp(Buttons.A)}
+            onTouchStart={() => onKeyDown(BUTTONS.A)}
+            onTouchEnd={() => onKeyUp(BUTTONS.A)}
             className={styles.button}
             type='button'
           >
@@ -48,16 +48,16 @@ const Gamepad = memo(() => {
         </div>
         <div className={styles.buttonGroup}>
           <button
-            onTouchStart={() => onKeyDown(Buttons.Select)}
-            onTouchEnd={() => onKeyUp(Buttons.Select)}
+            onTouchStart={() => onKeyDown(BUTTONS.SELECT)}
+            onTouchEnd={() => onKeyUp(BUTTONS.SELECT)}
             id='select'
             className={styles.selectButton}
             aria-label='select'
             type='button'
           />
           <button
-            onTouchStart={() => onKeyDown(Buttons.Start)}
-            onTouchEnd={() => onKeyUp(Buttons.Start)}
+            onTouchStart={() => onKeyDown(BUTTONS.START)}
+            onTouchEnd={() => onKeyUp(BUTTONS.START)}
             id='start'
             className={styles.selectButton}
             aria-label='start'

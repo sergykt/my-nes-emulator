@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, type MutableRefObject } from 'react';
+import { useCallback, useEffect, useRef, useState, type MutableRefObject } from 'react';
 
 export const useLatest = <T>(value: T): { readonly current: T } => {
   const ref = useRef(value);
@@ -58,4 +58,22 @@ export const useThrottle = <T>(callback: (...args: T[]) => void, delay: number) 
     },
     [delay]
   );
+};
+
+export const useCursor = (hideTimeout = 4000, throttleInterval = 100) => {
+  const [cursorHidden, setCursorHidden] = useState(true);
+  const cursorHiddenLatest = useLatest(cursorHidden);
+
+  const handleHideCursor = useDebounce(() => {
+    setCursorHidden(true);
+  }, hideTimeout);
+
+  const onMouseMove = useThrottle(() => {
+    if (cursorHiddenLatest.current) {
+      setCursorHidden(false);
+    }
+    handleHideCursor();
+  }, throttleInterval);
+
+  return { cursorHidden, onMouseMove };
 };

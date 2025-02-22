@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
-import { AlertType } from '@/types';
+import { ALERT_TYPE, type AlertType } from '@/types';
+import { NesGame, NesOptions } from '@/engine';
 
 interface EmulatorState {
   gameName: string;
@@ -10,6 +11,7 @@ interface EmulatorState {
   isPaused: boolean;
   isMuted: boolean;
   alertType: AlertType | null;
+  NES: NesGame | null;
 }
 
 interface EmulatorActions {
@@ -20,6 +22,7 @@ interface EmulatorActions {
   togglePause: () => void;
   toggleVolume: () => void;
   fetchRom: (romPath: string) => Promise<void>;
+  initNES: (options: NesOptions) => void;
 }
 
 const useEmulatorStore = create<EmulatorState & EmulatorActions>()(
@@ -31,6 +34,8 @@ const useEmulatorStore = create<EmulatorState & EmulatorActions>()(
     isPaused: false,
     isMuted: false,
     alertType: null,
+    NES: null,
+    initNES: (options: NesOptions) => set({ NES: new NesGame(options) }),
     setGameName: (name: string) => set({ gameName: name }),
     setGameRom: (rom: string) => set({ gameRom: rom }),
     fetchRom: async (romPath: string) => {
@@ -48,12 +53,12 @@ const useEmulatorStore = create<EmulatorState & EmulatorActions>()(
     togglePause: () =>
       set((state) => ({
         isPaused: !state.isPaused,
-        alertType: state.isPaused ? AlertType.START : AlertType.PAUSE,
+        alertType: state.isPaused ? ALERT_TYPE.START : ALERT_TYPE.PAUSE,
       })),
     toggleVolume: () =>
       set((state) => ({
         isMuted: !state.isMuted,
-        alertType: state.isMuted ? AlertType.UNMUTE : AlertType.MUTE,
+        alertType: state.isMuted ? ALERT_TYPE.UNMUTE : ALERT_TYPE.MUTE,
       })),
   }))
 );

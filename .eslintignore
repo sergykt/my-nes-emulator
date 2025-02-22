@@ -1,5 +1,7 @@
 /node_modules/
 /dist
-/src/engine
+/public
+/src/engine/engineNes.js
+/src/engine/nes.d.ts
 .eslintrc.cjs
 vite.config.ts

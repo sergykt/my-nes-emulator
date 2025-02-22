@@ -1,16 +1,14 @@
-import { useEffect, type FC, useRef, useCallback, useState, memo } from 'react';
+import { useEffect, type FC, useRef, useCallback, memo } from 'react';
 import { isMobile } from 'react-device-detect';
 import classNames from 'clsx';
-import { SlClose } from 'react-icons/sl';
-import { BsPlayCircle, BsPauseCircle } from 'react-icons/bs';
-import { RiVolumeMuteFill, RiVolumeUpFill } from 'react-icons/ri';
 import { useEmulatorStore } from '@/store';
-import { useDebounce, useLatest } from '@/hooks';
-import { nesLoadData, toggleSound } from '@/engine';
+import { useCursor } from '@/hooks';
+import { BUTTONS } from '@/types';
 import Alert from '@/components/Alert';
 import Gamepad from '@/components/Gamepad';
 import Button from '@/components/Button';
 import styles from './Screen.module.scss';
+import MobileControls from '../MobileControls';
 
 interface ScreenProps {
   pauseHandler: () => void;
@@ -18,7 +16,9 @@ interface ScreenProps {
 
 const Screen: FC<ScreenProps> = memo(({ pauseHandler }) => {
   const screenWrapperRef = useRef<HTMLDivElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const {
+    NES,
     gameRom,
     isStarted,
     isMuted,
@@ -27,24 +27,36 @@ const Screen: FC<ScreenProps> = memo(({ pauseHandler }) => {
     startGame,
     toggleVolume,
     setFullScreen,
+    initNES,
   } = useEmulatorStore();
 
-  const [cursorHidden, setCursorHidden] = useState<boolean>(true);
-  const cursorHiddenLatest = useLatest(cursorHidden);
+  const { cursorHidden, onMouseMove } = useCursor();
 
-  const startHandler = useCallback(() => {
-    nesLoadData('game', gameRom);
+  const startHandler = useCallback(async () => {
+    if (NES && gameRom) {
+      NES.loadRom(gameRom);
+      await NES.startGame();
+    }
     startGame();
-  }, [gameRom]);
+  }, [gameRom, NES]);
 
-  const volumeHandler = () => {
+  const volumeHandler = useCallback(() => {
     toggleVolume();
-    toggleSound();
-  };
+    NES?.toggleVolume();
+  }, [NES]);
 
-  const exitFullScreenHandler = () => {
+  const exitFullScreenHandler = useCallback(() => {
     setFullScreen(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      initNES({
+        canvasEl: canvasRef.current,
+        buttons: BUTTONS,
+      });
+    }
+  }, []);
 
   useEffect(() => {
     const onFullScreenChange = () => {
@@ -88,17 +100,6 @@ const Screen: FC<ScreenProps> = memo(({ pauseHandler }) => {
     };
   }, [isStarted, pauseHandler]);
 
-  const handleHideCursor = useDebounce(() => {
-    setCursorHidden(true);
-  }, 4000);
-
-  const onMouseMove = () => {
-    if (cursorHiddenLatest.current) {
-      setCursorHidden(false);
-    }
-    handleHideCursor();
-  };
-
   const screenClassName = classNames(styles.screen, {
     [styles.fullscreen]: isFullScreen,
     [styles.cursorNone]: isFullScreen && cursorHidden && isStarted,
@@ -106,7 +107,7 @@ const Screen: FC<ScreenProps> = memo(({ pauseHandler }) => {
 
   return (
     <div className={screenClassName} ref={screenWrapperRef} onMouseMove={onMouseMove}>
-      <canvas className={styles.canvas} id='game' width={256} height={240} />
+      <canvas className={styles.canvas} id='game' width={256} height={240} ref={canvasRef} />
       <Alert />
       {!isStarted && gameRom && (
         <Button className={styles.startButton} onClick={startHandler}>
@@ -115,34 +116,14 @@ const Screen: FC<ScreenProps> = memo(({ pauseHandler }) => {
       )}
       {isMobile && isStarted && isFullScreen && <Gamepad />}
       {isMobile && isFullScreen && (
-        <div className={styles.controls}>
-          <button
-            className={styles.controlsButton}
-            onClick={volumeHandler}
-            type='button'
-            aria-label='sound button'
-          >
-            {isMuted ? <RiVolumeMuteFill /> : <RiVolumeUpFill />}
-          </button>
-          {isStarted && (
-            <button
-              className={styles.controlsButton}
-              onClick={pauseHandler}
-              type='button'
-              aria-label='pause button'
-            >
-              {isPaused ? <BsPlayCircle /> : <BsPauseCircle />}
-            </button>
-          )}
-          <button
-            className={styles.controlsButton}
-            onClick={exitFullScreenHandler}
-            type='button'
-            aria-label='close'
-          >
-            <SlClose />
-          </button>
-        </div>
+        <MobileControls
+          isStarted={isStarted}
+          isPaused={isPaused}
+          isMuted={isMuted}
+          volumeHandler={volumeHandler}
+          pauseHandler={pauseHandler}
+          exitFullScreenHandler={exitFullScreenHandler}
+        />
       )}
     </div>
   );

@@ -1,5 +1,5 @@
 import { type TouchEvent } from 'react';
-import { Buttons } from '@/types';
+import { BUTTONS, Buttons } from '@/types';
 
 export const getButtons = (e: TouchEvent<HTMLDivElement>): Set<Buttons> => {
   const touch = e.targetTouches[0];
@@ -12,33 +12,33 @@ export const getButtons = (e: TouchEvent<HTMLDivElement>): Set<Buttons> => {
   const buttons = new Set<Buttons>();
 
   if (posY < 57) {
-    buttons.add(Buttons.Up);
+    buttons.add(BUTTONS.UP);
   }
   if (posX > 93) {
-    buttons.add(Buttons.Right);
+    buttons.add(BUTTONS.RIGHT);
   }
   if (posY > 93) {
-    buttons.add(Buttons.Down);
+    buttons.add(BUTTONS.DOWN);
   }
   if (posX < 57) {
-    buttons.add(Buttons.Left);
+    buttons.add(BUTTONS.LEFT);
   }
 
   return buttons;
 };
 
-export const onKeyDown = (keyCode: number) => {
+export const onKeyDown = (code: Buttons) => {
   document.dispatchEvent(
     new KeyboardEvent('keydown', {
-      keyCode,
+      code,
     })
   );
 };
 
-export const onKeyUp = (keyCode: number) => {
+export const onKeyUp = (code: Buttons) => {
   document.dispatchEvent(
     new KeyboardEvent('keyup', {
-      keyCode,
+      code,
     })
   );
 };

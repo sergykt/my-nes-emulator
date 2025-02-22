@@ -2,7 +2,6 @@ import type { FC, DragEvent, ChangeEvent } from 'react';
 import { useEffect, useCallback } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useEmulatorStore, useRomStore } from '@/store';
-import { nesToggleStart } from '@/engine';
 import games from '@/engine/games';
 import PageLayout from '@/components/PageLayout';
 import Screen from '@/components/Screen';
@@ -25,6 +24,7 @@ const EmulatorPage: FC = () => {
     setFullScreen,
     fetchRom,
     togglePause,
+    NES,
   } = useEmulatorStore();
 
   const { saveRom, getRomById } = useRomStore();
@@ -42,26 +42,27 @@ const EmulatorPage: FC = () => {
         } else {
           setGameName('Not found');
         }
+        return;
+      }
+
+      const currentGame = games.find((item) => item.shortName === gameNameLink);
+      if (currentGame) {
+        const { name, shortName } = currentGame;
+        const romPath = `/games/${shortName}.nes`;
+        setGameName(name);
+        await fetchRom(romPath);
       } else {
-        const currentGame = games.find((item) => item.shortName === gameNameLink);
-        if (currentGame) {
-          const { name, shortName } = currentGame;
-          const romPath = `/games/${shortName}.nes`;
-          await fetchRom(romPath);
-          setGameName(name);
-        } else {
-          setGameName('Not found');
-        }
+        setGameName('Not found');
       }
     };
 
     getRom().catch(console.error);
   }, []);
 
-  const pauseHandler = useCallback(() => {
-    nesToggleStart();
+  const pauseHandler = useCallback(async () => {
     togglePause();
-  }, []);
+    await NES?.togglePause();
+  }, [NES]);
 
   const fullScreenHandler = useCallback(() => {
     setFullScreen(true);
