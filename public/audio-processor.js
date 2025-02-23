@@ -8,6 +8,7 @@ class AudioProcessor extends AudioWorkletProcessor {
     this.audioDataR = new Float32Array(SAMPLE_COUNT);
     this.readIndex = 0;
     this.writeIndex = 0;
+    this.buffersize = 128;
 
     this.port.onmessage = (event) => {
       const nextWriteIndex = (this.writeIndex + 1) & SAMPLE_MASK;
@@ -28,12 +29,12 @@ class AudioProcessor extends AudioWorkletProcessor {
 
     const availableSamples = (this.writeIndex - this.readIndex + SAMPLE_COUNT) & SAMPLE_MASK;
 
-    if (availableSamples <= 128) {
+    if (availableSamples <= this.buffersize) {
       this.port.postMessage(true);
     }
 
     if (availableSamples > 0) {
-      const samplesToCopy = Math.min(availableSamples, outputL.length);
+      const samplesToCopy = Math.min(availableSamples, this.buffersize);
       const firstPart = Math.min(samplesToCopy, SAMPLE_COUNT - this.readIndex);
       const secondPart = samplesToCopy - firstPart;
 

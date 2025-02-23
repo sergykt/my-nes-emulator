@@ -20,6 +20,8 @@ class NesGame {
 
   private readonly player = 1;
 
+  private isUnderrun = false;
+
   private isPaused = false;
 
   private lastTime = 0;
@@ -56,19 +58,23 @@ class NesGame {
     if (this.isPaused) {
       return;
     }
+    this.screen.setImageData();
     if (time - this.lastTime >= 1000 / 64) {
-      this.screen.setImageData();
       this.nes.frame();
       this.lastTime = time;
     }
-    window.requestAnimationFrame((newTime) => this.onAnimationFrame(newTime));
+    if (this.isUnderrun) {
+      this.nes.frame();
+      this.isUnderrun = false;
+    }
+    window.requestAnimationFrame(this.onAnimationFrame.bind(this));
   }
 
   async startGame() {
     this.onAnimationFrame();
     if (this.speaker.audioWorkletNode) {
       this.speaker.audioWorkletNode.port.onmessage = () => {
-        this.nes.frame();
+        this.isUnderrun = true;
       };
     }
     await this.speaker.start();
