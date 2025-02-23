@@ -57,8 +57,8 @@ class NesGame {
       return;
     }
     if (time - this.lastTime >= 1000 / 64) {
-      this.nes.frame();
       this.screen.setImageData();
+      this.nes.frame();
       this.lastTime = time;
     }
     window.requestAnimationFrame((newTime) => this.onAnimationFrame(newTime));
@@ -66,6 +66,11 @@ class NesGame {
 
   async startGame() {
     this.onAnimationFrame();
+    if (this.speaker.audioWorkletNode) {
+      this.speaker.audioWorkletNode.port.onmessage = () => {
+        this.nes.frame();
+      };
+    }
     await this.speaker.start();
     document.addEventListener('keydown', (event) => this.gamepad.onKeyDown(event));
     document.addEventListener('keyup', (event) => this.gamepad.onKeyUp(event));
