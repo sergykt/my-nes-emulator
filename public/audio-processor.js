@@ -29,10 +29,6 @@ class AudioProcessor extends AudioWorkletProcessor {
 
     const availableSamples = (this.writeIndex - this.readIndex + SAMPLE_COUNT) & SAMPLE_MASK;
 
-    if (availableSamples <= this.buffersize) {
-      this.port.postMessage(true);
-    }
-
     if (availableSamples > 0) {
       const samplesToCopy = Math.min(availableSamples, this.buffersize);
       const firstPart = Math.min(samplesToCopy, SAMPLE_COUNT - this.readIndex);

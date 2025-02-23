@@ -1,9 +1,12 @@
-import { type TouchEvent } from 'react';
 import { BUTTONS, Buttons } from '@/types';
 
-export const getButtons = (e: TouchEvent<HTMLDivElement>): Set<Buttons> => {
+export const getButtons = (e: TouchEvent): Set<Buttons> => {
   const touch = e.targetTouches[0];
-  const dPadRect = e.currentTarget.getBoundingClientRect();
+  const dPadEl = e.currentTarget;
+  if (!(dPadEl instanceof HTMLElement)) {
+    return new Set<Buttons>();
+  }
+  const dPadRect = dPadEl.getBoundingClientRect();
   const dPadX = dPadRect?.left ?? 0;
   const dPadY = dPadRect?.top ?? 0;
   const posX = touch.clientX - dPadX;

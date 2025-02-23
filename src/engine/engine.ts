@@ -20,7 +20,9 @@ class NesGame {
 
   private readonly player = 1;
 
-  private isUnderrun = false;
+  private readonly FPS = 60.0988;
+
+  private readonly frameTime = 1000 / this.FPS;
 
   private isPaused = false;
 
@@ -58,30 +60,41 @@ class NesGame {
     if (this.isPaused) {
       return;
     }
-    this.screen.setImageData();
-    if (time - this.lastTime >= 1000 / 64) {
+    const delta = time - this.lastTime;
+
+    if (delta >= this.frameTime) {
       this.nes.frame();
-      this.lastTime = time;
-    }
-    if (this.isUnderrun) {
-      this.nes.frame();
-      this.isUnderrun = false;
+      this.screen.setImageData();
+      const numFrames = Math.floor(delta / this.frameTime);
+      if (numFrames > 1) {
+        setTimeout(() => this.nes.frame(), this.frameTime / 2);
+      }
+      this.lastTime = time - (delta % this.frameTime);
     }
     window.requestAnimationFrame(this.onAnimationFrame.bind(this));
   }
 
   async startGame() {
     this.onAnimationFrame();
-    if (this.speaker.audioWorkletNode) {
-      this.speaker.audioWorkletNode.port.onmessage = () => {
-        this.isUnderrun = true;
-      };
-    }
     await this.speaker.start();
     document.addEventListener('keydown', (event) => this.gamepad.onKeyDown(event));
     document.addEventListener('keyup', (event) => this.gamepad.onKeyUp(event));
-    this.canvasEl.addEventListener('pointerdown', (event) => this.zapper.fireDown(event));
-    this.canvasEl.addEventListener('pointerup', () => this.zapper.fireUp());
+    this.canvasEl.addEventListener(
+      'touchstart',
+      (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+      },
+      { passive: false }
+    );
+    this.canvasEl.addEventListener('pointerdown', (event) => {
+      event.preventDefault();
+      this.zapper.fireDown(event);
+    });
+    this.canvasEl.addEventListener('pointerup', (event) => {
+      event.preventDefault();
+      this.zapper.fireUp();
+    });
   }
 
   async togglePause() {
