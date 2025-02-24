@@ -66,12 +66,18 @@ class NesGame {
       this.nes.frame();
       this.screen.setImageData();
       const numFrames = Math.floor(delta / this.frameTime);
+      const excess = delta % this.frameTime;
       if (numFrames > 1) {
-        setTimeout(() => this.nes.frame(), this.frameTime / 2);
+        const timeToNextFrame = this.frameTime - excess;
+        setTimeout(() => {
+          this.nes.frame();
+          this.screen.setImageData();
+        }, timeToNextFrame);
       }
-      this.lastTime = time - (delta % this.frameTime);
+      this.lastTime = time - excess;
     }
-    window.requestAnimationFrame(this.onAnimationFrame.bind(this));
+
+    window.requestAnimationFrame((t) => this.onAnimationFrame(t));
   }
 
   async startGame() {

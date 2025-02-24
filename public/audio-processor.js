@@ -1,4 +1,4 @@
-const SAMPLE_COUNT = 4 * 1024;
+const SAMPLE_COUNT = 8 * 1024;
 const SAMPLE_MASK = SAMPLE_COUNT - 1;
 
 class AudioProcessor extends AudioWorkletProcessor {
@@ -11,15 +11,15 @@ class AudioProcessor extends AudioWorkletProcessor {
     this.buffersize = 128;
 
     this.port.onmessage = (event) => {
-      const nextWriteIndex = (this.writeIndex + 1) & SAMPLE_MASK;
-
-      if (nextWriteIndex === this.readIndex) {
+      const nextIndex = (this.writeIndex + 1) & SAMPLE_MASK;
+      if (nextIndex === this.readIndex) {
         return;
       }
 
       this.audioDataL[this.writeIndex] = event.data.audioDataL;
       this.audioDataR[this.writeIndex] = event.data.audioDataR;
-      this.writeIndex = (this.writeIndex + 1) & SAMPLE_MASK;
+
+      this.writeIndex = nextIndex;
     };
   }
 

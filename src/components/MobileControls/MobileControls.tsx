@@ -21,7 +21,7 @@ const MobileControls: FC<MobileControlsProps> = memo((props) => {
     <div className={styles.controls}>
       <button
         className={styles.controlsButton}
-        onClick={volumeHandler}
+        onPointerDown={volumeHandler}
         type='button'
         aria-label='sound button'
       >
@@ -30,7 +30,7 @@ const MobileControls: FC<MobileControlsProps> = memo((props) => {
       {isStarted && (
         <button
           className={styles.controlsButton}
-          onClick={pauseHandler}
+          onPointerDown={pauseHandler}
           type='button'
           aria-label='pause button'
         >
@@ -39,7 +39,7 @@ const MobileControls: FC<MobileControlsProps> = memo((props) => {
       )}
       <button
         className={styles.controlsButton}
-        onClick={exitFullScreenHandler}
+        onPointerDown={exitFullScreenHandler}
         type='button'
         aria-label='close'
       >
