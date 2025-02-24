@@ -39,7 +39,9 @@ const useRomStore = create<RomState & RomActions>()(
         const buffer = await file.arrayBuffer();
         const hex = arrayBufferToHex(buffer);
 
-        set({ roms: [...get().roms, { name: file.name, hash: hex, id: uuidv4() }] });
+        set({
+          roms: [...get().roms, { name: file.name.replace('.nes', ''), hash: hex, id: uuidv4() }],
+        });
       },
       getRomById: (id: string) => {
         const rom = get().roms.find((item) => item.id === id);

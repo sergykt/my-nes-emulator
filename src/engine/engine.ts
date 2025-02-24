@@ -78,26 +78,39 @@ class NesGame {
   }
 
   async startGame() {
-    this.onAnimationFrame();
     await this.speaker.start();
-    document.addEventListener('keydown', (event) => this.gamepad.onKeyDown(event));
-    document.addEventListener('keyup', (event) => this.gamepad.onKeyUp(event));
-    this.canvasEl.addEventListener(
-      'touchstart',
-      (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-      },
-      { passive: false }
-    );
-    this.canvasEl.addEventListener('pointerdown', (event) => {
+    this.onAnimationFrame();
+  }
+
+  subscribeEvents() {
+    const onKeyDown = (event: KeyboardEvent) => this.gamepad.onKeyDown(event);
+    const onKeyUp = (event: KeyboardEvent) => this.gamepad.onKeyUp(event);
+    const onCanvasTouchStart = (event: TouchEvent) => {
+      event.preventDefault();
+      event.stopPropagation();
+    };
+    const onZapperDown = (event: PointerEvent) => {
       event.preventDefault();
       this.zapper.fireDown(event);
-    });
-    this.canvasEl.addEventListener('pointerup', (event) => {
+    };
+    const onZapperUp = (event: PointerEvent) => {
       event.preventDefault();
       this.zapper.fireUp();
-    });
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('keyup', onKeyUp);
+    this.canvasEl.addEventListener('touchstart', onCanvasTouchStart, { passive: false });
+    this.canvasEl.addEventListener('pointerdown', onZapperDown);
+    this.canvasEl.addEventListener('pointerup', onZapperUp);
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('keyup', onKeyUp);
+      this.canvasEl.removeEventListener('touchstart', onCanvasTouchStart);
+      this.canvasEl.removeEventListener('pointerdown', onZapperDown);
+      this.canvasEl.removeEventListener('pointerup', onZapperUp);
+    };
   }
 
   async togglePause() {

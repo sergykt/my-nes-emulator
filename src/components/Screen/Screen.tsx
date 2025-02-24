@@ -35,6 +35,7 @@ const Screen: FC<ScreenProps> = memo(({ pauseHandler }) => {
   const startHandler = useCallback(async () => {
     if (NES && gameRom) {
       NES.loadRom(gameRom);
+      NES.subscribeEvents();
       await NES.startGame();
     }
     startGame();

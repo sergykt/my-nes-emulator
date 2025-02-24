@@ -63,6 +63,7 @@ const SearchBar: FC = memo(() => {
               onKeyDown={handleKeyDown}
               value={searchQuery}
               autoComplete='off'
+              tabIndex={0}
             />
           </label>
           {searchQuery.length > 0 && (

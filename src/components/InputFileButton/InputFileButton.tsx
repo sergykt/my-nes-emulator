@@ -12,7 +12,10 @@ const InputButton: FC<InputButtonProps> = memo((props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <Button type='button' className={styles.button} onClick={() => inputRef.current?.click()}>
+    <div className={styles.wrapper}>
+      <Button type='button' className={styles.button} onClick={() => inputRef.current?.click()}>
+        {title}
+      </Button>
       <input
         className={classNames(styles.input, className)}
         type='file'
@@ -24,8 +27,7 @@ const InputButton: FC<InputButtonProps> = memo((props) => {
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...rest}
       />
-      {title}
-    </Button>
+    </div>
   );
 });
 

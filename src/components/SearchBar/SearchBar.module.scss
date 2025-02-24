@@ -117,9 +117,12 @@
   top: 49px;
   left: 0;
   width: 100%;
-  overflow: hidden;
+  box-sizing: border-box;
+  max-height: calc(100dvh - 60px);
   border: 1px solid rgb(80, 80, 80);
   border-radius: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
 
   @media (max-width: 576px) {
     background-color: transparent;
