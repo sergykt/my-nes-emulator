@@ -63,7 +63,6 @@ const SearchBar: FC = memo(() => {
               onKeyDown={handleKeyDown}
               value={searchQuery}
               autoComplete='off'
-              tabIndex={0}
             />
           </label>
           {searchQuery.length > 0 && (
@@ -84,7 +83,12 @@ const SearchBar: FC = memo(() => {
           <ul className={styles.list}>
             {filteredGames.map(({ id, name, shortName }) => (
               <li key={id}>
-                <a className={styles.link} href={`/emulator/${shortName}`} aria-label={name}>
+                <a
+                  onPointerDown={(e) => e.preventDefault()}
+                  className={styles.link}
+                  href={`/emulator/${shortName}`}
+                  aria-label={name}
+                >
                   {name}
                 </a>
               </li>
