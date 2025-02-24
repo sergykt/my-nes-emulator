@@ -20,7 +20,7 @@ class NesGame {
 
   private readonly player = 1;
 
-  private readonly FPS = 60.0988;
+  private readonly FPS = 60;
 
   private readonly frameTime = 1000 / this.FPS;
 
@@ -36,7 +36,7 @@ class NesGame {
       onFrame: (buffer: Uint32Array) => this.screen.writeBuffer(buffer),
       onAudioSample: (l: number, r: number) => this.speaker.updateAudioData(l, r),
       sampleRate: this.speaker.getSampleRate(),
-      preferredFrameRate: 60,
+      preferredFrameRate: this.FPS,
     });
     this.gamepad = new Gamepad(
       {
