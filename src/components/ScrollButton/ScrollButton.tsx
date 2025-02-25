@@ -1,5 +1,4 @@
 import { useEffect, useState, memo, useRef } from 'react';
-import { TfiArrowCircleUp } from 'react-icons/tfi';
 import classNames from 'clsx';
 import styles from './ScrollButton.module.scss';
 
@@ -44,7 +43,7 @@ const ScrollButton = memo(() => {
       onClick={scrollToTop}
       ref={ref}
     >
-      <TfiArrowCircleUp />
+      <span>{'<'}</span>
     </button>
   );
 });

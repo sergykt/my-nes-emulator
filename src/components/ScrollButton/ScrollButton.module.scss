@@ -6,31 +6,50 @@
   transition: all 0.2s ease-in-out;
   bottom: 20px;
   right: 20px;
-  height: 45px;
-  width: 45px;
+  height: 52px;
+  width: 52px;
+  font-size: 24px;
+  line-height: 1;
   margin: 0;
   padding: 0;
-  border: none;
-  background-color: transparent;
+  border: 4px solid #fff;
+  background-color: rgb(32, 156, 238);
+  box-shadow: inset -4px -4px 0 0 rgb(31, 132, 199);
+  color: #fff;
 
-  @media (max-width: 576px) {
-    height: 35px;
-    width: 35px;
+  clip-path: polygon(
+    0 4px,
+    4px 4px,
+    4px 0,
+    calc(100% - 4px) 0,
+    calc(100% - 4px) 4px,
+    100% 4px,
+    100% calc(100% - 4px),
+    calc(100% - 4px) calc(100% - 4px),
+    calc(100% - 4px) 100%,
+    4px 100%,
+    4px calc(100% - 4px),
+    0 calc(100% - 4px)
+  );
+
+  span {
+    display: block;
+    transform: rotateZ(90deg);
   }
 
-  svg {
-    fill: white;
-    vertical-align: middle;
-    width: 100%;
-    height: 100%;
+  @media (max-width: 576px) {
+    height: 44px;
+    width: 44px;
+    font-size: 18px;
   }
 }
 
 .visible {
   pointer-events: auto;
-  opacity: 0.5;
+  opacity: 1;
 
   &:hover {
-    opacity: 1;
+    background-color: rgb(41, 147, 218);
+    box-shadow: inset -5px -5px 0 0 rgb(31, 132, 199);
   }
 }

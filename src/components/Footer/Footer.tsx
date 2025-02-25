@@ -7,7 +7,9 @@ const Footer = memo(() => (
   <footer className={styles.footer}>
     <Container>
       <p className={styles.engine}>
-        <FancyLink href='https://github.com/bfirsh/jsnes'>NES engine by jsnes</FancyLink>
+        <FancyLink href='https://github.com/bfirsh/jsnes' target='_blank'>
+          NES engine by jsnes
+        </FancyLink>
       </p>
       <p className={styles.copyright}>© 2023 Created by Sergei Sivtsev</p>
     </Container>

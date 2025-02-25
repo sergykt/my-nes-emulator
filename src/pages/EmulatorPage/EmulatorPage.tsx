@@ -96,8 +96,12 @@ const EmulatorPage: FC = () => {
           <h1 className={styles.gameName}>{gameName}</h1>
           <Screen pauseHandler={pauseHandler} />
           <div className={styles.buttonGroup}>
-            <Button onClick={fullScreenHandler}>Full Screen</Button>
-            {isStarted && <Button onClick={pauseHandler}>{isPaused ? 'Resume' : 'Pause'}</Button>}
+            <Button onClick={fullScreenHandler}>Full screen</Button>
+            {isStarted && (
+              <Button onClick={pauseHandler} className={styles.pause}>
+                {isPaused ? 'Resume' : 'Pause'}
+              </Button>
+            )}
           </div>
           <div className={styles.description}>
             <p>

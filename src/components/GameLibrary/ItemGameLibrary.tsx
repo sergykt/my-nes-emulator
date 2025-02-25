@@ -19,7 +19,7 @@ const ItemGameLibrary = memo((props: ItemGameLibraryProps) => {
     setHiddenText(!hiddenText);
   };
 
-  const buttonText = hiddenText ? 'Show more' : 'Show less';
+  const buttonText = hiddenText ? 'show more' : 'show less';
 
   const textClass = classNames(styles.description, {
     [styles.truncate]: hiddenText,

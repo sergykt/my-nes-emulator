@@ -13,7 +13,7 @@ export default defineConfig({
     UnpluginInjectPreload({
       files: [
         {
-          outputMatch: /Nes-font-[a-zA-Z-0-9]*\.woff$/,
+          outputMatch: /PressStart2P-Regular-[a-zA-Z-0-9]*\.woff$/,
           attributes: {
             type: 'font/woff',
             as: 'font',
@@ -21,7 +21,7 @@ export default defineConfig({
           },
         },
         {
-          outputMatch: /Nes-font-[a-zA-Z-0-9]*\.woff2$/,
+          outputMatch: /PressStart2P-Regular-[a-zA-Z-0-9]*\.woff2$/,
           attributes: {
             type: 'font/woff2',
             as: 'font',

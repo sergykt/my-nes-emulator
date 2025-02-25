@@ -3,14 +3,14 @@ import { type Game } from '@/types';
 const games: Game[] = [
   {
     id: 1,
-    name: 'contra',
+    name: 'Contra',
     shortName: 'contra',
     img: 'contra_cover',
     description: `"Contra" for the Nintendo Entertainment System (NES), released in 1988 by Konami, is a legendary run-and-gun action game. Players assume the roles of commandos Bill and Lance, tasked with battling against alien forces threatening Earth. Known for its challenging levels, intense action, and cooperative multiplayer mode, "Contra" has left a significant mark in retro gaming history. The game features side-scrolling levels with various power-ups and weapons, including the iconic spread gun. Its difficulty and iconic gameplay have solidified its place as a classic among gamers.`,
   },
   {
     id: 2,
-    name: 'super c',
+    name: 'Super C',
     shortName: 'super_c',
     img: 'super_c_cover',
     description: `
@@ -19,35 +19,35 @@ const games: Game[] = [
   },
   {
     id: 3,
-    name: 'teenage mutant ninja turtles',
+    name: 'Teenage Mutant Ninja Turtles',
     shortName: 'tmnt',
     img: 'tmnt_cover',
     description: `"Teenage Mutant Ninja Turtles" for the Nintendo Entertainment System (NES) is a classic action-adventure game released in 1989 by Konami. Players take on the role of the four iconic turtles—Leonardo, Michelangelo, Donatello, and Raphael—as they navigate through New York City to rescue their sensei, Splinter, and their friend April O'Neil from the evil Shredder. The game features side-scrolling levels, each uniquely designed, and players must combat enemies, avoid hazards, and locate key items to progress.`,
   },
   {
     id: 4,
-    name: 'teenage mutant ninja turtles II: arcade game',
+    name: 'Teenage Mutant Ninja Turtles II: Arcade Game',
     shortName: 'tmnt2',
     img: 'tmnt2_cover',
     description: `Teenage Mutant Ninja Turtles is an arcade game made by Konami during the height of the cartoon series' popularity. Depending on the version of the game, up to two, three or four players can take part in the action. The game plays like a simplified Double Dragon. While most of the standard Foot Soldier enemies are easily dispatched, some attack with knives or ray guns and are thus more dangerous. At the end of each level, players encounter a boss (or in certain cases two bosses working in tandem, such as Bebop and Rocksteady).`,
   },
   {
     id: 5,
-    name: 'super mario bros',
+    name: 'Super Mario Bros.',
     shortName: 'super_mario',
     img: 'super_mario_cover',
     description: `"Super Mario Bros." is a popular video game for the Nintendo Entertainment System (NES), released in 1985. The game was developed and published by Nintendo. "Super Mario Bros." is one of the most famous and influential video games in the history of the industry. In the game, players control a character named Mario, who embarks on an adventure through the Mushroom Kingdom to rescue Princess Toadstool (later known as Princess Peach) from the clutches of the evil Bowser. The game consists of traversing various levels, avoiding obstacles, defeating enemies, and ultimately confronting Bowser to rescue the princess. It is known for its iconic gameplay, memorable characters, and innovative design, which helped establish many conventions of the platforming genre.`,
   },
   {
     id: 6,
-    name: 'battle city',
+    name: 'Battle City',
     shortName: 'battle_city',
     img: 'battle_city_cover',
     description: `Battle City is a multi-directional shooter video game for the Family Computer produced and published in 1985 by Namco. It is a successor to Namco's 1980 Tank Battalion, and would be succeeded itself by the 1991 Tank Force. An arcade version for the Nintendo VS. System would follow, and the game would eventually end up in the Japanese version of Star Fox Assault (a Namco-produced game). There was also a related Game Boy game of the same name.`,
   },
   {
     id: 7,
-    name: 'adventure island',
+    name: 'Adventure Island',
     shortName: 'adventure_island',
     img: 'adventure_island_cover',
     description: `
@@ -55,28 +55,28 @@ const games: Game[] = [
   },
   {
     id: 8,
-    name: 'batman',
+    name: 'Batman',
     shortName: 'batman',
     img: 'batman_cover',
     description: `"Batman" for the Nintendo Entertainment System (NES) is an action-adventure game released in 1989. In the game, players assume the role of the iconic superhero Batman as he battles through various levels filled with enemies and challenges. The gameplay involves platforming, combat, and puzzle-solving elements, all set within the dark and gritty atmosphere of Gotham City. Players utilize Batman's gadgets and combat skills to thwart the plans of his notorious enemies, including the Joker and other iconic villains from the Batman universe.`,
   },
   {
     id: 9,
-    name: 'batman returns',
+    name: 'Batman Returns',
     shortName: 'batman_returns',
     img: 'batman_returns_cover',
     description: `"Batman Returns" for the Nintendo Entertainment System (NES) is an action-adventure game released in 1992. Players take on the role of Batman, the iconic superhero, as he fights against various adversaries in the dark and dangerous streets of Gotham City. The game follows the storyline of the movie of the same name, featuring side-scrolling action sequences, combat against hordes of enemies, and boss battles against notorious villains like the Penguin and Catwoman. With its challenging gameplay and thematic adherence to the film, "Batman Returns" offers an engaging experience for fans of the Caped Crusader.`,
   },
   {
     id: 10,
-    name: 'battle toads',
+    name: 'Battle Toads',
     shortName: 'battletoads',
     img: 'battle_toads_cover',
     description: `"Battletoads" for the Nintendo Entertainment System (NES) is an action-packed beat 'em up game released in 1991. Developed by Rare, the game follows the adventures of the Battletoads—Rash, Zitz, and Pimple—as they battle against the evil Dark Queen to rescue their kidnapped friends. The gameplay features side-scrolling levels with intense combat, platforming challenges, and a variety of unique enemies. "Battletoads" is known for its challenging gameplay, vibrant graphics, and diverse gameplay mechanics, including vehicle-based levels that provide a dynamic and entertaining gaming experience.`,
   },
   {
     id: 11,
-    name: 'bomber man',
+    name: 'Bomber Man',
     shortName: 'bomberman',
     img: 'bomberman_cover',
     description: `
@@ -84,7 +84,7 @@ const games: Game[] = [
   },
   {
     id: 12,
-    name: 'castlevania',
+    name: 'Castlevania',
     shortName: 'castlevania',
     img: 'castlevania_cover',
     description: `
@@ -108,14 +108,14 @@ const games: Game[] = [
   },
   {
     id: 15,
-    name: 'darkwind duck',
+    name: 'Darkwind Duck',
     shortName: 'darkwind_duck',
     img: 'darkwind-duck-cover',
     description: `"Darkwing Duck" for the Nintendo Entertainment System (NES) is a platformer game released in 1992 by Capcom. Inspired by the animated TV series of the same name, the game features Darkwing Duck, a crime-fighting superhero duck, on a mission to thwart the plans of various villains in the city of St. Canard. Players navigate through side-scrolling levels, using Darkwing Duck's abilities and gadgets to defeat enemies and bosses. With its engaging gameplay, varied levels, and faithful adaptation of the animated series, "Darkwing Duck" remains a beloved title among NES enthusiasts and fans of the TV show.`,
   },
   {
     id: 16,
-    name: 'ducktales',
+    name: 'Ducktales',
     shortName: 'ducktales',
     img: 'ducktales-cover',
     description: `
@@ -123,7 +123,7 @@ const games: Game[] = [
   },
   {
     id: 18,
-    name: 'ducktales 2',
+    name: 'Ducktales 2',
     shortName: 'ducktales2',
     img: 'ducktales-2-cover',
     description: `"DuckTales 2" for the Nintendo Entertainment System (NES) is a sequel to the original "DuckTales" game, released in 1993 by Capcom. Continuing the adventures of Scrooge McDuck, the game follows a similar formula to its predecessor, where players explore various locations worldwide in search of treasure. The gameplay features side-scrolling platforming elements, allowing players to use Scrooge's cane to attack enemies and interact with the environment to uncover hidden treasures. With improved graphics and level design, "DuckTales 2" retains the charm and engaging gameplay of the original, appealing to fans of the Disney animated series and platformer enthusiasts.`,
@@ -137,14 +137,14 @@ const games: Game[] = [
   },
   {
     id: 20,
-    name: 'ice climber',
+    name: 'Ice Climber',
     shortName: 'iceclimber',
     img: 'ice-climber-cover',
     description: `"Ice Climber" for the Nintendo Entertainment System (NES) is a platformer game released in 1985. Developed by Nintendo, the game follows the adventures of Popo and Nana, the Ice Climbers, as they ascend a series of vertical levels filled with blocks of ice and various enemies. Players use a mallet to break the ice blocks, climb upward, and avoid hazards while reaching the top of each level. The game supports both single-player and cooperative multiplayer modes, allowing players to work together or compete.`,
   },
   {
     id: 21,
-    name: 'journey to silius',
+    name: 'Journey to Silius',
     shortName: 'journey_to_silius',
     img: 'journey-to-silius-cover',
     description: `"Journey to Silius" is an action-platformer game released for the Nintendo Entertainment System (NES) in 1990 by Sunsoft. In the game, players assume the role of Jay McCray, a young man seeking to avenge his father's death by confronting a powerful organization planning to dominate the world. The gameplay involves side-scrolling through various levels filled with enemies and obstacles. Players can acquire different weapons and power-ups throughout the game to aid them in their quest.`,
@@ -158,21 +158,21 @@ const games: Game[] = [
   },
   {
     id: 23,
-    name: 'mega man',
+    name: 'Mega Man',
     shortName: 'megaman',
     img: 'mega-man-cover',
     description: `"Mega Man" for the Nintendo Entertainment System (NES) is an iconic action-platformer game released in 1987 by Capcom. Players control the titular character, Mega Man (also known as Rockman), a robotic hero created by Dr. Light, on a mission to stop the evil plans of Dr. Wily and his army of robot masters. The game features side-scrolling levels, each culminating in a boss battle against a unique robot master. Upon defeating a boss, Mega Man gains their special weapon, which can be used strategically against other enemies. Known for its challenging gameplay, innovative mechanics, and memorable music, "Mega Man" has become a cornerstone of classic gaming and spawned a successful franchise.`,
   },
   {
     id: 24,
-    name: 'monster in my pocket',
+    name: 'Monster in My Pocket',
     shortName: 'monster_in_my_pocket',
     img: 'monster-in-my-pocket',
     description: `"Monster in My Pocket" is a platformer video game released for the Nintendo Entertainment System (NES) in 1992. Developed by Konami, the game is based on the popular toy line of the same name. Players control two miniature monsters, Vampire and the Monster, as they navigate through various levels, overcoming obstacles and enemies. The gameplay involves side-scrolling action, allowing players to use unique abilities and attacks to progress through the stages. While not as well-known as other NES titles, "Monster in My Pocket" offers an entertaining experience for fans of platformer games and the toy line.`,
   },
   {
     id: 25,
-    name: 'ninja gaiden',
+    name: 'Ninja Gaiden',
     shortName: 'ninja_gaiden',
     img: 'ninja-gaiden-cover',
     description: `
@@ -180,7 +180,7 @@ const games: Game[] = [
   },
   {
     id: 26,
-    name: 'pac-man',
+    name: 'Pac-Man',
     shortName: 'pac_man',
     img: 'pac-man-cover',
     description: `
@@ -188,14 +188,14 @@ const games: Game[] = [
   },
   {
     id: 27,
-    name: 'prince of persia',
+    name: 'Prince of Persia',
     shortName: 'prince_of_persia',
     img: 'prince_of_persia_cover',
     description: `"Prince of Persia" for the Nintendo Entertainment System (NES) is an action-adventure platformer game released in 1992 by Brøderbund. The game follows the story of an unnamed prince on a quest to rescue the Princess from the clutches of the evil Grand Vizier Jaffar. Players navigate the Prince through various levels of a palace filled with traps, puzzles, and guards. The gameplay involves running, jumping, avoiding dangers, and solving environmental puzzles to progress through each stage. Known for its challenging gameplay, fluid animations, and intricate level design, "Prince of Persia" became a popular title among NES enthusiasts.`,
   },
   {
     id: 28,
-    name: 'river city ransom',
+    name: 'River City Ransom',
     shortName: 'river_city_ransom',
     img: 'river-city-ransom-cover',
     description: `"River City Ransom" for the Nintendo Entertainment System (NES) is a beat 'em up action role-playing game released in 1989 by Technos Japan Corp. The game follows the story of high school students Alex and Ryan, on a quest to rescue Ryan's girlfriend, Cyndi, from a group of kidnappers. Players explore a city, fighting various gangs and enemies while collecting money to purchase food and items that enhance their abilities. The gameplay combines elements of side-scrolling beat 'em up action with RPG mechanics, allowing players to upgrade their characters' stats and learn new abilities. Renowned for its humor, open-world design, and innovative gameplay, "River City Ransom" remains a beloved classic among NES enthusiasts.`,
@@ -211,7 +211,7 @@ const games: Game[] = [
   },
   {
     id: 30,
-    name: 'tetris',
+    name: 'Tetris',
     shortName: 'tetris',
     img: 'tetris-cover',
     description: `
@@ -228,7 +228,7 @@ const games: Game[] = [
   },
   {
     id: 32,
-    name: 'tom & jerry',
+    name: 'Tom & Jerry',
     shortName: 'tom_jerry',
     img: 'tom-jerry-cover',
     description: `
@@ -237,7 +237,7 @@ const games: Game[] = [
   },
   {
     id: 33,
-    name: 'yie ar kung-fu',
+    name: 'Yie Ar Kung-Fu',
     shortName: 'yie_ar_kung_fu',
     img: 'yie-ar-kung-fu-cover',
     description: `
@@ -246,7 +246,7 @@ const games: Game[] = [
   },
   {
     id: 35,
-    name: 'duck hunt',
+    name: 'Duck Hunt',
     shortName: 'duckhunt',
     img: 'duckhunt_cover',
     description: `
@@ -256,7 +256,7 @@ const games: Game[] = [
   },
   {
     id: 36,
-    name: 'wild gunman',
+    name: 'Wild Gunman',
     shortName: 'wild-gunman',
     img: 'wild_gunman_cover',
     description: `

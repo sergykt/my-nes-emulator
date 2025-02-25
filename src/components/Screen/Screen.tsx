@@ -134,7 +134,7 @@ const Screen: FC<ScreenProps> = memo(({ pauseHandler }) => {
       <Alert />
       {!isStarted && gameRom && (
         <Button className={styles.startButton} onClick={startHandler}>
-          Start Game
+          Start
         </Button>
       )}
       {isMobile && isStarted && isFullScreen && <Gamepad />}
