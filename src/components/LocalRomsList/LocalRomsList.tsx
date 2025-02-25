@@ -17,7 +17,9 @@ const LocalRomsList = memo(() => {
       <ul className={styles.list}>
         {roms.map((item) => (
           <li className={styles.item} key={item.id}>
-            <FancyLink href={`/emulator/local?id=${item.id}`}>{item.name}</FancyLink>
+            <FancyLink className={styles.link} href={`/emulator/local?id=${item.id}`}>
+              {item.name}
+            </FancyLink>
             <button
               className={styles.removeButton}
               type='button'
