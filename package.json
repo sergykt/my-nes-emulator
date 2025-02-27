@@ -9,6 +9,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "license": "MIT",
+  "author": "Sergei Sivtsev",
   "dependencies": {
     "clsx": "^2.1.1",
     "idb-keyval": "^6.2.1",
