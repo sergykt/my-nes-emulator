@@ -1,30 +1,29 @@
 import { BUTTONS, Buttons } from '@/types';
 
-export const getButtons = (e: TouchEvent): Set<Buttons> => {
+export const getButtons = (e: TouchEvent, dPadRect: DOMRect | null): Buttons[] => {
   const touch = e.targetTouches[0];
-  const dPadEl = e.currentTarget;
-  if (!(dPadEl instanceof HTMLElement)) {
-    return new Set<Buttons>();
+  const buttons: Buttons[] = [];
+
+  if (!dPadRect) {
+    return buttons;
   }
-  const dPadRect = dPadEl.getBoundingClientRect();
+
   const dPadX = dPadRect?.left ?? 0;
   const dPadY = dPadRect?.top ?? 0;
   const posX = touch.clientX - dPadX;
   const posY = touch.clientY - dPadY;
 
-  const buttons = new Set<Buttons>();
-
   if (posY < 57) {
-    buttons.add(BUTTONS.UP);
+    buttons.push(BUTTONS.UP);
   }
   if (posX > 93) {
-    buttons.add(BUTTONS.RIGHT);
+    buttons.push(BUTTONS.RIGHT);
   }
   if (posY > 93) {
-    buttons.add(BUTTONS.DOWN);
+    buttons.push(BUTTONS.DOWN);
   }
   if (posX < 57) {
-    buttons.add(BUTTONS.LEFT);
+    buttons.push(BUTTONS.LEFT);
   }
 
   return buttons;
