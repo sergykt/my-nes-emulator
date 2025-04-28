@@ -23,6 +23,9 @@
     "react-router-dom": "^7.2.0",
     "swiper": "^11.2.4",
     "uuid": "^11.0.5",
+    "workbox-routing": "^7.3.0",
+    "workbox-strategies": "^7.3.0",
+    "workbox-window": "^7.3.0",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
