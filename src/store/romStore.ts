@@ -1,67 +1,61 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { v4 as uuidv4 } from 'uuid';
 import { RomDecoded, type Rom } from '@/types';
-
-const arrayBufferToHex = (buffer: ArrayBuffer): string => {
-  const view = new Uint8Array(buffer);
-  const hex = Array.from(view)
-    .map((byte) => byte.toString(16).padStart(2, '0'))
-    .join('');
-  return hex;
-};
-
-const hexToArrayBuffer = (hex: string): ArrayBuffer => {
-  const bytes = new Uint8Array(hex.match(/.{1,2}/g)!.map((byte) => parseInt(byte, 16)));
-  return bytes.buffer;
-};
+import {
+  arrayBufferToHex,
+  deleteRomFromDB,
+  getAllRoms,
+  hexToArrayBuffer,
+  saveRomToDB,
+} from '@/utils';
 
 interface RomState {
   roms: Rom[];
 }
-
 interface RomActions {
   saveRom: (file: File) => Promise<void>;
   getRomById: (id: string) => RomDecoded | undefined;
-  removeRom: (id: string) => void;
+  removeRom: (id: string) => Promise<void>;
+  initRoms: () => Promise<void>;
 }
 
 const useRomStore = create<RomState & RomActions>()(
-  persist(
-    immer((set, get) => ({
-      roms: [],
-      saveRom: async (file: File) => {
-        if (!file.name.endsWith('.nes')) {
-          throw new Error('Invalid file extension. Use .nes file');
-        }
+  immer((set, get) => ({
+    roms: [],
 
-        const buffer = await file.arrayBuffer();
-        const hex = arrayBufferToHex(buffer);
+    initRoms: async () => {
+      const romsFromDb = await getAllRoms();
+      set({ roms: romsFromDb });
+    },
+    saveRom: async (file: File) => {
+      if (!file.name.endsWith('.nes')) {
+        throw new Error('Нужен .nes-файл');
+      }
+      const buffer = await file.arrayBuffer();
+      const hex = arrayBufferToHex(buffer);
+      const newRom: Rom = {
+        id: uuidv4(),
+        name: file.name.replace(/\.nes$/, ''),
+        hash: hex,
+      };
+      set({ roms: [...get().roms, newRom] });
+      await saveRomToDB(newRom);
+    },
 
-        set({
-          roms: [...get().roms, { name: file.name.replace('.nes', ''), hash: hex, id: uuidv4() }],
-        });
-      },
-      getRomById: (id: string) => {
-        const rom = get().roms.find((item) => item.id === id);
-        if (rom) {
-          const { hash } = rom;
-          const buffer = hexToArrayBuffer(hash);
-          const decoder = new TextDecoder('x-user-defined');
-          const decodedData = decoder.decode(buffer);
+    getRomById: (id: string) => {
+      const rom = get().roms.find((r) => r.id === id);
+      if (!rom) return undefined;
+      const buf = hexToArrayBuffer(rom.hash);
+      const decoded = new TextDecoder('x-user-defined').decode(buf);
+      return { name: rom.name, romData: decoded };
+    },
 
-          return { name: rom.name, romData: decodedData };
-        }
-
-        return undefined;
-      },
-      removeRom: (id: string) => set({ roms: get().roms.filter((rom) => rom.id !== id) }),
-    })),
-    {
-      name: 'localRoms',
-    }
-  )
+    removeRom: async (id: string) => {
+      set({ roms: get().roms.filter((r) => r.id !== id) });
+      await deleteRomFromDB(id);
+    },
+  }))
 );
 
 export default useRomStore;

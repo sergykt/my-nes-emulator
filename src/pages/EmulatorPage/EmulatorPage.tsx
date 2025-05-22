@@ -27,10 +27,11 @@ const EmulatorPage: FC = () => {
     NES,
   } = useEmulatorStore();
 
-  const { saveRom, getRomById } = useRomStore();
+  const { saveRom, getRomById, initRoms } = useRomStore();
 
   useEffect(() => {
     const getRom = async () => {
+      await initRoms();
       const gameNameLink = params.id;
       const idQuery = searchParams.get('id');
 
