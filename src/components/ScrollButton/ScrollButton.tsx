@@ -40,6 +40,7 @@ const ScrollButton = memo(() => {
       type='button'
       aria-label='scroll to top'
       aria-hidden={!isVisible}
+      disabled={!isVisible}
       onClick={scrollToTop}
       ref={ref}
     >

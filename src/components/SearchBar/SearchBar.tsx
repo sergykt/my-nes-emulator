@@ -21,13 +21,13 @@ const SearchBar: FC = memo(() => {
 
   const handleKeyDown = (e: KeyboardEvent) => {
     e.stopPropagation();
-  };
+  };  
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
   };
 
-  const handleClear = (e: PointerEvent<HTMLDivElement>) => {
+  const handleClear = (e: PointerEvent<HTMLDivElement> | KeyboardEvent) => {
     e.preventDefault();
     setSearchQuery('');
   };
@@ -48,31 +48,38 @@ const SearchBar: FC = memo(() => {
     <div className={styles.body} onPointerDown={handleBodyClick}>
       <form id='searchForm' className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.formControl}>
-          <label id='searchLabel' htmlFor='gameName' className={styles.label}>
+          <label id='searchLabel' htmlFor='game-name' className={styles.label}>
+            <span className='sr-only'>Search games</span>
             <div className={styles.icon}>
-              <FaSearch />
+              <FaSearch aria-hidden='true' />
             </div>
             <input
+              id='game-name'
               className={styles.input}
               type='text'
               name='gameName'
-              id='gameName'
               placeholder='Search'
-              aria-label='search'
               onChange={handleChange}
               onKeyDown={handleKeyDown}
               value={searchQuery}
               autoComplete='off'
+              aria-describedby='search-results-count'
             />
           </label>
           {searchQuery.length > 0 && (
             <div
+              tabIndex={0}
               className={styles.clearButton}
               role='button'
-              aria-label='clear input'
+              aria-label='Clear search input'
               onPointerDown={handleClear}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  handleClear(e);
+                }
+              }}
             >
-              <IoIosCloseCircle />
+              <IoIosCloseCircle aria-hidden='true' />
             </div>
           )}
         </div>
@@ -87,7 +94,6 @@ const SearchBar: FC = memo(() => {
                   onPointerDown={(e) => e.preventDefault()}
                   className={styles.link}
                   href={`/emulator/${shortName}`}
-                  aria-label={name}
                 >
                   {name}
                 </a>
@@ -96,6 +102,13 @@ const SearchBar: FC = memo(() => {
           </ul>
         </div>
       )}
+      <div id='search-results-count' className='sr-only' aria-live='polite'>
+        {searchQuery.length === 0
+          ? ''
+          : filteredGames.length > 0
+            ? `${filteredGames.length} result${filteredGames.length > 1 ? 's' : ''}`
+            : 'No results'}
+      </div>
     </div>
   );
 });

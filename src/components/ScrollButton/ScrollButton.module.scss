@@ -1,7 +1,6 @@
 .scrollButton {
   position: fixed;
   z-index: 50;
-  pointer-events: none;
   opacity: 0;
   transition: all 0.2s ease-in-out;
   bottom: 20px;
@@ -45,7 +44,6 @@
 }
 
 .visible {
-  pointer-events: auto;
   opacity: 1;
 
   &:hover {

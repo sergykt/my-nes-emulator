@@ -23,27 +23,27 @@ const MobileControls: FC<MobileControlsProps> = memo((props) => {
         className={styles.controlsButton}
         onPointerDown={volumeHandler}
         type='button'
-        aria-label='sound button'
+        aria-label={isMuted ? 'unmute' : 'mute'}
       >
-        {isMuted ? <RiVolumeMuteFill /> : <RiVolumeUpFill />}
+        {isMuted ? <RiVolumeMuteFill aria-hidden="true" /> : <RiVolumeUpFill aria-hidden="true" />}
       </button>
       {isStarted && (
         <button
           className={styles.controlsButton}
           onPointerDown={pauseHandler}
           type='button'
-          aria-label='pause button'
+          aria-label={isPaused ? 'resume game' : 'pause game'}
         >
-          {isPaused ? <BsPlayCircle /> : <BsPauseCircle />}
+          {isPaused ? <BsPlayCircle aria-hidden="true" /> : <BsPauseCircle aria-hidden="true" />}
         </button>
       )}
       <button
         className={styles.controlsButton}
         onPointerDown={exitFullScreenHandler}
         type='button'
-        aria-label='close'
+        aria-label='leave full screen'
       >
-        <SlClose />
+        <SlClose aria-hidden="true" />
       </button>
     </div>
   );

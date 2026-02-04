@@ -12,7 +12,7 @@ const Alert = memo(() => {
 
   const Icon = icons[type];
 
-  return <Icon className={styles.icon} />;
+  return <Icon className={styles.icon} aria-hidden="true" />;
 });
 
 export default Alert;
