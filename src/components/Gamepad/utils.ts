@@ -1,5 +1,9 @@
 import { BUTTONS, Buttons } from '@/types';
 
+// These values were chosen based on the D-pad design and may need adjustments for different sizes or layouts
+const leftUpTriggerSize = 57;
+const rightDownTriggerSize = 93;
+
 export const getButtons = (e: TouchEvent, dPadRect: DOMRect | null): Buttons[] => {
   const touch = e.targetTouches[0];
   const buttons: Buttons[] = [];
@@ -13,16 +17,16 @@ export const getButtons = (e: TouchEvent, dPadRect: DOMRect | null): Buttons[] =
   const posX = touch.clientX - dPadX;
   const posY = touch.clientY - dPadY;
 
-  if (posY < 57) {
+  if (posY < leftUpTriggerSize) {
     buttons.push(BUTTONS.UP);
   }
-  if (posX > 93) {
+  if (posX > rightDownTriggerSize) {
     buttons.push(BUTTONS.RIGHT);
   }
-  if (posY > 93) {
+  if (posY > rightDownTriggerSize) {
     buttons.push(BUTTONS.DOWN);
   }
-  if (posX < 57) {
+  if (posX < leftUpTriggerSize) {
     buttons.push(BUTTONS.LEFT);
   }
 

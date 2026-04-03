@@ -35,11 +35,19 @@ const Gamepad = memo(() => {
       onKeyUp(button);
     };
 
+    const touchStartHandlers = new Map<Buttons, (e: TouchEvent) => void>();
+    const touchEndHandlers = new Map<Buttons, (e: TouchEvent) => void>();
+
     buttons.forEach(({ ref, button }) => {
       const element = ref.current;
       if (element) {
-        element.addEventListener('touchstart', handleTouchStart(button), { passive: false });
-        element.addEventListener('touchend', handleTouchEnd(button), { passive: false });
+        const handleStart = handleTouchStart(button);
+        const handleEnd = handleTouchEnd(button);
+        touchStartHandlers.set(button, handleStart);
+        touchEndHandlers.set(button, handleEnd);
+
+        element.addEventListener('touchstart', handleStart, { passive: false });
+        element.addEventListener('touchend', handleEnd, { passive: false });
       }
     });
 
@@ -47,8 +55,14 @@ const Gamepad = memo(() => {
       buttons.forEach(({ ref, button }) => {
         const element = ref.current;
         if (element) {
-          element.removeEventListener('touchstart', handleTouchStart(button));
-          element.removeEventListener('touchend', handleTouchEnd(button));
+          const touchStartHandler = touchStartHandlers.get(button);
+          const touchEndHandler = touchEndHandlers.get(button);
+          if (touchStartHandler) {
+            element.removeEventListener('touchstart', touchStartHandler);
+          }
+          if (touchEndHandler) {
+            element.removeEventListener('touchend', touchEndHandler);
+          }
         }
       });
     };
