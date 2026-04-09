@@ -34,7 +34,7 @@ class NesGame {
     this.speaker = new Speaker();
     this.nes = new NES({
       onFrame: (buffer: Uint32Array) => this.screen.writeBuffer(buffer),
-      onAudioSample: (l: number, r: number) => this.speaker.updateAudioData(l, r),
+      onAudioSample: (l: number, r: number) => this.speaker.writeSamples(l, r),
       sampleRate: this.speaker.getSampleRate(),
     });
     this.gamepad = new Gamepad(

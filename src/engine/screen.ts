@@ -18,7 +18,7 @@ class Screen {
 
   constructor(canvasEl: HTMLCanvasElement) {
     this.canvas = canvasEl;
-    this.ctx = this.canvas.getContext('2d')!;
+    this.ctx = this.canvas.getContext('2d', { willReadFrequently: true })!;
     this.ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     this.image = this.ctx.getImageData(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     this.buffer = new ArrayBuffer(this.image.data.length);

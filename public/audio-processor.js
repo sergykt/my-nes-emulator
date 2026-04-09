@@ -11,15 +11,17 @@ class AudioProcessor extends AudioWorkletProcessor {
     this.buffersize = 128;
 
     this.port.onmessage = (event) => {
-      const nextIndex = (this.writeIndex + 1) & SAMPLE_MASK;
-      if (nextIndex === this.readIndex) {
+      if (event.data.type !== 'samples') {
         return;
       }
 
-      this.audioDataL[this.writeIndex] = event.data.audioDataL;
-      this.audioDataR[this.writeIndex] = event.data.audioDataR;
+      const left = event.data.audioDataL;
+      const right = event.data.audioDataR;
 
-      this.writeIndex = nextIndex;
+      this.audioDataL.set(left, this.writeIndex);
+      this.audioDataR.set(right, this.writeIndex);
+
+      this.writeIndex = (this.writeIndex + left.length) & SAMPLE_MASK;
     };
   }
 
