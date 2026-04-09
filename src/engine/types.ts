@@ -24,12 +24,6 @@ export interface ZapperMethods {
   handleFireUp: () => void;
 }
 
-export interface TurboState {
-  A: boolean;
-  B: boolean;
-  interval: number | null;
-}
-
 export interface NesOptions {
   canvasEl: HTMLCanvasElement;
   buttons: GamepadButtons;

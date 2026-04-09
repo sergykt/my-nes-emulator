@@ -1,5 +1,5 @@
 import { Controller } from 'jsnes';
-import { type GamepadMethods, type GamepadButtons, type TurboState } from './types';
+import { type GamepadMethods, type GamepadButtons } from './types';
 
 class Gamepad {
   handleDown: GamepadMethods['handleDown'];
@@ -7,12 +7,6 @@ class Gamepad {
   handleUp: GamepadMethods['handleUp'];
 
   buttons: GamepadButtons;
-
-  private turboState: TurboState = {
-    A: false,
-    B: false,
-    interval: null,
-  };
 
   constructor(methods: GamepadMethods, buttons: GamepadButtons) {
     this.buttons = buttons;
@@ -26,6 +20,10 @@ class Gamepad {
         return Controller.BUTTON_A;
       case this.buttons.B:
         return Controller.BUTTON_B;
+      case this.buttons.TURBO_A:
+        return Controller.BUTTON_TURBO_A;
+      case this.buttons.TURBO_B:
+        return Controller.BUTTON_TURBO_B;
       case this.buttons.SELECT:
         return Controller.BUTTON_SELECT;
       case this.buttons.START:
@@ -44,65 +42,15 @@ class Gamepad {
   }
 
   onKeyDown(event: KeyboardEvent) {
-    if (event.code === this.buttons.TURBO_A) {
-      this.startTurbo('A');
-    } else if (event.code === this.buttons.TURBO_B) {
-      this.startTurbo('B');
-    } else {
-      const nesButton = this.getButton(event.code);
-      if (nesButton === undefined) return;
-      this.handleDown(nesButton);
-    }
+    const nesButton = this.getButton(event.code);
+    if (nesButton === undefined) return;
+    this.handleDown(nesButton);
   }
 
   onKeyUp(event: KeyboardEvent) {
-    if (event.code === this.buttons.TURBO_A) {
-      this.stopTurbo('A');
-    } else if (event.code === this.buttons.TURBO_B) {
-      this.stopTurbo('B');
-    } else {
-      const nesButton = this.getButton(event.code);
-      if (nesButton === undefined) return;
-      this.handleUp(nesButton);
-    }
-  }
-
-  private startTurbo(button: 'A' | 'B') {
-    if (this.turboState[button]) return;
-
-    this.turboState[button] = true;
-
-    if (this.turboState.interval) {
-      window.clearInterval(this.turboState.interval);
-    }
-
-    this.startInterval();
-  }
-
-  private stopTurbo(button: 'A' | 'B') {
-    this.turboState[button] = false;
-
-    if (this.turboState.interval) {
-      window.clearInterval(this.turboState.interval);
-      this.turboState.interval = null;
-    }
-
-    if (this.turboState.A || this.turboState.B) {
-      this.startInterval();
-    }
-  }
-
-  private startInterval() {
-    this.turboState.interval = window.setInterval(() => {
-      if (this.turboState.A) {
-        this.handleDown(Controller.BUTTON_A);
-        setTimeout(() => this.handleUp(Controller.BUTTON_A), 25);
-      }
-      if (this.turboState.B) {
-        this.handleDown(Controller.BUTTON_B);
-        setTimeout(() => this.handleUp(Controller.BUTTON_B), 25);
-      }
-    }, 50);
+    const nesButton = this.getButton(event.code);
+    if (nesButton === undefined) return;
+    this.handleUp(nesButton);
   }
 }
 
