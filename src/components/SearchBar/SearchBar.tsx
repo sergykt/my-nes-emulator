@@ -21,7 +21,7 @@ const SearchBar: FC = memo(() => {
 
   const handleKeyDown = (e: KeyboardEvent) => {
     e.stopPropagation();
-  };  
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -43,6 +43,19 @@ const SearchBar: FC = memo(() => {
       ({ name }) => searchQuery.length > 1 && name.toLowerCase().includes(searchQuery.toLowerCase())
     )
     .slice(0, 8);
+
+  const getSearchResultsCount = (): string => {
+    if (searchQuery.length === 0) {
+      return '';
+    }
+    if (filteredGames.length > 0) {
+      const plural = filteredGames.length > 1 ? 's' : '';
+      return `${filteredGames.length} result${plural}`;
+    }
+    return 'No results';
+  };
+
+  const searchResultsCount = getSearchResultsCount();
 
   return (
     <div className={styles.body} onPointerDown={handleBodyClick}>
@@ -103,11 +116,7 @@ const SearchBar: FC = memo(() => {
         </div>
       )}
       <div id='search-results-count' className='sr-only' aria-live='polite'>
-        {searchQuery.length === 0
-          ? ''
-          : filteredGames.length > 0
-            ? `${filteredGames.length} result${filteredGames.length > 1 ? 's' : ''}`
-            : 'No results'}
+        {searchResultsCount}
       </div>
     </div>
   );

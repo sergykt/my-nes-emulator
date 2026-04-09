@@ -1,3 +1,5 @@
+import { ButtonKey } from 'jsnes';
+
 export interface GamepadButtons {
   A: string;
   B: string;
@@ -12,8 +14,8 @@ export interface GamepadButtons {
 }
 
 export interface GamepadMethods {
-  handleDown: (code: number) => void;
-  handleUp: (code: number) => void;
+  handleDown: (code: ButtonKey) => void;
+  handleUp: (code: ButtonKey) => void;
 }
 
 export interface ZapperMethods {

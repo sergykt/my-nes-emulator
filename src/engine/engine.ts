@@ -1,4 +1,4 @@
-import { NES } from 'jsnes';
+import { ButtonKey, NES } from 'jsnes';
 import Gamepad from './gamepad';
 import Screen from './screen';
 import Speaker from './speaker';
@@ -36,12 +36,11 @@ class NesGame {
       onFrame: (buffer: Uint32Array) => this.screen.writeBuffer(buffer),
       onAudioSample: (l: number, r: number) => this.speaker.updateAudioData(l, r),
       sampleRate: this.speaker.getSampleRate(),
-      preferredFrameRate: this.FPS,
     });
     this.gamepad = new Gamepad(
       {
-        handleDown: (button: number) => this.nes.buttonDown(this.player, button),
-        handleUp: (button: number) => this.nes.buttonUp(this.player, button),
+        handleDown: (button: ButtonKey) => this.nes.buttonDown(this.player, button),
+        handleUp: (button: ButtonKey) => this.nes.buttonUp(this.player, button),
       },
       buttons
     );
