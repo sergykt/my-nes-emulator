@@ -14,18 +14,28 @@ Play classic NES games right in your web browser with this NES Emulator.
 - Optimized for desktop and mobile devices
 - Progressive Web App (PWA) support
 
+## Prerequisites
+
+This project uses **pnpm** for package management. Make sure you have pnpm installed:
+
+```bash
+npm install -g pnpm
+```
+
+For more information on pnpm, visit [https://pnpm.io/](https://pnpm.io/)
+
 ## Usage
 
 Install all required packages:
 
 ```bash
-npm install
+pnpm install
 ```
 
 Run the Emulator:
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 Open http://localhost:3000 to view it in the browser.
